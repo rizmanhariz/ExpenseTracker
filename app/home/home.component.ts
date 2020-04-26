@@ -1,3 +1,4 @@
+import { FirestoreService } from './../services/firestore.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -9,7 +10,9 @@ export class HomeComponent {
   title = 'Expense_Tracker';
   private counter = 42;
 
-  constructor() { }
+  constructor(
+    private firestoreservice: FirestoreService
+  ) { }
 
   public getMessage() {
     return this.counter > 0 ?
@@ -19,5 +22,21 @@ export class HomeComponent {
 
   public onTap() {
     this.counter--;
+  }
+
+  addData() {
+    this.firestoreservice.addFirebaseData()
+  }
+
+  getData() {
+    this.firestoreservice.retrieveFirebaseData()
+  }
+
+  enableNetwork(){
+    this.firestoreservice.enableNetwork()
+  }
+
+  disableNetwork(){
+    this.firestoreservice.disableNetwork()
   }
 }
