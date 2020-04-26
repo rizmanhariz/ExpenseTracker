@@ -6,3 +6,4 @@ hooks/
 
 app/**/*.js
 
+google-services.json
