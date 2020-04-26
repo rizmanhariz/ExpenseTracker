@@ -3,7 +3,10 @@
   "license": "SEE LICENSE IN <your-license-filename>",
   "version": "0.0.0",
   "nativescript": {
-    "id": "org.nativescript.ExpenseTracker"
+    "id": "org.rizman.ExpenseTracker",
+    "tns-android": {
+      "version": "6.5.0"
+    }
   },
   "dependencies": {
     "@angular/animations": "~8.2.0",
