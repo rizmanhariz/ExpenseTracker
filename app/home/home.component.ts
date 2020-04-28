@@ -1,5 +1,6 @@
 import { FirestoreService } from './../services/firestore.service';
 import { Component } from '@angular/core';
+import { RouterExtensions } from 'nativescript-angular/router';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +12,8 @@ export class HomeComponent {
   private counter = 42;
 
   constructor(
-    private firestoreservice: FirestoreService
+    private firestoreservice: FirestoreService,
+    private routerExtensions: RouterExtensions
   ) { }
 
   public getMessage() {
@@ -38,5 +40,9 @@ export class HomeComponent {
 
   disableNetwork(){
     this.firestoreservice.disableNetwork()
+  }
+
+  toAddExpense(){
+    this.routerExtensions.navigate(['./addExpense'])
   }
 }
