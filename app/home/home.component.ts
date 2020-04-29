@@ -49,4 +49,12 @@ export class HomeComponent {
   toEditExpense(){
     this.routerExtensions.navigate(['./editExpense',"54"])
   }
+
+  toAddCat(){
+    this.routerExtensions.navigate(['./addCategory'])
+  }
+
+  toEditCat(){
+    this.routerExtensions.navigate(['./editCategory', "100"])
+  }
 }

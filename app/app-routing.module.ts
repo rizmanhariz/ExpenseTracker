@@ -11,8 +11,8 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'addExpense', component: AddExpenseComponent },
   { path: 'editExpense/:id', component: AddExpenseComponent },
-  { path: 'addCat', component: AddCategoryComponent },
-  { path: 'editExpense/:id', component: AddCategoryComponent },
+  { path: 'addCategory', component: AddCategoryComponent },
+  { path: 'editCategory/:id', component: AddCategoryComponent },
   
 ];
 

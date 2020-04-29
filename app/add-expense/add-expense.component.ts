@@ -64,7 +64,7 @@ export class AddExpenseComponent implements OnInit,OnDestroy {
     // above is seidp
 
     if ((this.categoryProvider.length==1) && (this.categoryProvider[0]=='Select Category')){
-      // this.routerExtensions.navigate(['addCat'])
+      // this.routerExtensions.navigate(['addCategory'])
       this.categoryProvider=this.categoryProvider.concat(['Food','Fun','Fancy'])
     } else {
       console.log("Its ok")
