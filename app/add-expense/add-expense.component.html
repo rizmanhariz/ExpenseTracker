@@ -1,16 +1,21 @@
 <app-action-bar></app-action-bar>
-<StackLayout class="p-20">
-    <Button text="add-expense works!" class="btn btn-primary"></Button>
-    <Label text='{{myval}}' class = "h2 text-center" textWrap="true"></Label>
-    <Button text="Change Value" (tap)="changeVal()" class="-primary"></Button>
-    <Button text="Go Back" (tap)="goBack()" class="-primary"></Button>
-
+<!-- <GridLayout columns="*,*", rows="*,*,*,*"> -->
+<StackLayout class=p-20>
+    <Label text="Expense name"></Label>
     <TextField 
-        hint="Say something"
-        maxLength = 10
-        autocorrect='false'
-        (returnPress)="onReturnPress($event)"
-        ></TextField>
-        
+    hint="Expense Name"
+    maxLength = 10
+    autocorrect='false'
+    (returnPress)="onReturnPress($event)"
+    ></TextField>
+
+    <Label text="Expense name"></Label>
+
+    
+
+    <Button text="{{transactionLabel}}" (tap)="changeVal()" class="-primary"></Button>
+    <Button text="Cancel" (tap)="goBack()" class="-primary"></Button>
 
 </StackLayout>
+<!-- </GridLayout> -->
+

@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { RouterExtensions } from 'nativescript-angular/router';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { RouterExtensions, PageRouterOutlet } from 'nativescript-angular/router';
 
 @Component({
   selector: 'app-add-expense',
@@ -7,9 +7,11 @@ import { RouterExtensions } from 'nativescript-angular/router';
   styleUrls: ['./add-expense.component.css']
 })
 export class AddExpenseComponent implements OnInit,OnDestroy {
-  myval: string; 
+  transactionType: string;
+  transactionLabel: string;
   constructor(
-    private routerExtensions: RouterExtensions
+    private routerExtensions: RouterExtensions,
+    private pro: PageRouterOutlet
   ) {
     
    }
@@ -23,21 +25,36 @@ export class AddExpenseComponent implements OnInit,OnDestroy {
       
   }
 
-  changeVal(){
-    this.myval = "New stringy"
-  }
 
   onReturnPress(args) {
     console.log(args)
   }
 
+  onSubmit(){
+    if (this.transactionType==null){
+      console.log("Add data")
+    } else {
+      console.log("Perform edit on ", this.transactionType)
+    }
+  }
+
 
   ngOnInit() {
-    this.myval = "Strinigy"
+    this.transactionType = this.pro.activatedRoute.snapshot.paramMap.get('id')
+    if (this.transactionType==null) {
+      this.transactionLabel = "Add Expense"
+      console.log(this.transactionLabel)
+    } else {
+      this.transactionLabel = "Edit Expense"
+    }
+
+    
+
+    
   }
 
   ngOnDestroy() {
-    console.log("I HAVE BEEN DESTROYED")
+
   }
 
 }
