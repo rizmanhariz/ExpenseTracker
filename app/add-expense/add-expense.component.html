@@ -1,20 +1,31 @@
-<app-action-bar></app-action-bar>
+<app-action-bar abTitle="{{transactionLabel}}"></app-action-bar>
 <!-- <GridLayout columns="*,*", rows="*,*,*,*"> -->
-<StackLayout class=p-20>
-    <Label text="Expense name"></Label>
-    <TextField 
-    hint="Expense Name"
-    maxLength = 10
-    autocorrect='false'
-    (returnPress)="onReturnPress($event)"
-    ></TextField>
-
-    <Label text="Expense name"></Label>
 
     
+<StackLayout class=p-20>
+    <RadDataForm [source]="expense" id="myDataForm">
+        <TKEntityProperty tkDataFormProperty name="expenseName" displayName="" imageResource="res://icon" hintText="Expense Name"></TKEntityProperty>
+        <TKEntityProperty tkDataFormProperty name="expenseCategory" displayName="" imageResource="res://icon" valuesProvider="{{categoryProvider}}">
+            <TKPropertyEditor tkEntityPropertyEditor type="Picker"></TKPropertyEditor>
+        </TKEntityProperty>
+        <TKEntityProperty tkDataFormProperty name="expenseDate" displayName="" imageResource="res://icon" >
+            <TKPropertyEditor tkEntityPropertyEditor type="DatePicker"></TKPropertyEditor>
+        </TKEntityProperty>
+        <TKEntityProperty tkDataFormProperty name="expenseVal" displayName="" imageResource="res://icon" hintText="Expense Cost">
+            <TKPropertyEditor tkEntityPropertyEditor type="Decimal"></TKPropertyEditor>
+        </TKEntityProperty>
+        <TKEntityProperty tkDataFormProperty name="expenseRemark" displayName="" imageResource="res://icon" hintText="Remarks"></TKEntityProperty>
 
-    <Button text="{{transactionLabel}}" (tap)="changeVal()" class="-primary"></Button>
-    <Button text="Cancel" (tap)="goBack()" class="-primary"></Button>
+        
+    </RadDataForm>
+
+
+    <!-- Try dockig instead? -->
+    <GridLayout columns="*,*">
+        <Button text="{{transactionLabel}}" (tap)="onSubmit()" class="-primary" row="0" col="0"></Button>
+        <Button text="Cancel" (tap)="goBack()" class="-primary" row="0" col="1"></Button>
+    </GridLayout>
+    
 
 </StackLayout>
 <!-- </GridLayout> -->

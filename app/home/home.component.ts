@@ -45,4 +45,8 @@ export class HomeComponent {
   toAddExpense(){
     this.routerExtensions.navigate(['./addExpense'])
   }
+
+  toEditExpense(){
+    this.routerExtensions.navigate(['./editExpense',"54"])
+  }
 }

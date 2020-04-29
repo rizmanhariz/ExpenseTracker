@@ -1,6 +1,9 @@
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { NativeScriptModule } from 'nativescript-angular/nativescript.module';
+// import { NativeScriptFormsModule } from 'nativescript-angular/forms'
+import { NativeScriptUIDataFormModule } from "nativescript-ui-dataform/angular";
 import { AppRoutingModule } from './app-routing.module';
+
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -18,11 +21,13 @@ import { ActionBarComponent } from './action-bar/action-bar.component';
       AppComponent,
       HomeComponent,
       AddExpenseComponent,
-      ActionBarComponent,
+      ActionBarComponent
   ],
   imports: [
       NativeScriptModule,
       AppRoutingModule,
+      // NativeScriptFormsModule
+      NativeScriptUIDataFormModule
   ],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA],
