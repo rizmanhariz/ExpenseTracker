@@ -12,16 +12,32 @@ export class Expense {
         expenseVal: number,
         expenseRemark: string
     ){
-        // this.expenseName = expenseName;
-        // this.expenseCategory = expenseCategory;
-        // this.expenseDate = expenseDate;
-        // this.expenseVal = expenseVal;
-        // this.expenseRemark = expenseRemark;
-        this.expenseName = null
-        this.expenseCategory = null;
+        this.expenseName = expenseName;
+        this.expenseCategory = expenseCategory;
         this.expenseDate = expenseDate;
-        this.expenseVal = null;
-        this.expenseRemark = null;
+        this.expenseVal = expenseVal;
+        this.expenseRemark = expenseRemark;
+        // this.expenseName = null
+        // this.expenseCategory = null;
+        // this.expenseDate = expenseDate;
+        // this.expenseVal = null;
+        // this.expenseRemark = null;
     }
 
+}
+
+export class Categories {
+    public categoryName: string;
+    public categoryMaxVal: number;
+    public catergoryRemark: string;
+    
+    constructor(
+        categoryName: string,
+        categoryMaxVal: number,
+        categoryRemark: string
+    ) {
+        this.categoryName = categoryName;
+        this.categoryMaxVal = categoryMaxVal;
+        this.catergoryRemark = categoryRemark
+    }
 }

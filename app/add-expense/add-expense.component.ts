@@ -52,10 +52,11 @@ export class AddExpenseComponent implements OnInit,OnDestroy {
     if (this.transactionType==null) {
       this.transactionLabel = "Add Expense"
       console.log(this.transactionLabel)
-      this._expense = new Expense("", "", new Date(), 0.00, "")
-      // this._expense = new Expense()
+      this._expense = new Expense(null, null, new Date(), null, null)
     } else {
       this.transactionLabel = "Edit Expense"
+      // Get existing Expense values!
+      this._expense = new Expense("Rizman", "Fun", new Date(), 32.5, "Nothing Lol")
     }
 
     // Get the list of categories from list provider

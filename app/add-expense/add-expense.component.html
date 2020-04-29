@@ -21,7 +21,7 @@
 
 
     <!-- Try dockig instead? -->
-    <GridLayout columns="*,*">
+    <GridLayout columns="*,*" rows="auto">
         <Button text="{{transactionLabel}}" (tap)="onSubmit()" class="-primary" row="0" col="0"></Button>
         <Button text="Cancel" (tap)="goBack()" class="-primary" row="0" col="1"></Button>
     </GridLayout>

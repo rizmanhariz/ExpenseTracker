@@ -1,3 +1,4 @@
+import { AddCategoryComponent } from './add-category/add-category.component';
 import { AddExpenseComponent } from './add-expense/add-expense.component';
 import { NgModule } from '@angular/core';
 import { NativeScriptRouterModule } from 'nativescript-angular/router';
@@ -10,6 +11,9 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'addExpense', component: AddExpenseComponent },
   { path: 'editExpense/:id', component: AddExpenseComponent },
+  { path: 'addCat', component: AddCategoryComponent },
+  { path: 'editExpense/:id', component: AddCategoryComponent },
+  
 ];
 
 @NgModule({

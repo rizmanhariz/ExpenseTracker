@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { AddExpenseComponent } from './add-expense/add-expense.component';
 import { ActionBarComponent } from './action-bar/action-bar.component';
+import { AddCategoryComponent } from './add-category/add-category.component';
 
 // Uncomment and add to NgModule imports if you need to use two-way binding
 // import { NativeScriptFormsModule } from 'nativescript-angular/forms';
@@ -21,7 +22,8 @@ import { ActionBarComponent } from './action-bar/action-bar.component';
       AppComponent,
       HomeComponent,
       AddExpenseComponent,
-      ActionBarComponent
+      ActionBarComponent,
+      AddCategoryComponent
   ],
   imports: [
       NativeScriptModule,
