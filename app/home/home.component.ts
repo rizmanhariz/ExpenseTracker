@@ -1,4 +1,6 @@
+import { FirestoreService } from './../services/firestore.service';
 import { Component } from '@angular/core';
+import { RouterExtensions } from 'nativescript-angular/router';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +11,10 @@ export class HomeComponent {
   title = 'Expense_Tracker';
   private counter = 42;
 
-  constructor() { }
+  constructor(
+    private firestoreservice: FirestoreService,
+    private routerExtensions: RouterExtensions
+  ) { }
 
   public getMessage() {
     return this.counter > 0 ?
@@ -19,5 +24,37 @@ export class HomeComponent {
 
   public onTap() {
     this.counter--;
+  }
+
+  addData() {
+    this.firestoreservice.addFirebaseData()
+  }
+
+  getData() {
+    this.firestoreservice.retrieveFirebaseData()
+  }
+
+  enableNetwork(){
+    this.firestoreservice.enableNetwork()
+  }
+
+  disableNetwork(){
+    this.firestoreservice.disableNetwork()
+  }
+
+  toAddExpense(){
+    this.routerExtensions.navigate(['./addExpense'])
+  }
+
+  toEditExpense(){
+    this.routerExtensions.navigate(['./editExpense',"54"])
+  }
+
+  toAddCat(){
+    this.routerExtensions.navigate(['./addCategory'])
+  }
+
+  toEditCat(){
+    this.routerExtensions.navigate(['./editCategory', "100"])
   }
 }
