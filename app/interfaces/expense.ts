@@ -29,15 +29,18 @@ export class Expense {
 export class Categories {
     public categoryName: string;
     public categoryMaxVal: number;
-    public catergoryRemark: string;
+    public categoryRemark: string;
+    public categoryIMG: string;
     
     constructor(
         categoryName: string,
         categoryMaxVal: number,
-        categoryRemark: string
+        categoryRemark: string,
+        categoryIMG: string
     ) {
         this.categoryName = categoryName;
         this.categoryMaxVal = categoryMaxVal;
-        this.catergoryRemark = categoryRemark
+        this.categoryRemark = categoryRemark;
+        this.categoryIMG = categoryIMG
     }
 }

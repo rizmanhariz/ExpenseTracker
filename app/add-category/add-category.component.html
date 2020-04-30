@@ -1,1 +1,10 @@
-<Button text="add-category works!" class="btn btn-primary"></Button>
+<app-action-bar abTitle="{{transactionLabel}}"></app-action-bar>
+
+<StackLayout [formGroup]="categoryForm">
+    <TextField formControlName="categoryName" hint="Category Name" ></TextField>
+    <TextField formControlName="categoryMaxVal" hint="BudgetValue" keyboardType="number"></TextField>
+    <TextField formControlName="categoryRemark" hint="Remark" ></TextField>
+    <!-- <TextField formControlName="categoryMaxVal" hint="Value" ></TextField> -->
+    
+    <Button text="SUBMIT" (tap)="submitData()"></Button>
+</StackLayout>
