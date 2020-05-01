@@ -5,6 +5,34 @@
     <TextField formControlName="categoryMaxVal" hint="BudgetValue" keyboardType="number"></TextField>
     <TextField formControlName="categoryRemark" hint="Remark" ></TextField>
     <!-- <TextField formControlName="categoryMaxVal" hint="Value" ></TextField> -->
+
+    <Label text="Category image" class="p"></Label>
+    <!-- <ListView [items]="imageAssets">
+        <ng-template let-item="item" let-i="index">
+            <GridLayout columns="auto,*">
+                <Image
+                    [src]="item.image", stretch="none"
+                ></Image>
+                <Label></Label>
+            </GridLayout>
+        </ng-template>
+
+    </ListView> -->
+
+    <ScrollView height = "200">
+        <GridLayout columns="*,*,*" [rows]="gridRowString">
+        <!-- <StackLayout> -->
+            <div *ngFor="let imageAsset of imageAssets">
+                <Image 
+                [src]="imageAsset.image", stretch="none"
+                [row]="imageAsset.row" [col]="imageAsset.col"
+                (tap)="tapImage(imageAsset)"></Image>
+                <!-- <Label [text]="imageAsset.image"></Label> -->
+            </div>
+        <!-- </StackLayout> -->
+        </GridLayout>
+    </ScrollView>
     
+
     <Button text="SUBMIT" (tap)="submitData()"></Button>
 </StackLayout>
