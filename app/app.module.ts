@@ -3,7 +3,7 @@ import { NativeScriptModule } from 'nativescript-angular/nativescript.module';
 import { NativeScriptFormsModule } from 'nativescript-angular/forms'
 import { NativeScriptUIDataFormModule } from "nativescript-ui-dataform/angular";
 import { AppRoutingModule } from './app-routing.module';
-
+import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular"
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -33,7 +33,8 @@ import { ReactiveFormsModule } from '@angular/forms';
       AppRoutingModule,
       NativeScriptFormsModule,
       NativeScriptUIDataFormModule,
-      ReactiveFormsModule
+      ReactiveFormsModule,
+      NativeScriptUIListViewModule,
   ],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA],
