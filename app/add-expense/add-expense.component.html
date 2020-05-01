@@ -4,17 +4,17 @@
     
 <StackLayout class=p-20>
     <RadDataForm [source]="expense" id="myDataForm">
-        <TKEntityProperty tkDataFormProperty name="expenseName" displayName="" imageResource="res://icon" hintText="Expense Name"></TKEntityProperty>
-        <TKEntityProperty tkDataFormProperty name="expenseCategory" displayName="" imageResource="res://icon" valuesProvider="{{categoryProvider}}">
+        <TKEntityProperty tkDataFormProperty name="expenseName" displayName="" imageResource="res://icon_name" hintText="Expense Name"></TKEntityProperty>
+        <TKEntityProperty tkDataFormProperty name="expenseCategory" displayName="" imageResource="res://icon_category" valuesProvider="{{categoryProvider}}">
             <TKPropertyEditor tkEntityPropertyEditor type="Picker"></TKPropertyEditor>
         </TKEntityProperty>
-        <TKEntityProperty tkDataFormProperty name="expenseDate" displayName="" imageResource="res://icon" >
+        <TKEntityProperty tkDataFormProperty name="expenseDate" displayName="" imageResource="res://icon_date" >
             <TKPropertyEditor tkEntityPropertyEditor type="DatePicker"></TKPropertyEditor>
         </TKEntityProperty>
-        <TKEntityProperty tkDataFormProperty name="expenseVal" displayName="" imageResource="res://icon" hintText="Expense Cost">
+        <TKEntityProperty tkDataFormProperty name="expenseVal" displayName="" imageResource="res://icon_cost" hintText="Expense Cost">
             <TKPropertyEditor tkEntityPropertyEditor type="Decimal"></TKPropertyEditor>
         </TKEntityProperty>
-        <TKEntityProperty tkDataFormProperty name="expenseRemark" displayName="" imageResource="res://icon" hintText="Remarks"></TKEntityProperty>
+        <TKEntityProperty tkDataFormProperty name="expenseRemark" displayName="" imageResource="res://icon_remark" hintText="Remarks"></TKEntityProperty>
 
         
     </RadDataForm>
