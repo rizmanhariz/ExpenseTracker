@@ -1,5 +1,12 @@
 <StackLayout>
-    <Button text="Add Data" class="btn btn-primary" (tap)="addData()"></Button>
-<Button text="Retrieve Data" class="btn btn-primary" (tap)="retrieveData()"></Button>
-<Button text="Delete Data" class="btn btn-primary" (tap)="deleteData()"></Button>
+    <!-- <Button text="Add Data" class="btn btn-primary" (tap)="addData()"></Button> -->
+<Button text="Retrieve Category" class="btn btn-primary" (tap)="retrieveCategory()"></Button>
+<Button text="Retrieve Expense" class="btn btn-primary" (tap)="retrieveExpense()"></Button>
+
+<Label text='DANGER ZONE' color='white' background='red' fontSize='40' textAlignment='center'></Label>
+<Button text="Delete All Data" class="btn btn-primary" background='pink' color='white' (tap)="deleteData()"></Button>
+<Button text="Delete Category" class="btn btn-primary" background='pink' color='white' (tap)="deleteCategory()"></Button>
+<Button text="Delete Expense" class="btn btn-primary" background='pink' color='white' (tap)="deleteExpense()"></Button>
+
+
 </StackLayout>

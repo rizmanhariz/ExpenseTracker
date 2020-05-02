@@ -13,8 +13,8 @@ export class ActionBarComponent implements OnInit {
     private routerExtensions: RouterExtensions
   ) { }
 
-  goHome() {
-    this.routerExtensions.navigate(['./home'])
+  goData() {
+    this.routerExtensions.navigate(['./test'])
   }
 
   ngOnInit() {

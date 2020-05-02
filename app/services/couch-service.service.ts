@@ -22,6 +22,15 @@ export class CouchServiceService {
     return this.expenseDB
   }
 
+  getCategoryList(){
+    let categoryList = []
+    this.categoryDB.query({}).forEach(category=>{
+      categoryList.push(category.categoryName)
+    })
+
+    return categoryList
+  }
+
   resetDatabases(){
     this.resetCategoryDB()
     this.resetExpenseDB()
