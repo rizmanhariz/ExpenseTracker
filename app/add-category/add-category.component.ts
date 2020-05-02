@@ -15,6 +15,7 @@ export class AddCategoryComponent implements OnInit, AfterViewInit {
   transactionLabel:string
   isAddTransaction: boolean;
   gridRowString: string = "auto";
+  existingCategory: any;
   // to be replaced with something pulled by Service.
   imageSource = [
     "res://test_icon_1",
@@ -23,7 +24,7 @@ export class AddCategoryComponent implements OnInit, AfterViewInit {
   imageAssets=[
   ]
   imageSrc: any;
-  expenseDB: any;
+  categoryDB: any;
 
   // Angular Data form
   categoryForm: FormGroup = this.formBuilder.group({
@@ -45,54 +46,55 @@ export class AddCategoryComponent implements OnInit, AfterViewInit {
   ) { }
 
   submitData(){
+    // Doublechecks Decimal, if user fills decimal last. 
     if (!this.categoryForm.get('categoryMaxVal').valid){
       this.validateDecimal()
     }
 
-
+    // Checks form validity
     if (!this.categoryForm.valid) {
+      // form is INVALID, raise an ALERT
       alert({
         title: "Missing Details!",
         message: "Please fill all required fields!",
         okButtonText: 'Ok'
       })
+
     } else {
+
+      // Form is Valid!
       if (this.isAddTransaction === false) {
-        console.log("Its to edit")
+        // To edit an existing document
+        this.categoryDB.updateDocument(this.categoryId, this.categoryForm.getRawValue())
+        console.log("Updated category")
+        this.goHome()
+
+
       } else if (this.isAddTransaction === true) {
+        // To Create a new document
         // Check if name exists
-        let categoryExists = this.expenseDB.query({
-          select: [],
-          where: [{
-            property:'categoryName', 
-            comparison:'equalTo', 
-            value: this.categoryForm.get('categoryName').value
-          }]
-        })
+        let categoryExists = this.getCategory(this.categoryForm.get('categoryName').value)
         
-        if (categoryExists.length == 0 ) {
-          // add the data
-          console.log("Add the data! :)")
-          // console.log(this.categoryForm.getRawValue())
-          this.expenseDB.createDocument(this.categoryForm.getRawValue())
+        if (!categoryExists) {
+          // Creates a new document
+          this.categoryDB.createDocument(this.categoryForm.getRawValue())
+          alert({
+            title: "Add Category",
+            message: `Successfully added ${this.categoryForm.get('categoryName').value}`,
+            okButtonText:'OK'
+          })
+          this.goBack()
+          
         } else {
+          // Category already exists
           alert({
             title: "Duplicate Category!",
             message: "Category name already exists!",
-            okButtonText: 'Ok'
+            okButtonText: 'OK'
           })
-        }
-        
+        } 
       }
-      
-
-
-
     }
-    
-
-
-
   }
 
   goBack() {
@@ -101,6 +103,10 @@ export class AddCategoryComponent implements OnInit, AfterViewInit {
     } else {
       this.routerExtensions.navigate(['home'])
     }
+  }
+
+  goHome() {
+    this.routerExtensions.navigate(['./home'])
   }
 
   validateDecimal(){
@@ -123,6 +129,34 @@ export class AddCategoryComponent implements OnInit, AfterViewInit {
     if (invalid===true) {this.categoryForm.get('categoryMaxVal').setValue(currentVal)}
   }
 
+  getCategory(inputCategoryName: string){
+    let queryResult: Array<Object>= this.categoryDB.query({
+      select: [],
+      where: [{
+        property: 'categoryName',
+        comparison: 'equalTo',
+        value: inputCategoryName
+      }]
+    })
+
+    console.log(queryResult.length)
+
+    let returnVal;
+    if (queryResult.length === 0) {
+      returnVal = null
+    } else if (queryResult.length === 1 ){
+      returnVal = queryResult[0]
+      // delete returnVal.id
+    } else {
+      // Do do something to delete the older ones? 
+      returnVal = queryResult[0]
+      // delete returnVal.id
+    }
+
+    // console.log(`>>>>> Returning ${returnVal}`)
+    return returnVal
+  }
+
   public onItemSelected(args:ListViewEventData){
     let imgSrc = this.imageAssets[args.index].image
     this.categoryForm.get('categoryIMG').setValue(imgSrc)
@@ -130,49 +164,47 @@ export class AddCategoryComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit() {
-    this.expenseDB = this.couchService.getCategoryDB()
-    let rowVar = Math.ceil(this.imageSource.length/3)
-    // let colVar = 0;
+    // sets up DB conections
+    this.categoryDB = this.couchService.getCategoryDB()
 
+    
+    // Fills imageAssets with objects, DOM only accepts objects.
     for (let listIndex=0; listIndex < this.imageSource.length; listIndex++){
       this.imageAssets.push({
-        image: this.imageSource[listIndex],
-        // row: rowVar.toString(),
-        // col: colVar.toString()
+        image: this.imageSource[listIndex]
       })
-
-      // colVar ++;
-      // if ( colVar == 4) {
-      //   rowVar ++;
-      //   colVar = 0;
-      // }
     }
 
+
+    // Grid element
+    let rowVar = Math.ceil(this.imageSource.length/3)
     for (let i=0; i<rowVar; i++){
       this.gridRowString = this.gridRowString.concat(",auto")
     }
     
 
+    // Determine if to Add Category or Edit Category
     this.categoryId = this.pro.activatedRoute.snapshot.paramMap.get('id')
+    console.log(`>>>>> actegory ID: ${this.categoryId}`)
     if (this.categoryId==null) {
       this.transactionLabel = "New Category"
       this.isAddTransaction = true;
 
     } else {
-      // retrieve an old category based on categoryID
       this.transactionLabel = "Edit Category"
       this.isAddTransaction = false;
-      this.categoryForm.setValue({
-        categoryName: "Food",
-        categoryMaxVal: "32.5",
-        categoryRemark: "",
-        categoryIMG: "res://test_icon_2"
-      })
+      
+      // Retrieve an old category based on categoryID
+      // this.existingCategory = this.getCategory(this.categoryId)
+      this.existingCategory = this.categoryDB.getDocument(this.categoryId)
+      delete this.existingCategory.id
+      this.categoryForm.setValue(this.existingCategory)
     }
     
   }
 
   ngAfterViewInit(){
+    // Existing value is not autopicked when run in ngOnInit. Need to update with a more elegant solution
     if (this.categoryId!=null){
       let imgIndex = this.imageSource.findIndex((elem)=> elem===this.categoryForm.get('categoryIMG').value)
       setTimeout(()=>{

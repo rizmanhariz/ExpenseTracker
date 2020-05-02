@@ -7,10 +7,11 @@
   <!-- <Button text="Firestore Retireive Test" (tap)="getData()" class="-primary"></Button> -->
   <!-- <Button text="Enable network" (tap)="enableNetwork()" class="-primary"></Button> -->
   <!-- <Button text="Disable network" (tap)="disableNetwork()" class="-primary"></Button> -->
-  <Button text="Go to Add Expense" (tap)="toAddExpense()" class="-primary"></Button>
-  <Button text="Go to Edit Expense" (tap)="toEditExpense()" class="-primary"></Button>
-  <Button text="Go to Add Category" (tap)="toAddCat()" class="-primary"></Button>
-  <Button text="Go to Edit Category" (tap)="toEditCat()" class="-primary"></Button>
+  <Button text="Go to Add Expense" (tap)="navigateTo('addExpense')" class="-primary"></Button>
+  <Button text="Go to Edit Expense" (tap)="navigateTo('editExpense/5')" class="-primary"></Button>
+  <Button text="Go to Categories" (tap)="navigateTo('category')" class="-primary"></Button>
+  <Button text="Go to Add Category" (tap)="navigateTo('addCategory')" class="-primary"></Button>
+  <Button text="Go to Edit Category" (tap)="navigateTo('editCategory/43')" class="-primary"></Button>
 
 
 
