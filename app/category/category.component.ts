@@ -1,3 +1,4 @@
+import { CouchServiceService } from './../services/couch-service.service';
 import { Component, OnInit } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular/router';
 
@@ -8,13 +9,11 @@ import { RouterExtensions } from 'nativescript-angular/router';
 })
 export class CategoryComponent implements OnInit {
   // categoryNames = ['Rizman', 'Towai', 'Zirz','Rizman', 'Towai', 'Zirz','Rizman', 'Towai', 'Zirz','Rizman', 'Towai', 'Zirz','Rizman', 'Towai', 'Zirz','Rizman', 'Towai', 'Zirz','Rizman', 'Towai', 'Zirz','Rizman', 'Towai', 'Zirz','Rizman', 'Towai', 'Zirz','Rizman', 'Towai', 'Zirz',]
-  categoryNames = [
-    {name: "rizman", id:'15'},
-    {name: "Ventus", id:'15'},
-    {name: "Terra", id:'15'},
-  ]
+  categoryNames:Array<any>;
+  categoryDB: any;
   constructor(
-    private routerExtensions: RouterExtensions
+    private routerExtensions: RouterExtensions,
+    private couchService: CouchServiceService
   ) { }
 
   newCategory(){
@@ -25,7 +24,8 @@ export class CategoryComponent implements OnInit {
     this.routerExtensions.navigate(['editCategory',categoryID])
   }
   ngOnInit() {
-    
+    this.categoryDB = this.couchService.getCategoryDB()
+    this.categoryNames = this.categoryDB.query()
   }
 
 }

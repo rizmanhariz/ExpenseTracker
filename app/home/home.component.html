@@ -7,10 +7,13 @@
   <!-- <Button text="Firestore Retireive Test" (tap)="getData()" class="-primary"></Button> -->
   <!-- <Button text="Enable network" (tap)="enableNetwork()" class="-primary"></Button> -->
   <!-- <Button text="Disable network" (tap)="disableNetwork()" class="-primary"></Button> -->
-  <Button text="Go to Add Expense" (tap)="toAddExpense()" class="-primary"></Button>
-  <Button text="Go to Edit Expense" (tap)="toEditExpense()" class="-primary"></Button>
-  <Button text="Go to Add Category" (tap)="toAddCat()" class="-primary"></Button>
-  <Button text="Go to Edit Category" (tap)="toEditCat()" class="-primary"></Button>
+  <Button text="Go to Add Expense" (tap)="navigateTo('addExpense')" class="-primary"></Button>
+  <!-- <Button text="Go to Edit Expense" (tap)="navigateTo('editExpense/91fa7a07-8e0c-44e9-9c8b-6b14b380cb3f')" class="-primary"></Button> -->
+  <Button text="Go to Edit Expense" (tap)="navigateTo('editExpense/093fca35-e612-471c-9956-577b36d7e461')" class="-primary"></Button>
+  <Button text="Go to Categories" (tap)="navigateTo('category')" class="-primary"></Button>
+  <Button text="Go to Add Category" (tap)="navigateTo('addCategory')" class="-primary"></Button>
+  <Button text="Go to Edit Category" (tap)="navigateTo('editCategory/43')" class="-primary"></Button>
+  <Button text="DataTest" (tap)="navigateTo('test')" class="-primary"></Button>
 
 
 

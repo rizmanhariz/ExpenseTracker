@@ -42,6 +42,14 @@ export class HomeComponent {
     this.firestoreservice.disableNetwork()
   }
 
+  navigateTo(inputRoute:string){
+    this.routerExtensions.navigate([inputRoute])
+  }
+
+  toCategory(){
+    this.routerExtensions.navigate(['./category'])
+  }
+
   toAddExpense(){
     this.routerExtensions.navigate(['./addExpense'])
   }

@@ -1,3 +1,5 @@
+import { CouchServiceService } from './services/couch-service.service';
+import { CouchTestComponent } from './couch-test/couch-test.component';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { NativeScriptModule } from 'nativescript-angular/nativescript.module';
 import { NativeScriptFormsModule } from 'nativescript-angular/forms'
@@ -26,7 +28,8 @@ import { ReactiveFormsModule } from '@angular/forms';
       AddExpenseComponent,
       ActionBarComponent,
       AddCategoryComponent,
-      CategoryComponent
+      CategoryComponent,
+      CouchTestComponent
   ],
   imports: [
       NativeScriptModule,
@@ -35,6 +38,9 @@ import { ReactiveFormsModule } from '@angular/forms';
       NativeScriptUIDataFormModule,
       ReactiveFormsModule,
       NativeScriptUIListViewModule,
+  ],
+  providers: [
+    CouchServiceService
   ],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA],
