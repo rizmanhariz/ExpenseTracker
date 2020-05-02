@@ -1,3 +1,4 @@
+import { CouchServiceService } from './../services/couch-service.service';
 import { PageRouterOutlet, RouterExtensions } from 'nativescript-angular/router';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms"
@@ -10,8 +11,9 @@ import { Page } from 'tns-core-modules/ui/page/page';
   styleUrls: ['./add-category.component.css']
 })
 export class AddCategoryComponent implements OnInit, AfterViewInit {
-  categoryId;
+  categoryId: string; 
   transactionLabel:string
+  isAddTransaction: boolean;
   gridRowString: string = "auto";
   // to be replaced with something pulled by Service.
   imageSource = [
@@ -21,7 +23,7 @@ export class AddCategoryComponent implements OnInit, AfterViewInit {
   imageAssets=[
   ]
   imageSrc: any;
-
+  expenseDB: any;
 
   // Angular Data form
   categoryForm: FormGroup = this.formBuilder.group({
@@ -39,23 +41,53 @@ export class AddCategoryComponent implements OnInit, AfterViewInit {
     private formBuilder: FormBuilder,
     private page: Page,
     private routerExtensions: RouterExtensions,
+    private couchService: CouchServiceService
   ) { }
 
   submitData(){
-    (console.log(this.categoryForm.getRawValue()))
     if (!this.categoryForm.get('categoryMaxVal').valid){
       this.validateDecimal()
     }
 
 
-    if (this.categoryForm.valid) {
-      console.log('TRUE')
-    } else {
+    if (!this.categoryForm.valid) {
       alert({
         title: "Missing Details!",
         message: "Please fill all required fields!",
         okButtonText: 'Ok'
       })
+    } else {
+      if (this.isAddTransaction === false) {
+        console.log("Its to edit")
+      } else if (this.isAddTransaction === true) {
+        // Check if name exists
+        let categoryExists = this.expenseDB.query({
+          select: [],
+          where: [{
+            property:'categoryName', 
+            comparison:'equalTo', 
+            value: this.categoryForm.get('categoryName').value
+          }]
+        })
+        
+        if (categoryExists.length == 0 ) {
+          // add the data
+          console.log("Add the data! :)")
+          // console.log(this.categoryForm.getRawValue())
+          this.expenseDB.createDocument(this.categoryForm.getRawValue())
+        } else {
+          alert({
+            title: "Duplicate Category!",
+            message: "Category name already exists!",
+            okButtonText: 'Ok'
+          })
+        }
+        
+      }
+      
+
+
+
     }
     
 
@@ -73,7 +105,6 @@ export class AddCategoryComponent implements OnInit, AfterViewInit {
 
   validateDecimal(){
     let currentVal:string = this.categoryForm.get('categoryMaxVal').value;
-    console.log(currentVal)
     let invalid: boolean;
     if (currentVal.startsWith('-')) {
       currentVal = currentVal.substring(1)
@@ -99,21 +130,22 @@ export class AddCategoryComponent implements OnInit, AfterViewInit {
 
 
   ngOnInit() {
-    let rowVar = 0;
-    let colVar = 0;
+    this.expenseDB = this.couchService.getCategoryDB()
+    let rowVar = Math.ceil(this.imageSource.length/3)
+    // let colVar = 0;
 
     for (let listIndex=0; listIndex < this.imageSource.length; listIndex++){
       this.imageAssets.push({
         image: this.imageSource[listIndex],
-        row: rowVar.toString(),
-        col: colVar.toString()
+        // row: rowVar.toString(),
+        // col: colVar.toString()
       })
 
-      colVar ++;
-      if ( colVar == 4) {
-        rowVar ++;
-        colVar = 0;
-      }
+      // colVar ++;
+      // if ( colVar == 4) {
+      //   rowVar ++;
+      //   colVar = 0;
+      // }
     }
 
     for (let i=0; i<rowVar; i++){
@@ -124,10 +156,12 @@ export class AddCategoryComponent implements OnInit, AfterViewInit {
     this.categoryId = this.pro.activatedRoute.snapshot.paramMap.get('id')
     if (this.categoryId==null) {
       this.transactionLabel = "New Category"
+      this.isAddTransaction = true;
 
     } else {
       // retrieve an old category based on categoryID
       this.transactionLabel = "Edit Category"
+      this.isAddTransaction = false;
       this.categoryForm.setValue({
         categoryName: "Food",
         categoryMaxVal: "32.5",
@@ -139,7 +173,6 @@ export class AddCategoryComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(){
-    console.log(">>Running ngAfterViewInit")
     if (this.categoryId!=null){
       let imgIndex = this.imageSource.findIndex((elem)=> elem===this.categoryForm.get('categoryIMG').value)
       setTimeout(()=>{
