@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular/router';
+import { RadSideDrawer } from "nativescript-ui-sidedrawer";
+import * as app from "application"
 
 @Component({
   selector: 'app-action-bar',
@@ -13,9 +15,19 @@ export class ActionBarComponent implements OnInit {
     private routerExtensions: RouterExtensions
   ) { }
 
-  goData() {
-    this.routerExtensions.navigate(['./test'])
+  goNavigate(inputString) {
+    this.routerExtensions.navigate([inputString])
   }
+
+  onDrawerButtonTap(){
+    const sideDrawer = <RadSideDrawer>app.getRootView();
+    sideDrawer.showDrawer();
+
+  }
+
+  // goNavigate(inputString){
+  //   this.routerExtensions.navigate([inputString])
+  // }
 
   ngOnInit() {
     console.log(this.title)

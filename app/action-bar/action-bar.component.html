@@ -1,5 +1,14 @@
 <ActionBar title="{{title}}">
-    <ActionItem  ios.systemIcon="9" ios.position="left" (tap)="goData()"
+    <ActionItem  ios.systemIcon="9" ios.position="left" (tap)="goNavigate('test')"
                   android.systemIcon="ic_menu_share" android.position="left">
+    </ActionItem>
+    <ActionItem  ios.systemIcon="9" ios.position="left" (tap)="goNavigate('home')"
+                  android.systemIcon="ic_menu_home" android.position="left">
+    </ActionItem>
+    <ActionItem (tap)="onDrawerButtonTap()"
+                android.systemIcon="ic_menu_moreoverflow_normal_holo_dark" android.position="left">
+        <!-- <StackLayout>
+            <Button class="fa" text="&#xf0c9;" fontSize="20" (tap)="onDrawerButtonTap()"></Button>
+        </StackLayout> -->
     </ActionItem>
 </ActionBar>

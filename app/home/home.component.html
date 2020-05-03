@@ -1,19 +1,19 @@
-<app-action-bar abTitle="Enpense Tracker"></app-action-bar>
+<app-action-bar></app-action-bar>
 <StackLayout class="p-20">
-  <Label text="Tap the button" class="h1 text-center"></Label>
-  <Button text="TAP" (tap)="onTap()" class="-primary"></Button>
-  <Label [text]="getMessage()" class="h2 text-center" textWrap="true"></Label>
-  <!-- <Button text="Firestore Add Test" (tap)="addData()" class="-primary"></Button> -->
-  <!-- <Button text="Firestore Retireive Test" (tap)="getData()" class="-primary"></Button> -->
-  <!-- <Button text="Enable network" (tap)="enableNetwork()" class="-primary"></Button> -->
-  <!-- <Button text="Disable network" (tap)="disableNetwork()" class="-primary"></Button> -->
-  <Button text="Go to Add Expense" (tap)="navigateTo('addExpense')" class="-primary"></Button>
+  <GridLayout rows="auto" columns="*,*" >
+    <Button text="Go to Add Expense" (tap)="navigateTo('addExpense')" class="-primary" column='0'></Button>
+    <Button text="Go to Categories" (tap)="navigateTo('category')" class="-primary" column='1'></Button>
+  </GridLayout>
+  
+  <Label text='CHART AREA' textAlignment='center' fontSize=30 height=200 background='#82CAFF'></Label>
+
+
+  
   <!-- <Button text="Go to Edit Expense" (tap)="navigateTo('editExpense/91fa7a07-8e0c-44e9-9c8b-6b14b380cb3f')" class="-primary"></Button> -->
-  <Button text="Go to Edit Expense" (tap)="navigateTo('editExpense/093fca35-e612-471c-9956-577b36d7e461')" class="-primary"></Button>
-  <Button text="Go to Categories" (tap)="navigateTo('category')" class="-primary"></Button>
-  <Button text="Go to Add Category" (tap)="navigateTo('addCategory')" class="-primary"></Button>
-  <Button text="Go to Edit Category" (tap)="navigateTo('editCategory/43')" class="-primary"></Button>
-  <Button text="DataTest" (tap)="navigateTo('test')" class="-primary"></Button>
+  <!-- <Button text="Go to Edit Expense" (tap)="navigateTo('editExpense/093fca35-e612-471c-9956-577b36d7e461')" class="-primary"></Button> -->
+  
+  <!-- <Button text="Go to Add Category" (tap)="navigateTo('addCategory')" class="-primary"></Button> -->
+
 
 
 

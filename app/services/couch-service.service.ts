@@ -22,7 +22,11 @@ export class CouchServiceService {
     return this.expenseDB
   }
 
-  getCategoryList(){
+  getAllExpenses() { }
+
+
+
+  getCategoryList(): any[] {
     let categoryList = []
     this.categoryDB.query({}).forEach(category=>{
       categoryList.push(category.categoryName)

@@ -6,6 +6,7 @@ import { NativeScriptFormsModule } from 'nativescript-angular/forms'
 import { NativeScriptUIDataFormModule } from "nativescript-ui-dataform/angular";
 import { AppRoutingModule } from './app-routing.module';
 import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular"
+import { NativeScriptUISideDrawerModule } from "nativescript-ui-sidedrawer/angular";
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -38,6 +39,7 @@ import { ReactiveFormsModule } from '@angular/forms';
       NativeScriptUIDataFormModule,
       ReactiveFormsModule,
       NativeScriptUIListViewModule,
+      NativeScriptUISideDrawerModule,
   ],
   providers: [
     CouchServiceService
