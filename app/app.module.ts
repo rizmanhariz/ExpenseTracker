@@ -17,6 +17,7 @@ import { AddCategoryComponent } from './add-category/add-category.component';
 import { CategoryComponent } from './category/category.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppSettingsComponent } from './app-settings/app-settings.component';
+import { AccordionModule } from 'nativescript-accordion/angular';
 
 // Uncomment and add to NgModule imports if you need to use two-way binding
 // import { NativeScriptFormsModule } from 'nativescript-angular/forms';
@@ -44,6 +45,7 @@ import { AppSettingsComponent } from './app-settings/app-settings.component';
       NativeScriptUIListViewModule,
       NativeScriptUISideDrawerModule,
       NativeScriptUIChartModule,
+      AccordionModule,
   ],
   providers: [
     CouchServiceService

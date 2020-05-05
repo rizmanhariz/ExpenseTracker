@@ -3,6 +3,7 @@ import { CouchServiceService } from './../services/couch-service.service';
 import { FirestoreService } from './../services/firestore.service';
 import { Component, OnInit } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular/router';
+import { Frame } from 'tns-core-modules/ui/frame/frame';
 
 @Component({
   selector: 'app-home',
@@ -18,14 +19,49 @@ export class HomeComponent implements OnInit{
   endDate: Date;
   tempData:any;
   pieValues: Array<Object>;
+  showPie:boolean = false;
+  selectedIndexes = [];
+  
   constructor(
     private firestoreservice: FirestoreService,
     private routerExtensions: RouterExtensions,
     private couchService: CouchServiceService,
+    private frame: Frame,
   ) { }
 
   getDateString(inputDate: Date) {
     return inputDate.toString()
+  }
+
+  editPress(id){
+    // console.log(`Edit ${id}`)
+    this.routerExtensions.navigate(['editExpense',id])
+  }
+
+  deletePress(id){
+    let options={
+      title: "Delete Expense",
+      message: "Are you sure you want to delete the expense?",
+    okButtonText: "Yes",
+    cancelButtonText: "No",
+    neutralButtonText: "Cancel"
+    }
+    confirm(options).then((result: boolean) => {
+      if (result===true) {
+        this.couchService.deleteExpense(id)
+        this.ngOnInit()
+      }
+    })
+  }
+
+
+
+  seriesSelect(args){
+    this.selectedIndexes=[args.pointIndex]
+  }
+
+  seriesDeselected(args){
+    this.selectedIndexes=[]
   }
 
 
@@ -45,33 +81,35 @@ export class HomeComponent implements OnInit{
 
     // Pull all the information needed
       // define the connections
-    this.allCategory = this.couchService.getCategoryDB().query({})
+    // this.allCategory = this.couchService.getCategoryDB().query({})
+    this.pieValues = this.couchService.getCategoryDB().query({})
     this.categoryList = this.couchService.getCategoryList()
     this.expenses = this.couchService.getExpenses(this.startDate, this.endDate)
 
-    console.log(this.categoryList)
-    
-    this.pieValues=[]
-    this.categoryList.forEach(cat => {
-      this.pieValues.push({
-        "categoryName": cat,
-        "spent": 0
-      })
-    })
-    this.pieValues.push({
-      "categoryName": 'Others',
-      "spent": 0
-    })
+    this.pieValues.forEach(pieValue => {
+      pieValue['spent']=0;
+      pieValue['items']=[];
+    }
+    )
 
-
-    console.log(this.expenses)
+  
     this.expenses.forEach(expense => {
       let ind = this.pieValues.findIndex( elem => elem['categoryName'] === expense.expenseCategory)
       if (ind === -1) {
+        console.log('indexNotFound')
         this.pieValues[this.pieValues.length-1]["spent"] += expense.expenseVal
+        
       } else {
+        // console.log('indexFound')
         this.pieValues[ind]["spent"] += expense.expenseVal
+        this.pieValues[ind]["items"].push(expense)
+        this.showPie = true
       }
+    })
+
+
+    this.pieValues = this.pieValues.filter((elem)=>{
+      return elem['spent']>0
     })
 
 

@@ -35,6 +35,10 @@ export class CouchServiceService {
     return queryData
   }
 
+  deleteExpense(docID){
+    this.expenseDB.deleteDocument(docID)
+  }
+
   getAllCategory() {
     return this.categoryDB.query({})
   }
