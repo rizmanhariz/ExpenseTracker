@@ -4,6 +4,7 @@ import { FirestoreService } from './../services/firestore.service';
 import { Component, OnInit } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular/router';
 import { Frame } from 'tns-core-modules/ui/frame/frame';
+import { confirm } from "tns-core-modules/ui/dialogs";
 
 @Component({
   selector: 'app-home',
@@ -43,10 +44,10 @@ export class HomeComponent implements OnInit{
       title: "Delete Expense",
       message: "Are you sure you want to delete the expense?",
     okButtonText: "Yes",
-    cancelButtonText: "No",
+    // cancelButtonText: "No",
     neutralButtonText: "Cancel"
     }
-    confirm(options).then((result: boolean) => {
+    confirm("Are you sure you wish to delete?").then((result: boolean) => {
       if (result===true) {
         this.couchService.deleteExpense(id)
         this.ngOnInit()
