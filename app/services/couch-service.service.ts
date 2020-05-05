@@ -22,9 +22,23 @@ export class CouchServiceService {
     return this.expenseDB
   }
 
-  getAllExpenses() { }
+  getExpenses(startDate: Date, endDate:Date): Array<any>{ 
+    let queryData: Array<any> = this.expenseDB.query({
+      select: [],
+      // where: [{property: 'expenseDate', comparison:'between', value:[{startDate, endDate}]}],
+      where: [{property: 'expenseDate', comparison:'lessThan', value:startDate}],
+      // where: [
+      //   {property: 'expenseDate', comparison:'greaterThan', value: startDate},
+      //   {property: 'expenseDate', comparison:'lessThan', value: endDate}
+      // ],
+      order: [{property: 'expenseDate', direction:'desc'}]
+    })
+    return queryData
+  }
 
-
+  getAllCategory() {
+    return this.categoryDB.query({})
+  }
 
   getCategoryList(): any[] {
     let categoryList = []

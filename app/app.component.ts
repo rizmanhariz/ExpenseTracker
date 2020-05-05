@@ -39,6 +39,18 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
       this._sideDrawerTransition = new SlideInOnTopTransition();
+
+      if (!hasKey('StartDate')) {
+        setString('StartDate', new Date().toString())
+      } else {
+        // console.log(`>>>Start Date: ${getString('StartDate')}`)
+      }
+
+      if (!hasKey('EndDate')) {
+        setString('EndDate', new Date(2020,5,5).toString())
+      } else {
+        // console.log(`>>>End Date: ${getString('EndDate')}`)
+      }
   }
 
   get sideDrawerTransition(): DrawerTransitionBase {

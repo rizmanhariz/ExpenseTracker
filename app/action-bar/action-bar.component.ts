@@ -30,7 +30,6 @@ export class ActionBarComponent implements OnInit {
   // }
 
   ngOnInit() {
-    console.log(this.title)
     if (this.title == undefined) {
       this.title = "Expense Tracker"
     }

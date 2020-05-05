@@ -30,7 +30,9 @@ export class CouchTestComponent implements OnInit {
   retrieveExpense(){
     // console.clear()
     console.log('>>>> Expense information')
-    this.expenseDB.query({}).forEach(expense=>console.log(expense))
+    // this.expenseDB.query({}).forEach(expense=>console.log(expense))
+    console.log(this.couchService.getExpenses(new Date(2020,2,15), new Date(2020,7,1)))
+
   }
 
   deleteData(){

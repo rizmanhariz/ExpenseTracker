@@ -15,6 +15,7 @@ import { ActionBarComponent } from './action-bar/action-bar.component';
 import { AddCategoryComponent } from './add-category/add-category.component';
 import { CategoryComponent } from './category/category.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AppSettingsComponent } from './app-settings/app-settings.component';
 
 // Uncomment and add to NgModule imports if you need to use two-way binding
 // import { NativeScriptFormsModule } from 'nativescript-angular/forms';
@@ -30,7 +31,8 @@ import { ReactiveFormsModule } from '@angular/forms';
       ActionBarComponent,
       AddCategoryComponent,
       CategoryComponent,
-      CouchTestComponent
+      CouchTestComponent,
+      AppSettingsComponent
   ],
   imports: [
       NativeScriptModule,

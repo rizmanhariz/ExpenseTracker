@@ -1,0 +1,14 @@
+<app-action-bar abTitle="Settings"></app-action-bar>
+
+<StackLayout>
+    <Label text="Start Date"></Label>
+    <DatePicker [years]="startDate.getFullYear()" [month]="startDate.getMonth()+1" [day]="startDate.getDate()" class='date-picker' (dateChange)="updateStartDate($event)"></DatePicker>
+    <Label text="End Date"></Label>
+    <DatePicker [years]="endDate.getFullYear()" [month]="endDate.getMonth()+1" [day]="endDate.getDate()" class='date-picker' (dateChange)="updateEndDate($event)"></DatePicker>
+
+    <GridLayout columns="*,*">
+        <Button text="Change Dates" (tap)="submitDate()" column="0"></Button>
+        <Button text="Cancel" (tap)="goBack()" column="1"></Button>
+    </GridLayout>
+
+</StackLayout>
