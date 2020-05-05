@@ -4,8 +4,28 @@
     <Button text="Go to Add Expense" (tap)="navigateTo('addExpense')" class="-primary" column='0'></Button>
     <Button text="Go to Categories" (tap)="navigateTo('category')" class="-primary" column='1'></Button>
   </GridLayout>
+
+  <GridLayout rows="auto" columns="*,*,auto">
+    <Label text="{{getDateString(startDate) | date:shortDate}}" column="0"></Label>
+    <Label text="{{getDateString(endDate) | date:shortDate}}" column="1"></Label>
+    <Button text="GEAR" column="2"></Button>
+  </GridLayout>
+
   
-  <Label text='CHART AREA' textAlignment='center' fontSize=30 height=200 background='#82CAFF'></Label>
+  <!-- <Label text='CHART AREA' textAlignment='center' fontSize=30 height=200 background='#82CAFF'></Label> -->
+  <RadPieChart allowAnimation="true" height = "250">
+    <DonutSeries tkPieSeries
+            selectionMode="DataPoint"
+            expandRadius="0.4"
+            outerRadiusFactor="0.7"
+            innerRadiusFactor="0.4"
+            valueProperty="spent"
+            legendLabel="categoryName"
+            showLabels="true"
+            [items]="pieValues"
+    ></DonutSeries>
+    <RadLegendView tkPieLegend position="Right" title="Category" offsetOrigin="TopRight" width="110" enableSelection="true"></RadLegendView>
+  </RadPieChart>
 
 
   

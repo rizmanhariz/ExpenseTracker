@@ -35,6 +35,10 @@ export class CouchTestComponent implements OnInit {
 
   }
 
+  getAllExpenses(){
+    console.log(this.expenseDB.query({}))
+  }
+
   deleteData(){
     this.couchService.resetDatabases()
   }

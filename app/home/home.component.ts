@@ -11,15 +11,22 @@ import { RouterExtensions } from 'nativescript-angular/router';
 })
 export class HomeComponent implements OnInit{
   expenses: any;
+  categoryList: Array<string>;
   allCategory: any;
-  categoryList: any[]; 
+  // categoryList: any; 
   startDate: Date;
   endDate: Date;
+  tempData:any;
+  pieValues: Array<Object>;
   constructor(
     private firestoreservice: FirestoreService,
     private routerExtensions: RouterExtensions,
     private couchService: CouchServiceService,
   ) { }
+
+  getDateString(inputDate: Date) {
+    return inputDate.toString()
+  }
 
 
 
@@ -33,15 +40,47 @@ export class HomeComponent implements OnInit{
     this.startDate = new Date(getString('StartDate'))
     this.endDate = new Date(getString('EndDate'))
 
-    console.log(`Home Component - Start Date : ${this.startDate}`)
-    console.log(`Home Component - End Date : ${this.endDate}`)
+    // console.log(`Home Component - Start Date : ${this.startDate}`)
+    // console.log(`Home Component - End Date : ${this.endDate}`)
 
     // Pull all the information needed
       // define the connections
-    this.allCategory = this.couchService.getCategoryDB()
+    this.allCategory = this.couchService.getCategoryDB().query({})
+    this.categoryList = this.couchService.getCategoryList()
     this.expenses = this.couchService.getExpenses(this.startDate, this.endDate)
+
+    console.log(this.categoryList)
+    
+    this.pieValues=[]
+    this.categoryList.forEach(cat => {
+      this.pieValues.push({
+        "categoryName": cat,
+        "spent": 0
+      })
+    })
+    this.pieValues.push({
+      "categoryName": 'Others',
+      "spent": 0
+    })
+
+
     console.log(this.expenses)
-    // parse information into
-    // Sum bylist/category
+    this.expenses.forEach(expense => {
+      let ind = this.pieValues.findIndex( elem => elem['categoryName'] === expense.expenseCategory)
+      if (ind === -1) {
+        this.pieValues[this.pieValues.length-1]["spent"] += expense.expenseVal
+      } else {
+        this.pieValues[ind]["spent"] += expense.expenseVal
+      }
+    })
+
+
+    if (this.pieValues[this.pieValues.length-1]["spent"] === 0){
+      this.pieValues.pop()
+    }
+
+  
+
+    
   }
 }
