@@ -27,6 +27,10 @@ export class AppSettingsComponent implements OnInit {
   updateEndDate(args){
     // console.log(`>>>End Start : ${args.value}`)
     this.endDate = args.value
+    this.endDate.setHours(23)
+    this.endDate.setMinutes(59)
+    this.endDate.setSeconds(59)
+    console.log(this.endDate)
   }
 
   submitDate(){
@@ -42,8 +46,6 @@ export class AppSettingsComponent implements OnInit {
         okButtonText:'OK'
       })
     }
-
-    
   }
 
   goBack() {

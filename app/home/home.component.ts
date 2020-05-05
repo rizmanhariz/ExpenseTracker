@@ -40,6 +40,7 @@ export class HomeComponent implements OnInit{
       // define the connections
     this.allCategory = this.couchService.getCategoryDB()
     this.expenses = this.couchService.getExpenses(this.startDate, this.endDate)
+    console.log(this.expenses)
     // parse information into
     // Sum bylist/category
   }
