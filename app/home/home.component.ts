@@ -1,68 +1,125 @@
+import { getString } from 'tns-core-modules/application-settings';
+import { CouchServiceService } from './../services/couch-service.service';
 import { FirestoreService } from './../services/firestore.service';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular/router';
+import { Frame } from 'tns-core-modules/ui/frame/frame';
+import { confirm } from "tns-core-modules/ui/dialogs";
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
-  title = 'Expense_Tracker';
-  private counter = 42;
-
+export class HomeComponent implements OnInit{
+  expenses: any;
+  categoryList: Array<string>;
+  allCategory: any;
+  // categoryList: any; 
+  startDate: Date;
+  endDate: Date;
+  tempData:any;
+  pieValues: Array<Object>;
+  showPie:boolean = false;
+  selectedIndexes = [];
+  
   constructor(
     private firestoreservice: FirestoreService,
-    private routerExtensions: RouterExtensions
+    private routerExtensions: RouterExtensions,
+    private couchService: CouchServiceService,
+    private frame: Frame,
   ) { }
 
-  public getMessage() {
-    return this.counter > 0 ?
-      `${this.counter} taps left` :
-      'Hoorraaay! You unlocked the NativeScript clicker achievement!';
+  getDateString(inputDate: Date) {
+    return inputDate.toString()
   }
 
-  public onTap() {
-    this.counter--;
+  editPress(id){
+    // console.log(`Edit ${id}`)
+    this.routerExtensions.navigate(['editExpense',id])
   }
 
-  addData() {
-    this.firestoreservice.addFirebaseData()
+  deletePress(id){
+    let options={
+      title: "Delete Expense",
+      message: "Are you sure you want to delete the expense?",
+    okButtonText: "Yes",
+    // cancelButtonText: "No",
+    neutralButtonText: "Cancel"
+    }
+    confirm("Are you sure you wish to delete?").then((result: boolean) => {
+      if (result===true) {
+        this.couchService.deleteExpense(id)
+        this.ngOnInit()
+      }
+    })
   }
 
-  getData() {
-    this.firestoreservice.retrieveFirebaseData()
+
+
+  seriesSelect(args){
+    this.selectedIndexes=[args.pointIndex]
   }
 
-  enableNetwork(){
-    this.firestoreservice.enableNetwork()
+  seriesDeselected(args){
+    this.selectedIndexes=[]
   }
 
-  disableNetwork(){
-    this.firestoreservice.disableNetwork()
-  }
+
+
 
   navigateTo(inputRoute:string){
     this.routerExtensions.navigate([inputRoute])
   }
 
-  toCategory(){
-    this.routerExtensions.navigate(['./category'])
-  }
+  ngOnInit(){
+    // get dates from application settings
+    this.startDate = new Date(getString('StartDate'))
+    this.endDate = new Date(getString('EndDate'))
 
-  toAddExpense(){
-    this.routerExtensions.navigate(['./addExpense'])
-  }
+    // console.log(`Home Component - Start Date : ${this.startDate}`)
+    // console.log(`Home Component - End Date : ${this.endDate}`)
 
-  toEditExpense(){
-    this.routerExtensions.navigate(['./editExpense',"54"])
-  }
+    // Pull all the information needed
+      // define the connections
+    // this.allCategory = this.couchService.getCategoryDB().query({})
+    this.pieValues = this.couchService.getCategoryDB().query({})
+    this.categoryList = this.couchService.getCategoryList()
+    this.expenses = this.couchService.getExpenses(this.startDate, this.endDate)
 
-  toAddCat(){
-    this.routerExtensions.navigate(['./addCategory'])
-  }
+    this.pieValues.forEach(pieValue => {
+      pieValue['spent']=0;
+      pieValue['items']=[];
+    }
+    )
 
-  toEditCat(){
-    this.routerExtensions.navigate(['./editCategory', "100"])
+  
+    this.expenses.forEach(expense => {
+      let ind = this.pieValues.findIndex( elem => elem['categoryName'] === expense.expenseCategory)
+      if (ind === -1) {
+        console.log('indexNotFound')
+        this.pieValues[this.pieValues.length-1]["spent"] += expense.expenseVal
+        
+      } else {
+        // console.log('indexFound')
+        this.pieValues[ind]["spent"] += expense.expenseVal
+        this.pieValues[ind]["items"].push(expense)
+        this.showPie = true
+      }
+    })
+
+
+    this.pieValues = this.pieValues.filter((elem)=>{
+      return elem['spent']>0
+    })
+
+
+    if (this.pieValues[this.pieValues.length-1]["spent"] === 0){
+      this.pieValues.pop()
+    }
+
+  
+
+    
   }
 }

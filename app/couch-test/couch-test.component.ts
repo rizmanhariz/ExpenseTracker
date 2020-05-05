@@ -9,17 +9,67 @@ import { Couchbase } from 'nativescript-couchbase-plugin';
 export class CouchTestComponent implements OnInit {
   expenseDB: any;
   categoryDB: any;
-  data = [
-    { 
-      categoryName: "Rizman",
-      date: new Date(2020, 0, 1),
-      name: "araki",
-      age: 52
-    }
+
+
+  catData = [
+    {
+      categoryMaxVal : 100,
+      categoryRemark : "Test",
+      categoryName : "Food",
+      categoryIMG : "res://test_icon_1"
+    },
+    {
+      categoryMaxVal : 100,
+      categoryRemark : "Test2",
+      categoryName : "Games",
+      categoryIMG : "res://test_icon_2"
+    },
   ]
+
+  expData = [
+    {
+      expenseCategory: "Food",
+      expenseVal: 100,
+      expenseRemark: "Test",
+      expenseName: "Test 1",
+      expenseDate: new Date(2020,5,5)
+    },
+    {
+      expenseCategory: "Games",
+      expenseVal: 150,
+      expenseRemark: "Test",
+      expenseName: "Test 2",
+      expenseDate: new Date(2020,5,5)
+    },
+    {
+      expenseCategory: "Food",
+      expenseVal: 100,
+      expenseRemark: "Test",
+      expenseName: "Test 3",
+      expenseDate: new Date(2020,6,5)
+    },
+    {
+      expenseCategory: "Food",
+      expenseVal: 33,
+      expenseRemark: "Test",
+      expenseName: "Test 4",
+      expenseDate: new Date(2020,5,5)
+    },
+  ]
+
   constructor(
     private couchService: CouchServiceService
   ) { }
+
+  initData(){
+    this.catData.forEach(cat=>{
+      this.categoryDB.createDocument(cat)
+    })
+
+    this.expData.forEach(exp=>{
+      this.expenseDB.createDocument(exp)
+    })
+  }
 
   retrieveCategory(){
     // console.clear()
@@ -30,7 +80,13 @@ export class CouchTestComponent implements OnInit {
   retrieveExpense(){
     // console.clear()
     console.log('>>>> Expense information')
-    this.expenseDB.query({}).forEach(expense=>console.log(expense))
+    // this.expenseDB.query({}).forEach(expense=>console.log(expense))
+    console.log(this.couchService.getExpenses(new Date(2020,2,15), new Date(2020,7,1)))
+
+  }
+
+  getAllExpenses(){
+    console.log(this.expenseDB.query({}))
   }
 
   deleteData(){
@@ -52,4 +108,5 @@ export class CouchTestComponent implements OnInit {
     this.categoryDB = this.couchService.getCategoryDB()
   }
 
+  
 }

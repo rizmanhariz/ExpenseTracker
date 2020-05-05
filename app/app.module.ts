@@ -6,6 +6,8 @@ import { NativeScriptFormsModule } from 'nativescript-angular/forms'
 import { NativeScriptUIDataFormModule } from "nativescript-ui-dataform/angular";
 import { AppRoutingModule } from './app-routing.module';
 import { NativeScriptUIListViewModule } from "nativescript-ui-listview/angular"
+import { NativeScriptUISideDrawerModule } from "nativescript-ui-sidedrawer/angular";
+import { NativeScriptUIChartModule } from "nativescript-ui-chart/angular"
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -14,6 +16,8 @@ import { ActionBarComponent } from './action-bar/action-bar.component';
 import { AddCategoryComponent } from './add-category/add-category.component';
 import { CategoryComponent } from './category/category.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AppSettingsComponent } from './app-settings/app-settings.component';
+import { AccordionModule } from 'nativescript-accordion/angular';
 
 // Uncomment and add to NgModule imports if you need to use two-way binding
 // import { NativeScriptFormsModule } from 'nativescript-angular/forms';
@@ -29,7 +33,8 @@ import { ReactiveFormsModule } from '@angular/forms';
       ActionBarComponent,
       AddCategoryComponent,
       CategoryComponent,
-      CouchTestComponent
+      CouchTestComponent,
+      AppSettingsComponent
   ],
   imports: [
       NativeScriptModule,
@@ -38,6 +43,9 @@ import { ReactiveFormsModule } from '@angular/forms';
       NativeScriptUIDataFormModule,
       ReactiveFormsModule,
       NativeScriptUIListViewModule,
+      NativeScriptUISideDrawerModule,
+      NativeScriptUIChartModule,
+      AccordionModule,
   ],
   providers: [
     CouchServiceService

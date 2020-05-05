@@ -1,3 +1,4 @@
+import { AppSettingsComponent } from './app-settings/app-settings.component';
 import { CouchTestComponent } from './couch-test/couch-test.component';
 import { CategoryComponent } from './category/category.component';
 import { AddCategoryComponent } from './add-category/add-category.component';
@@ -9,13 +10,14 @@ import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  // { path: '', redirectTo: '/test', pathMatch: 'full' },
+  // { path: '', redirectTo: 'settings', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'addExpense', component: AddExpenseComponent },
   { path: 'category', component: CategoryComponent },
   { path: 'editExpense/:id', component: AddExpenseComponent },
   { path: 'addCategory', component: AddCategoryComponent },
   { path: 'editCategory/:id', component: AddCategoryComponent },
+  { path: 'settings', component: AppSettingsComponent },
   { path: 'test', component: CouchTestComponent },
   
 ];

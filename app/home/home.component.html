@@ -1,21 +1,88 @@
-<app-action-bar abTitle="Enpense Tracker"></app-action-bar>
+<app-action-bar></app-action-bar>
 <StackLayout class="p-20">
-  <Label text="Tap the button" class="h1 text-center"></Label>
-  <Button text="TAP" (tap)="onTap()" class="-primary"></Button>
-  <Label [text]="getMessage()" class="h2 text-center" textWrap="true"></Label>
-  <!-- <Button text="Firestore Add Test" (tap)="addData()" class="-primary"></Button> -->
-  <!-- <Button text="Firestore Retireive Test" (tap)="getData()" class="-primary"></Button> -->
-  <!-- <Button text="Enable network" (tap)="enableNetwork()" class="-primary"></Button> -->
-  <!-- <Button text="Disable network" (tap)="disableNetwork()" class="-primary"></Button> -->
-  <Button text="Go to Add Expense" (tap)="navigateTo('addExpense')" class="-primary"></Button>
-  <!-- <Button text="Go to Edit Expense" (tap)="navigateTo('editExpense/91fa7a07-8e0c-44e9-9c8b-6b14b380cb3f')" class="-primary"></Button> -->
-  <Button text="Go to Edit Expense" (tap)="navigateTo('editExpense/093fca35-e612-471c-9956-577b36d7e461')" class="-primary"></Button>
-  <Button text="Go to Categories" (tap)="navigateTo('category')" class="-primary"></Button>
-  <Button text="Go to Add Category" (tap)="navigateTo('addCategory')" class="-primary"></Button>
-  <Button text="Go to Edit Category" (tap)="navigateTo('editCategory/43')" class="-primary"></Button>
-  <Button text="DataTest" (tap)="navigateTo('test')" class="-primary"></Button>
+  <GridLayout rows="auto" columns="*,*" >
+    <Button text="Go to Add Expense" (tap)="navigateTo('addExpense')" class="-primary" column='0'></Button>
+    <Button text="Go to Categories" (tap)="navigateTo('category')" class="-primary" column='1'></Button>
+  </GridLayout>
+
+  <GridLayout rows="auto" columns="*,*,auto">
+    <Label text="{{getDateString(startDate) | date:shortDate}}" column="0"></Label>
+    <Label text="{{getDateString(endDate) | date:shortDate}}" column="1"></Label>
+    <Button text="GEAR" (tap)="navigateTo('settings')" column="2"></Button>
+  </GridLayout>
+  <RadPieChart *ngIf="showPie" allowAnimation="true" height = "250" (pointSelected)="seriesSelect($event)" (pointDeselected)="seriesDeselected()">
+    <DonutSeries tkPieSeries
+            selectionMode="DataPoint"
+            expandRadius="0.4"
+            outerRadiusFactor="0.7"
+            innerRadiusFactor="0.4"
+            valueProperty="spent"
+            legendLabel="categoryName"
+            showLabels="true"
+            [items]="pieValues"
+    ></DonutSeries>
+    <RadLegendView tkPieLegend position="Right" title="Category" offsetOrigin="TopRight" width="110" enableSelection="true"></RadLegendView>
+  </RadPieChart>
+
+  <ScrollView height="999">
+    <!-- <Label text='CHART AREA' textAlignment='center' fontSize=30 height=200 background='#82CAFF'></Label> -->
+    
+    <Accordion height="100%" [items]="pieValues" allowMultiple="false" [selectedIndexes]="selectedIndexes">
+
+      <ng-template let-i="index" let-item="item" acTemplateKey="title">
+        <GridLayout backgroundColor="DimGray" columns="*,*,*">
+          <Label height="100%" text="Iamge" column="0"></Label>
+          <Label height="100%" [text]="item.categoryName" column="1"></Label>
+          <Label height="100%" [text]="item.spent" column="2"></Label>
+        </GridLayout>
+      </ng-template>
+
+      <ng-template let-i="index" let-item="item" acTemplateKey="header">
+        <GridLayout backgroundColor='gray' columns="*,*,*">
+          <Label text="Name" column="0"></Label>
+          <Label text="Date" column="1"></Label>
+          <Label text="Cost" column="2"></Label>
+          
+        </GridLayout>
+          
+        
+      </ng-template>
 
 
+      <ng-template let-i="index" let-venus="item" acTemplateKey="content">
+        <GridLayout columns="*,*,*,*,*">
+          <Label [text]="venus.expenseName" column="0"></Label>
+          <Label [text]="venus.expenseDate | date: shortDate" column="1"></Label>
+          <Label [text]="venus.expenseVal" column="2"></Label>
+          <Button text="Edit" (tap)="editPress(venus.id)" column="3"></Button>
+          <Button text="Delete" (tap)="deletePress(venus.id)" column="4"></Button>
+        </GridLayout>
+
+      </ng-template>
 
 
+      <!-- <ng-template let-i="index" let-item="item" acTemplateKey="footer">
+        <StackLayout>
+          <Label backgroundColor="yellow" [text]="item.footerText"></Label>
+        </StackLayout>
+      </ng-template> -->
+    
+    
+    </Accordion>
+</ScrollView>
 </StackLayout>
+
+  
+
+
+  
+  <!-- <Button text="Go to Edit Expense" (tap)="navigateTo('editExpense/91fa7a07-8e0c-44e9-9c8b-6b14b380cb3f')" class="-primary"></Button> -->
+  <!-- <Button text="Go to Edit Expense" (tap)="navigateTo('editExpense/093fca35-e612-471c-9956-577b36d7e461')" class="-primary"></Button> -->
+  
+  <!-- <Button text="Go to Add Category" (tap)="navigateTo('addCategory')" class="-primary"></Button> -->
+
+
+
+
+
+

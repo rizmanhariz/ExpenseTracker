@@ -22,7 +22,28 @@ export class CouchServiceService {
     return this.expenseDB
   }
 
-  getCategoryList(){
+  getExpenses(startDate: Date, endDate:Date){ 
+    let queryData: Array<any> = this.expenseDB.query({
+      select: [],
+      where: [{property: 'expenseDate', comparison:'between', value:[startDate, endDate]}],
+      // where: [
+      //   {property: 'expenseDate', comparison:'greaterThan', value: startDate},
+      //   {property: 'expenseDate', comparison:'lessThan', value: endDate}
+      // ],
+      order: [{property: 'expenseDate', direction:'asc'}]
+    })
+    return queryData
+  }
+
+  deleteExpense(docID){
+    this.expenseDB.deleteDocument(docID)
+  }
+
+  getAllCategory() {
+    return this.categoryDB.query({})
+  }
+
+  getCategoryList(): any[] {
     let categoryList = []
     this.categoryDB.query({}).forEach(category=>{
       categoryList.push(category.categoryName)
