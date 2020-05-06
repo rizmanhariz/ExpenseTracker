@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular/router';
 import { RadSideDrawer } from "nativescript-ui-sidedrawer";
+import * as utils from "tns-core-modules/utils/utils"
 import * as app from "application"
 
 @Component({
@@ -16,6 +17,7 @@ export class ActionBarComponent implements OnInit {
   ) { }
 
   goNavigate(inputString) {
+    utils.ad.dismissSoftInput()
     this.routerExtensions.navigate([inputString])
   }
 
@@ -24,10 +26,6 @@ export class ActionBarComponent implements OnInit {
     sideDrawer.showDrawer();
 
   }
-
-  // goNavigate(inputString){
-  //   this.routerExtensions.navigate([inputString])
-  // }
 
   ngOnInit() {
     if (this.title == undefined) {

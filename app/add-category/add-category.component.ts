@@ -5,6 +5,8 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms"
 import { ObservableArray } from 'tns-core-modules/data/observable-array/observable-array';
 import { ListViewEventData, RadListView } from 'nativescript-ui-listview';
 import { Page } from 'tns-core-modules/ui/page/page';
+import * as utils from "tns-core-modules/utils/utils"
+
 @Component({
   selector: 'app-add-category',
   templateUrl: './add-category.component.html',
@@ -46,6 +48,9 @@ export class AddCategoryComponent implements OnInit, AfterViewInit {
   ) { }
 
   submitData(){
+    // Dismiss any open keyboards
+    utils.ad.dismissSoftInput()
+
     // Doublechecks Decimal, if user fills decimal last. 
     if (!this.categoryForm.get('categoryMaxVal').valid){
       this.validateDecimal()
@@ -158,6 +163,7 @@ export class AddCategoryComponent implements OnInit, AfterViewInit {
   }
 
   public onItemSelected(args:ListViewEventData){
+    utils.ad.dismissSoftInput()
     let imgSrc = this.imageAssets[args.index].image
     this.categoryForm.get('categoryIMG').setValue(imgSrc)
   }

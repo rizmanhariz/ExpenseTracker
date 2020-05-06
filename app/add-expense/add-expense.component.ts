@@ -1,8 +1,11 @@
+import { Validators } from '@angular/forms';
+// import { FormBuilder } from '@angular/forms';
 import { CouchServiceService } from './../services/couch-service.service';
 import { Expense } from './../interfaces/expense';
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { RouterExtensions, PageRouterOutlet } from 'nativescript-angular/router';
 import { Page } from 'tns-core-modules/ui/page/page';
+import * as utils from "tns-core-modules/utils/utils"
 @Component({
   selector: 'app-add-expense',
   templateUrl: './add-expense.component.html',
@@ -15,15 +18,27 @@ export class AddExpenseComponent implements OnInit,OnDestroy {
   categoryProvider: string[] = ["Select Category"]
   expenseDB: any; 
   private _expense: Expense;
+
+
+  // expenseForm = this.formBuilder.group({
+  //   expenseName: ["", Validators.compose([Validators.required, Validators.maxLength(15)])],
+  //   expenseCategory:["", Validators.required],
+  //   expenseDate: ["", Validators.required],
+  //   expenseVal: ["", Validators.compose([Validators.required, Validators.min(0)])],
+  //   expenseRemark: [""]
+  // })
+
   constructor(
     private routerExtensions: RouterExtensions,
     private pro: PageRouterOutlet,
     private page: Page,
     private couchService: CouchServiceService,
+    // private formBuilder: FormBuilder,
   ) {
    }
 
   goBack(){
+    utils.ad.dismissSoftInput()
     if (this.routerExtensions.canGoBack()){
       this.routerExtensions.back()
     } else {
@@ -32,18 +47,19 @@ export class AddExpenseComponent implements OnInit,OnDestroy {
   }
 
   onSubmit(){
-    if (this.expenseID==null){
-      // Add new expense
-      this.expenseDB.createDocument(this.expense)
-      // Alert that success
-      this.routerExtensions.navigate(['./home'])
-      // console.log(this.expense)
-    } else {
-      // Edit Expense
-      this.expenseDB.updateDocument(this.expenseID, this.expense)
-      // Alert on success
-      this.routerExtensions.navigate(['./home'])
-    }
+    utils.ad.dismissSoftInput()
+    // if (this.expenseID==null){
+    //   // Add new expense
+    //   this.expenseDB.createDocument(this.expense)
+    //   // Alert that success
+    //   this.routerExtensions.navigate(['./home'])
+    //   // console.log(this.expense)
+    // } else {
+    //   // Edit Expense
+    //   this.expenseDB.updateDocument(this.expenseID, this.expense)
+    //   // Alert on success
+    //   this.routerExtensions.navigate(['./home'])
+    // }
   }
 
   get expense(): Expense{
@@ -86,7 +102,7 @@ export class AddExpenseComponent implements OnInit,OnDestroy {
   }
 
   ngOnDestroy() {
-
+    
   }
 
 }
