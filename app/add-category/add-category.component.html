@@ -52,7 +52,7 @@
 
     <GridLayout rows="auto" columns="*,*">
         <Button [text]="transactionLabel" (tap)="submitData()" row="0" column="0"></Button>
-        <Button text="Cancel" (tap)="goBack()" row="0" column="1"></Button>
+        <Button text="Cancel" (tap)="goNavigate('category')" row="0" column="1"></Button>
     </GridLayout>
     
 </StackLayout>

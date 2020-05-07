@@ -1,3 +1,4 @@
+import { SnackbarService } from './../services/snackbar.service';
 import { CouchServiceService } from './../services/couch-service.service';
 import { PageRouterOutlet, RouterExtensions } from 'nativescript-angular/router';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
@@ -44,7 +45,8 @@ export class AddCategoryComponent implements OnInit, AfterViewInit {
     private formBuilder: FormBuilder,
     private page: Page,
     private routerExtensions: RouterExtensions,
-    private couchService: CouchServiceService
+    private couchService: CouchServiceService,
+    private snackBarService: SnackbarService,
   ) { }
 
   submitData(){
@@ -58,7 +60,7 @@ export class AddCategoryComponent implements OnInit, AfterViewInit {
 
     // Checks form validity
     if (!this.categoryForm.valid) {
-      // form is INVALID, raise an ALERT
+      // form is INVALID, raise an ALERT, do nothing.
       alert({
         title: "Missing Details!",
         message: "Please fill all required fields!",
@@ -66,38 +68,43 @@ export class AddCategoryComponent implements OnInit, AfterViewInit {
       })
 
     } else {
-
       // Form is Valid!
+      let successMessage: string;
+
       if (this.isAddTransaction === false) {
         // To edit an existing document
         this.categoryDB.updateDocument(this.categoryId, this.categoryForm.getRawValue())
-        console.log("Updated category")
-        this.goHome()
+        // console.log("Updated category")
+        successMessage = "Edited"
+        this.goNavigate('category')
 
 
       } else if (this.isAddTransaction === true) {
-        // To Create a new document
+        // To Create a new category
+
         // Check if name exists
         let categoryExists = this.getCategory(this.categoryForm.get('categoryName').value)
         
         if (!categoryExists) {
           // Creates a new document
           this.categoryDB.createDocument(this.categoryForm.getRawValue())
-          alert({
-            title: "Add Category",
-            message: `Successfully added ${this.categoryForm.get('categoryName').value}`,
-            okButtonText:'OK'
-          })
-          this.goBack()
+          successMessage = "Added"
+          this.goNavigate('category')
+
           
         } else {
-          // Category already exists
+          // Category already exists, raise ALERT, do nothing.
           alert({
             title: "Duplicate Category!",
             message: "Category name already exists!",
             okButtonText: 'OK'
           })
         } 
+      }
+
+      // Sncakbar only raised if successfully added/edited category
+      if (successMessage !== undefined) {
+        this.snackBarService.showMessage(`Category ${successMessage}`, 'white',"#808080")
       }
     }
   }
@@ -110,8 +117,8 @@ export class AddCategoryComponent implements OnInit, AfterViewInit {
     }
   }
 
-  goHome(){
-    this.routerExtensions.navigate(['home'])
+  goNavigate(inputString: string){
+    this.routerExtensions.navigate([inputString])
   }
 
   validateDecimal(){
@@ -164,6 +171,7 @@ export class AddCategoryComponent implements OnInit, AfterViewInit {
   }
 
   public onItemDeselected(args: ListViewEventData){
+    utils.ad.dismissSoftInput()
     this.categoryForm.get('categoryIMG').setValue("")
   }
 

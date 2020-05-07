@@ -1,3 +1,4 @@
+import { SnackbarService } from './services/snackbar.service';
 import { CouchServiceService } from './services/couch-service.service';
 import { CouchTestComponent } from './couch-test/couch-test.component';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
@@ -34,7 +35,7 @@ import { AccordionModule } from 'nativescript-accordion/angular';
       AddCategoryComponent,
       CategoryComponent,
       CouchTestComponent,
-      AppSettingsComponent
+      AppSettingsComponent,
   ],
   imports: [
       NativeScriptModule,
@@ -48,7 +49,8 @@ import { AccordionModule } from 'nativescript-accordion/angular';
       AccordionModule,
   ],
   providers: [
-    CouchServiceService
+    CouchServiceService,
+    SnackbarService
   ],
   bootstrap: [AppComponent],
   schemas: [NO_ERRORS_SCHEMA],
