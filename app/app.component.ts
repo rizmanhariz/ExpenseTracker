@@ -4,6 +4,7 @@ import { Page } from 'tns-core-modules/ui/page/page';
 import { setString, getString, hasKey } from 'tns-core-modules/application-settings'
 import { DrawerTransitionBase, RadSideDrawer, SlideInOnTopTransition } from "nativescript-ui-sidedrawer";
 import { RadSideDrawerComponent } from "nativescript-ui-sidedrawer/angular";
+import * as utils from "tns-core-modules/utils/utils"
 import * as app from 'application'
 @Component({
   selector: 'app-root',
@@ -29,9 +30,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     private drawer: RadSideDrawer;
 
   onNavigate(inputText){
-    console.log('>>>>> From system Nav')
-
-    console.log(Object.keys(this.sideDrawerTransition))
+    utils.ad.dismissSoftInput()
     this.routerExtensions.navigate([inputText])
     this.drawer.closeDrawer()
     
