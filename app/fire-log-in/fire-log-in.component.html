@@ -1,0 +1,38 @@
+<app-action-bar abTitle="BackupData"></app-action-bar>
+<StackLayout>
+    <!-- <Button text="Log In" (tap)="logIn()"></Button>
+    <Button text="Add User" (tap)="createUser()"></Button>
+    <Button text="CurrentUser" (tap)="currentUser()"></Button> -->
+    <StackLayout *ngIf="!loggedIn">
+        <Label text="Log In to backup your expenses!"></Label>
+        <RadDataForm #myLogInForm [source]="logInCreds" id="myLogInForm">
+            <TKEntityProperty tkDataFormProperty name="email" displayName="" imageResource="res://icon_name" hintText="email@address.com">
+                <TKPropertyEditor tkEntityPropertyEditor type="Email"></TKPropertyEditor>
+                <TKNonEmptyValidator tkEntityPropertyValidators errorMessage="Email can't be empty."></TKNonEmptyValidator>
+                <TKEmailValidator tkEntityPropertyValidators></TKEmailValidator>
+            </TKEntityProperty>
+            <TKEntityProperty tkDataFormProperty name="password" displayName="" imageResource="res://icon_name" hintText="Your.Password123">
+                <TKPropertyEditor tkEntityPropertyEditor type="Password"></TKPropertyEditor>
+                <TKNonEmptyValidator tkEntityPropertyValidators errorMessage="Password can't be empty."></TKNonEmptyValidator>
+                <TKMaximumLengthValidator tkEntityPropertyValidators length="12"></TKMaximumLengthValidator>
+            </TKEntityProperty>
+        </RadDataForm>
+        <GridLayout rows="auto" columns="*,*">
+            <Button text="Log In" (tap)="submitData()" column="0" *ngIf="logInPage"></Button>
+            <Button text="Register User" (tap)="submitData()" column="0" *ngIf="!logInPage"></Button>
+            <Button text="Cancel" (tap)="navigateTo('home')" column="1"></Button>
+        </GridLayout>
+        <Button [text]="toggleLabel" (tap)=toggleType()></Button> 
+
+
+        
+    </StackLayout>
+    <StackLayout *ngIf="loggedIn">
+        <Button text="Log Out" (tap)="logOut()"></Button>
+        <Button text="Backup my data" (tap)="firestoreBackup()"></Button>
+        <Button text="Restore my data" (tap)="firestoreRestore()"></Button>
+    </StackLayout>
+    <Button text="CurrentUser" (tap)="currentUser()"></Button>
+
+</StackLayout>
+
