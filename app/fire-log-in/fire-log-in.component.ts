@@ -111,7 +111,8 @@ export class FireLogInComponent implements OnInit, OnDestroy {
     confirm(options)
     .then((result:boolean)=>{
       if (result===true){
-        console.log("BACKUP ALL THAT SHIT")
+        console.log(this.user.currentUser.uid)
+        this.firestoreService.addFirebaseData(this.user.currentUser.uid)
       }
     })
   }
@@ -126,7 +127,9 @@ export class FireLogInComponent implements OnInit, OnDestroy {
     confirm(options)
     .then((result:boolean)=>{
       if (result===true){
-        console.log("CLOUD THAT SHIT")
+        // this.firestoreService.deleteFirebaseData(this.user.currentUser.uid)
+        this.firestoreService.retrieveFirebaseData(this.user.currentUser.uid)
+        // console.log(this.user.currentUser.uid)
       }
     })
   }

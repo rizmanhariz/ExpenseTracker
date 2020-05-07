@@ -1,8 +1,5 @@
 <app-action-bar abTitle="BackupData"></app-action-bar>
 <StackLayout>
-    <!-- <Button text="Log In" (tap)="logIn()"></Button>
-    <Button text="Add User" (tap)="createUser()"></Button>
-    <Button text="CurrentUser" (tap)="currentUser()"></Button> -->
     <StackLayout *ngIf="!loggedIn">
         <Label text="Log In to backup your expenses!"></Label>
         <RadDataForm #myLogInForm [source]="logInCreds" id="myLogInForm">
