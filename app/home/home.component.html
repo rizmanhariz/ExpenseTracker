@@ -1,5 +1,5 @@
 <app-action-bar></app-action-bar>
-<StackLayout class="p-20">
+<StackLayout class="p-20" *ngIf="!initializeState && !emptyExpenseState">
   <GridLayout rows="auto" columns="*,*" >
     <Button text="Go to Add Expense" (tap)="navigateTo('addExpense')" class="-primary" column='0'></Button>
     <Button text="Go to Categories" (tap)="navigateTo('category')" class="-primary" column='1'></Button>
@@ -70,6 +70,22 @@
     
     </Accordion>
 </ScrollView>
+</StackLayout>
+
+<StackLayout class="p-20" *ngIf="initializeState">
+  <Label text="Looks like you're new here! Why dont you..."></Label>
+  <Button text="Add a Category" (tap)="navigateTo('addCategory')"></Button>
+
+</StackLayout>
+
+
+
+<StackLayout class="p-20" *ngIf="emptyExpenseState">
+  <Label text="Great! You've added a Category! Why dont you..."></Label>
+  <Button text="Add an Expense" (tap)="navigateTo('addExpense')"></Button>
+  <Label text="Or maybe..."></Label>
+  <Button text="Add another Category" (tap)="navigateTo('addCategory')"></Button>
+
 </StackLayout>
 
   

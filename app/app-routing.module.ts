@@ -19,7 +19,6 @@ const routes: Routes = [
   { path: 'editCategory/:id', component: AddCategoryComponent },
   { path: 'settings', component: AppSettingsComponent },
   { path: 'test', component: CouchTestComponent },
-  
 ];
 
 @NgModule({

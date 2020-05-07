@@ -1,3 +1,4 @@
+import { SnackbarService } from './../services/snackbar.service';
 import { DecimalCurrencyValidator } from './decimalCurrencyValidator';
 import { PickerValidator } from './pickerValidator';
 import { CouchServiceService } from './../services/couch-service.service';
@@ -35,6 +36,7 @@ export class AddExpenseComponent implements OnInit,OnDestroy {
     private pro: PageRouterOutlet,
     private page: Page,
     private couchService: CouchServiceService,
+    private snackBarService: SnackbarService,
   ) {
    }
 
@@ -49,7 +51,9 @@ export class AddExpenseComponent implements OnInit,OnDestroy {
 
   onSubmit(){
     utils.ad.dismissSoftInput()
+    let successMessage: string;
     
+
     // Checks if form is valid before
     this.myExpenseForm.dataForm.validateAll()
     .then(result=>{
@@ -58,14 +62,17 @@ export class AddExpenseComponent implements OnInit,OnDestroy {
           // Add new expense
           this.expenseDB.createDocument(this.expense)
           // Alert that success
+          successMessage = "Added"
           this.routerExtensions.navigate(['./home'])
-          // console.log(this.expense)
         } else {
           // Edit Expense
           this.expenseDB.updateDocument(this.expenseID, this.expense)
           // Alert on success
+          successMessage = "Edited"
           this.routerExtensions.navigate(['./home'])
         }
+
+        this.snackBarService.showMessage(`Expense ${successMessage}`,'white','#808080')
       }
     })
   }
