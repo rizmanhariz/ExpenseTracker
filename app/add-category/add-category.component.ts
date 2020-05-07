@@ -23,8 +23,8 @@ export class AddCategoryComponent implements OnInit, AfterViewInit {
     "res://test_icon_1",
     "res://test_icon_2",
   ]
-  imageAssets=[
-  ]
+  imageAssets=[]
+  
   imageSrc: any;
   categoryDB: any;
 
@@ -110,28 +110,23 @@ export class AddCategoryComponent implements OnInit, AfterViewInit {
     }
   }
 
-  goHome() {
-    this.routerExtensions.navigate(['./home'])
+  goHome(){
+    this.routerExtensions.navigate(['home'])
   }
 
   validateDecimal(){
+    // Validates the decimal given. Reformats string to remove negatives
+    // if Decimal points >2, will reduce to 2
     let currentVal:string = this.categoryForm.get('categoryMaxVal').value;
     let invalid: boolean;
     if (currentVal.startsWith('-')) {
       currentVal = currentVal.substring(1)
-      invalid = true;
+      // invalid = true;
     }
 
-    if (currentVal.includes('.')){
-      let tempDecimal = currentVal.split('.')
-      if (tempDecimal[1].length>2){
-        tempDecimal[1] = tempDecimal[1].slice(0,2)
-        currentVal = tempDecimal.join(".")
-        invalid = true
-      }
-    }
-
-    if (invalid===true) {this.categoryForm.get('categoryMaxVal').setValue(currentVal)}
+    currentVal = parseFloat(currentVal).toFixed(2)
+    this.categoryForm.get('categoryMaxVal').setValue(currentVal)
+    // if (invalid===true) {this.categoryForm.get('categoryMaxVal').setValue(currentVal)}
   }
 
   getCategory(inputCategoryName: string){
