@@ -1,11 +1,20 @@
-import { Validators } from '@angular/forms';
-// import { FormBuilder } from '@angular/forms';
+import { DecimalCurrencyValidator } from './decimalCurrencyValidator';
+import { PickerValidator } from './pickerValidator';
 import { CouchServiceService } from './../services/couch-service.service';
 import { Expense } from './../interfaces/expense';
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ViewChild } from '@angular/core';
 import { RouterExtensions, PageRouterOutlet } from 'nativescript-angular/router';
 import { Page } from 'tns-core-modules/ui/page/page';
 import * as utils from "tns-core-modules/utils/utils"
+import { RadDataFormComponent } from 'nativescript-ui-dataform/angular/dataform-directives';
+import { registerElement } from "nativescript-angular/element-registry"
+import { NegativeValidator } from './negativeValidator';
+// import { RadDataForm } from 'nativescript-ui-dataform';
+
+registerElement("PickerValidator", ()=> <any>PickerValidator)
+registerElement("NegativeValidator", ()=> <any>NegativeValidator)
+registerElement("DecimalCurrencyValidator", ()=> <any>DecimalCurrencyValidator)
+
 @Component({
   selector: 'app-add-expense',
   templateUrl: './add-expense.component.html',
@@ -19,21 +28,13 @@ export class AddExpenseComponent implements OnInit,OnDestroy {
   expenseDB: any; 
   private _expense: Expense;
 
-
-  // expenseForm = this.formBuilder.group({
-  //   expenseName: ["", Validators.compose([Validators.required, Validators.maxLength(15)])],
-  //   expenseCategory:["", Validators.required],
-  //   expenseDate: ["", Validators.required],
-  //   expenseVal: ["", Validators.compose([Validators.required, Validators.min(0)])],
-  //   expenseRemark: [""]
-  // })
+  @ViewChild('myExpenseForm', { static: false }) myExpenseForm: RadDataFormComponent;
 
   constructor(
     private routerExtensions: RouterExtensions,
     private pro: PageRouterOutlet,
     private page: Page,
     private couchService: CouchServiceService,
-    // private formBuilder: FormBuilder,
   ) {
    }
 
@@ -48,18 +49,25 @@ export class AddExpenseComponent implements OnInit,OnDestroy {
 
   onSubmit(){
     utils.ad.dismissSoftInput()
-    // if (this.expenseID==null){
-    //   // Add new expense
-    //   this.expenseDB.createDocument(this.expense)
-    //   // Alert that success
-    //   this.routerExtensions.navigate(['./home'])
-    //   // console.log(this.expense)
-    // } else {
-    //   // Edit Expense
-    //   this.expenseDB.updateDocument(this.expenseID, this.expense)
-    //   // Alert on success
-    //   this.routerExtensions.navigate(['./home'])
-    // }
+    
+    // Checks if form is valid before
+    this.myExpenseForm.dataForm.validateAll()
+    .then(result=>{
+      if (result){
+        if (this.expenseID==null){
+          // Add new expense
+          this.expenseDB.createDocument(this.expense)
+          // Alert that success
+          this.routerExtensions.navigate(['./home'])
+          // console.log(this.expense)
+        } else {
+          // Edit Expense
+          this.expenseDB.updateDocument(this.expenseID, this.expense)
+          // Alert on success
+          this.routerExtensions.navigate(['./home'])
+        }
+      }
+    })
   }
 
   get expense(): Expense{
@@ -74,7 +82,7 @@ export class AddExpenseComponent implements OnInit,OnDestroy {
     this.expenseID = this.pro.activatedRoute.snapshot.paramMap.get('id')
     if (this.expenseID==null) {
       this.transactionLabel = "Add Expense"
-      this._expense = new Expense(null, null, new Date(), null, null)
+      this._expense = new Expense(null, "Select Category", new Date(), null, null)
     } else {
       this.transactionLabel = "Edit Expense"
       this.existingExpense = this.expenseDB.getDocument(this.expenseID)

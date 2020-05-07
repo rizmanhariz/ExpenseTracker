@@ -33,7 +33,7 @@
     <!-- <GridLayout tkExampleTitle tkToggleNavButton> -->
         <RadListView id="radListViewItem"
             row="0" [items]="imageAssets" height="300" 
-            selectionBehavior="Press" (itemSelected)="onItemSelected($event)">
+            selectionBehavior="Press" (itemSelected)="onItemSelected($event)" (itemDeselected)="onItemDeselected($event)">
             <ListViewGridLayout tkListViewLayout scrollDirection="Vertical" dynamicItemSize="false" spanCount="3"></ListViewGridLayout>
             <ng-template tkListItemTemplate let-item="item">
                 <StackLayout >

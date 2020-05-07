@@ -168,6 +168,10 @@ export class AddCategoryComponent implements OnInit, AfterViewInit {
     this.categoryForm.get('categoryIMG').setValue(imgSrc)
   }
 
+  public onItemDeselected(args: ListViewEventData){
+    this.categoryForm.get('categoryIMG').setValue("")
+  }
+
 
   ngOnInit() {
     // sets up DB conections
