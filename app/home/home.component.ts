@@ -13,14 +13,14 @@ import { confirm } from "tns-core-modules/ui/dialogs";
 })
 export class HomeComponent implements OnInit{
   expenses: any;
-  categoryList: Array<string>;
   allCategory: any;
-  // categoryList: any; 
   startDate: Date;
   endDate: Date;
   tempData:any;
   pieValues: Array<Object>;
   showPie:boolean = false;
+  initializeState:boolean;
+  emptyExpenseState:boolean;
   selectedIndexes = [];
   
   constructor(
@@ -81,42 +81,56 @@ export class HomeComponent implements OnInit{
     // console.log(`Home Component - End Date : ${this.endDate}`)
 
     // Pull all the information needed
-      // define the connections
-    // this.allCategory = this.couchService.getCategoryDB().query({})
     this.pieValues = this.couchService.getCategoryDB().query({})
-    this.categoryList = this.couchService.getCategoryList()
     this.expenses = this.couchService.getExpenses(this.startDate, this.endDate)
 
-    this.pieValues.forEach(pieValue => {
-      pieValue['spent']=0;
-      pieValue['items']=[];
-    }
-    )
-
-  
-    this.expenses.forEach(expense => {
-      let ind = this.pieValues.findIndex( elem => elem['categoryName'] === expense.expenseCategory)
-      if (ind === -1) {
-        console.log('indexNotFound')
-        this.pieValues[this.pieValues.length-1]["spent"] += expense.expenseVal
-        
+    if (this.pieValues.length === 0) {
+      this.initializeState = true
+    } else {
+      this.initializeState = false
+      if (this.expenses.length ===0) {
+        this.emptyExpenseState = true;
       } else {
-        // console.log('indexFound')
-        this.pieValues[ind]["spent"] += expense.expenseVal
-        this.pieValues[ind]["items"].push(expense)
-        this.showPie = true
+        this.emptyExpenseState = false;
       }
-    })
 
-
-    this.pieValues = this.pieValues.filter((elem)=>{
-      return elem['spent']>0
-    })
-
-
-    if (this.pieValues[this.pieValues.length-1]["spent"] === 0){
-      this.pieValues.pop()
     }
+
+    
+
+    if (this.initializeState === false && this.expenses.length>0){
+      this.pieValues.forEach(pieValue => {
+        pieValue['spent']=0;
+        pieValue['items']=[];
+      }
+      )
+  
+    
+      this.expenses.forEach(expense => {
+        let ind = this.pieValues.findIndex( elem => elem['categoryName'] === expense.expenseCategory)
+        if (ind === -1) {
+          console.log('indexNotFound')
+          this.pieValues[this.pieValues.length-1]["spent"] += expense.expenseVal
+          
+        } else {
+          // console.log('indexFound')
+          this.pieValues[ind]["spent"] += expense.expenseVal
+          this.pieValues[ind]["items"].push(expense)
+          this.showPie = true
+        }
+      })
+  
+  
+      this.pieValues = this.pieValues.filter((elem)=>{
+        return elem['spent']>0
+      })
+  
+  
+      if (this.pieValues[this.pieValues.length-1]["spent"] === 0){
+        this.pieValues.pop()
+      }
+    }
+    
 
   
 

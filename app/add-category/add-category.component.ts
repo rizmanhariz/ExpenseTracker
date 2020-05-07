@@ -76,7 +76,7 @@ export class AddCategoryComponent implements OnInit, AfterViewInit {
         this.categoryDB.updateDocument(this.categoryId, this.categoryForm.getRawValue())
         // console.log("Updated category")
         successMessage = "Edited"
-        this.goNavigate('category')
+        this.goNavigate('home')
 
 
       } else if (this.isAddTransaction === true) {
@@ -89,7 +89,7 @@ export class AddCategoryComponent implements OnInit, AfterViewInit {
           // Creates a new document
           this.categoryDB.createDocument(this.categoryForm.getRawValue())
           successMessage = "Added"
-          this.goNavigate('category')
+          this.goNavigate('home')
 
           
         } else {
