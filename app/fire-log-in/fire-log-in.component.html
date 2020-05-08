@@ -1,0 +1,39 @@
+<app-action-bar abTitle="Backup Data"></app-action-bar>
+<StackLayout>
+    <StackLayout *ngIf="!loggedIn">
+        <Label text="Log In to backup your expenses!"></Label>
+        <RadDataForm #myLogInForm [source]="logInCreds" id="myLogInForm">
+            <TKEntityProperty tkDataFormProperty name="email" displayName="" imageResource="res://icon_name" hintText="email@address.com">
+                <TKPropertyEditor tkEntityPropertyEditor type="Email"></TKPropertyEditor>
+                <TKNonEmptyValidator tkEntityPropertyValidators errorMessage="Email can't be empty."></TKNonEmptyValidator>
+                <TKEmailValidator tkEntityPropertyValidators></TKEmailValidator>
+            </TKEntityProperty>
+            <TKEntityProperty tkDataFormProperty name="password" displayName="" imageResource="res://icon_name" hintText="Your.Password123">
+                <TKPropertyEditor tkEntityPropertyEditor type="Password"></TKPropertyEditor>
+                <TKNonEmptyValidator tkEntityPropertyValidators errorMessage="Password can't be empty."></TKNonEmptyValidator>
+                <TKMaximumLengthValidator tkEntityPropertyValidators length="12"></TKMaximumLengthValidator>
+            </TKEntityProperty>
+        </RadDataForm>
+        <GridLayout rows="auto" columns="*,*">
+            <Button text="Log In" (tap)="submitData()" column="0" *ngIf="logInPage" [isEnabled]="!inProcessing"></Button>
+            <Button text="Register User" (tap)="submitData()" column="0" *ngIf="!logInPage" [isEnabled]="!inProcessing"></Button>
+            <Button text="Cancel" (tap)="navigateTo('home')" column="1" [isEnabled]="!inProcessing"></Button>
+        </GridLayout>
+        <Button [text]="toggleLabel" (tap)=toggleType() [isEnabled]="!inProcessing"></Button> 
+        <Button text="Forgot Password?" (tap)=forgotPass() [isEnabled]="!inProcessing"></Button>     
+    </StackLayout>
+
+    <StackLayout *ngIf="loggedIn">
+        <Label text="Welcome!"></Label>
+        <Button text="Backup my data" (tap)="firestoreBackup()" [isEnabled]="!inProcessing"></Button>
+        <Button text="Restore my data" (tap)="firestoreRestore()" [isEnabled]="!inProcessing"></Button>
+        <Button text="Log Out" (tap)="logOut()" [isEnabled]="!inProcessing"></Button>
+    </StackLayout>
+
+    
+    <!-- <Button text="Toggle Busy" (tap)="toggleBusy()"></Button> -->
+    
+
+</StackLayout>
+<ActivityIndicator [busy]="inProcessing" height="150" width="150"></ActivityIndicator>
+

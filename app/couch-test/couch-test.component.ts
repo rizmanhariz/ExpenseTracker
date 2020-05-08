@@ -1,3 +1,4 @@
+import { FirestoreService } from './../services/firestore.service';
 import { CouchServiceService } from './../services/couch-service.service';
 import { Component, OnInit } from '@angular/core';
 import { Couchbase } from 'nativescript-couchbase-plugin';
@@ -58,7 +59,8 @@ export class CouchTestComponent implements OnInit {
   ]
 
   constructor(
-    private couchService: CouchServiceService
+    private couchService: CouchServiceService,
+    private firestoreService: FirestoreService,
   ) { }
 
   initData(){
@@ -99,6 +101,12 @@ export class CouchTestComponent implements OnInit {
 
   deleteExpense(){
     this.couchService.resetExpenseDB()
+  }
+
+  fireStoreButton(){
+    // this.firestoreService.addFirebaseData("userID")
+    // this.firestoreService.deleteFirebaseData("userID")
+    this.firestoreService.retrieveFirebaseData("userID")
   }
 
   
