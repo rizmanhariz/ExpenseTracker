@@ -3,7 +3,7 @@ import { SnackbarService } from './../services/snackbar.service';
 import { RadDataFormComponent } from 'nativescript-ui-dataform/angular/dataform-directives';
 import { RouterExtensions } from 'nativescript-angular/router';
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { confirm } from "tns-core-modules/ui/dialogs";
+import { confirm,prompt, PromptResult, PromptOptions,inputType,capitalizationType } from "tns-core-modules/ui/dialogs";
 import * as utils from "tns-core-modules/utils/utils"
 import { Page } from 'tns-core-modules/ui/page/page';
 const firebase = require("nativescript-plugin-firebase/app")
@@ -19,7 +19,7 @@ export class FireLogInComponent implements OnInit, OnDestroy {
   logInPage: boolean = true;
   toggleLabel: string = "Register a new Account";
   logInCreds: any;
-  inProcessing: boolean;
+  inProcessing: boolean = false;
   
   @ViewChild('myLogInForm', { static: false }) myLogInForm: RadDataFormComponent;
 
@@ -30,6 +30,10 @@ export class FireLogInComponent implements OnInit, OnDestroy {
     private firestoreService : FirestoreService,
     private page: Page,
   ) { }
+
+  toggleBusy(){
+    this.inProcessing = !this.inProcessing
+  }
 
 
   navigateTo(inputString: string){
@@ -46,6 +50,7 @@ export class FireLogInComponent implements OnInit, OnDestroy {
   submitData(){
     utils.ad.dismissSoftInput()
     if (this.myLogInForm.dataForm.validateAll()){
+      this.toggleBusy()
       if (this.logInPage){  
         this.logIn()
       } else {
@@ -70,11 +75,14 @@ export class FireLogInComponent implements OnInit, OnDestroy {
     this.user.signInWithEmailAndPassword(this.logInCreds.email, this.logInCreds.password)
     .then(res=>{
       // Do what you need to do :)
+      this.toggleBusy()
+      this.snackBarService.showMessage("Successfully logged in",'white','green')
       this.clearInputs()
 
     })
     .catch(err=>{
       console.dir(err)
+      this.toggleBusy()
       if (err.code){
         this.snackBarService.showMessage("Email & password combination not found", 'white','red')
       }
@@ -85,10 +93,6 @@ export class FireLogInComponent implements OnInit, OnDestroy {
     this.user.signOut()
   }
 
-  currentUser(){
-    console.log(this.user)
-  }
-
   createUser(){
     this.user.createUserWithEmailAndPassword(this.logInCreds.email,this.logInCreds.password)
     .then(res=>{
@@ -96,9 +100,45 @@ export class FireLogInComponent implements OnInit, OnDestroy {
     })
     .catch((err)=>{
       console.log(err)
+      this.toggleBusy()
       if (err.includes("The email address is already in use by another account")){
         this.snackBarService.showMessage("Email address is already registered", 'white','red')
+      } else {
+        this.snackBarService.showMessage(err, 'white','red')
       }
+    })
+  }
+
+  forgotPass(){
+      let options: PromptOptions = {
+        title: "Reset Password",
+        // defaultText: " Please enter your email address",
+        message: "Please enter your email address",
+        okButtonText: "OK",
+        cancelButtonText: "Cancel",
+        // neutralButtonText: "Neutral",
+        cancelable: true,
+        inputType: inputType.email, // email, number, text, password, or email
+        capitalizationType: capitalizationType.none // all. none, sentences or words
+    };
+    
+    prompt(options).then((result: PromptResult) => {
+      if (result.result===true){
+        if (result.text!==""){
+          this.toggleBusy()
+          this.user.sendPasswordResetEmail(result.text)
+          .then(()=>{
+            this.toggleBusy()
+            this.snackBarService.showMessage("Password reset email sent",'white','blue')
+          })
+          .catch(err=>{
+            this.toggleBusy()
+            this.snackBarService.showMessage(err,'white','red')
+          })
+
+        }
+      }
+        
     })
   }
 
@@ -112,17 +152,17 @@ export class FireLogInComponent implements OnInit, OnDestroy {
     confirm(options)
     .then((result:boolean)=>{
       if (result===true){
-        console.log(this.user.currentUser.uid)
-        // this.firestoreService.addFirebaseData(this.user.currentUser.uid)
+        this.toggleBusy()
         this.firestoreService.backupFirebase(this.user.currentUser.uid)
         .then((ret)=>{
           if (ret===true){
-            this.inProcessing=false
+            this.toggleBusy()
             this.snackBarService.showMessage("Data has been successfully backed up!",'white','green')
+            
           }
         })
         .catch(err=>{
-          this.inProcessing=false
+          this.toggleBusy()
           this.snackBarService.showMessage("Error! Please try again later", "white","red")
           
         })
@@ -143,34 +183,32 @@ export class FireLogInComponent implements OnInit, OnDestroy {
     confirm(options)
     .then((result:boolean)=>{
       if (result===true){
+        this.toggleBusy()
         // this.firestoreService.deleteFirebaseData(this.user.currentUser.uid)
         // this.firestoreService.retrieveFirebaseData(this.user.currentUser.uid)
         this.firestoreService.restorefromFirebase(this.user.currentUser.uid)
         .then(ret=>{
+          this.toggleBusy()
           if (ret===true){
-            this.inProcessing=false
             this.snackBarService.showMessage("Data has been successfully backed up!",'white','green')
           } else {
-            this.inProcessing=false
             this.snackBarService.showMessage("Some error happened! Please try again",'white','red')
           }
         })
         .catch(err=>{
-          console.log(err)
+          this.toggleBusy()
           this.inProcessing=false
           this.snackBarService.showMessage("Some error happened! Please try again",'white','red')  
         })
+        
         
       }
     })
   }
 
-  prepFirestore(){
-    this.firestoreService.addFirebaseData(this.user.currentUser.uid)
-  }
-
   ngOnInit() {
-    // this.logOut()
+    console.dir(this.user)
+    this.logOut()
     this.clearInputs()
 
     this.user.onAuthStateChanged((user?)=>{

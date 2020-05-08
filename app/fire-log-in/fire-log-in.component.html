@@ -15,23 +15,25 @@
             </TKEntityProperty>
         </RadDataForm>
         <GridLayout rows="auto" columns="*,*">
-            <Button text="Log In" (tap)="submitData()" column="0" *ngIf="logInPage"></Button>
-            <Button text="Register User" (tap)="submitData()" column="0" *ngIf="!logInPage"></Button>
-            <Button text="Cancel" (tap)="navigateTo('home')" column="1"></Button>
+            <Button text="Log In" (tap)="submitData()" column="0" *ngIf="logInPage" [isEnabled]="!inProcessing"></Button>
+            <Button text="Register User" (tap)="submitData()" column="0" *ngIf="!logInPage" [isEnabled]="!inProcessing"></Button>
+            <Button text="Cancel" (tap)="navigateTo('home')" column="1" [isEnabled]="!inProcessing"></Button>
         </GridLayout>
-        <Button [text]="toggleLabel" (tap)=toggleType()></Button> 
-
-
-        
+        <Button [text]="toggleLabel" (tap)=toggleType() [isEnabled]="!inProcessing"></Button> 
+        <Button text="Forgot Password?" (tap)=forgotPass() [isEnabled]="!inProcessing"></Button>     
     </StackLayout>
+
     <StackLayout *ngIf="loggedIn">
         <Label text="Welcome!"></Label>
-        <Button text="Backup my data" (tap)="firestoreBackup()"></Button>
-        <Button text="Restore my data" (tap)="firestoreRestore()"></Button>
-        <Button text="SOme nonesense" (tap)="prepFirestore()" backgroundColor = 'blue'></Button>
-        <Button text="Log Out" (tap)="logOut()"></Button>
+        <Button text="Backup my data" (tap)="firestoreBackup()" [isEnabled]="!inProcessing"></Button>
+        <Button text="Restore my data" (tap)="firestoreRestore()" [isEnabled]="!inProcessing"></Button>
+        <Button text="Log Out" (tap)="logOut()" [isEnabled]="!inProcessing"></Button>
     </StackLayout>
-    <Button text="CurrentUser" (tap)="currentUser()"></Button>
+
+    
+    <!-- <Button text="Toggle Busy" (tap)="toggleBusy()"></Button> -->
+    
 
 </StackLayout>
+<ActivityIndicator [busy]="inProcessing" height="150" width="150"></ActivityIndicator>
 
