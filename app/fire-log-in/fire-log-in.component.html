@@ -1,4 +1,4 @@
-<app-action-bar abTitle="BackupData"></app-action-bar>
+<app-action-bar abTitle="Backup Data"></app-action-bar>
 <StackLayout>
     <StackLayout *ngIf="!loggedIn">
         <Label text="Log In to backup your expenses!"></Label>
@@ -25,9 +25,11 @@
         
     </StackLayout>
     <StackLayout *ngIf="loggedIn">
-        <Button text="Log Out" (tap)="logOut()"></Button>
+        <Label text="Welcome!"></Label>
         <Button text="Backup my data" (tap)="firestoreBackup()"></Button>
         <Button text="Restore my data" (tap)="firestoreRestore()"></Button>
+        <Button text="SOme nonesense" (tap)="prepFirestore()" backgroundColor = 'blue'></Button>
+        <Button text="Log Out" (tap)="logOut()"></Button>
     </StackLayout>
     <Button text="CurrentUser" (tap)="currentUser()"></Button>
 

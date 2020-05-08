@@ -19,6 +19,7 @@ export class FireLogInComponent implements OnInit, OnDestroy {
   logInPage: boolean = true;
   toggleLabel: string = "Register a new Account";
   logInCreds: any;
+  inProcessing: boolean;
   
   @ViewChild('myLogInForm', { static: false }) myLogInForm: RadDataFormComponent;
 
@@ -112,7 +113,22 @@ export class FireLogInComponent implements OnInit, OnDestroy {
     .then((result:boolean)=>{
       if (result===true){
         console.log(this.user.currentUser.uid)
-        this.firestoreService.addFirebaseData(this.user.currentUser.uid)
+        // this.firestoreService.addFirebaseData(this.user.currentUser.uid)
+        this.firestoreService.backupFirebase(this.user.currentUser.uid)
+        .then((ret)=>{
+          if (ret===true){
+            this.inProcessing=false
+            this.snackBarService.showMessage("Data has been successfully backed up!",'white','green')
+          }
+        })
+        .catch(err=>{
+          this.inProcessing=false
+          this.snackBarService.showMessage("Error! Please try again later", "white","red")
+          
+        })
+        // this.firestoreService.deleteFirebaseData(this.user.currentUser.uid)
+        
+
       }
     })
   }
@@ -128,14 +144,33 @@ export class FireLogInComponent implements OnInit, OnDestroy {
     .then((result:boolean)=>{
       if (result===true){
         // this.firestoreService.deleteFirebaseData(this.user.currentUser.uid)
-        this.firestoreService.retrieveFirebaseData(this.user.currentUser.uid)
-        // console.log(this.user.currentUser.uid)
+        // this.firestoreService.retrieveFirebaseData(this.user.currentUser.uid)
+        this.firestoreService.restorefromFirebase(this.user.currentUser.uid)
+        .then(ret=>{
+          if (ret===true){
+            this.inProcessing=false
+            this.snackBarService.showMessage("Data has been successfully backed up!",'white','green')
+          } else {
+            this.inProcessing=false
+            this.snackBarService.showMessage("Some error happened! Please try again",'white','red')
+          }
+        })
+        .catch(err=>{
+          console.log(err)
+          this.inProcessing=false
+          this.snackBarService.showMessage("Some error happened! Please try again",'white','red')  
+        })
+        
       }
     })
   }
 
+  prepFirestore(){
+    this.firestoreService.addFirebaseData(this.user.currentUser.uid)
+  }
+
   ngOnInit() {
-    this.logOut()
+    // this.logOut()
     this.clearInputs()
 
     this.user.onAuthStateChanged((user?)=>{
