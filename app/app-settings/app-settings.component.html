@@ -1,6 +1,6 @@
 <app-action-bar abTitle="Settings"></app-action-bar>
 <StackLayout class="main-container">
-    <GridLayout [formGroup]="settingForm" rows="50" columns="auto,*" class="setting-form">
+    <GridLayout [formGroup]="settingForm" rows="auto" columns="auto,*" class="setting-form">
         <Label text="Currency Prefix" column="0"></Label>
         <TextField formControlName="currencySymbol" hint="Prefix" maxLength="15" column="1" ></TextField>
     </GridLayout>
