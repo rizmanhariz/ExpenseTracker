@@ -1,1 +1,5 @@
 /* Add mobile styles for the component here.  */
+RadListView{
+    padding-right: 10;
+    padding-left: 10;
+}

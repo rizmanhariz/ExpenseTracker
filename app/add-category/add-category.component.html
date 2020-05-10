@@ -1,58 +1,35 @@
 <app-action-bar abTitle="{{transactionLabel}}"></app-action-bar>
 
-<StackLayout [formGroup]="categoryForm">
+<StackLayout [formGroup]="categoryForm" class="main-container" (tap)="onTap()">
     <TextField formControlName="categoryName" hint="Category Name" maxLength="15"></TextField>
     <TextField formControlName="categoryMaxVal" hint="BudgetValue" keyboardType="number" (blur)="validateDecimal()"></TextField>
     <TextField formControlName="categoryRemark" hint="Remark" ></TextField>
-    <!-- <TextField formControlName="categoryMaxVal" hint="Value" ></TextField> -->
 
     <Label text="Category image" class="p"></Label>
-    <!-- <ListView [items]="imageAssets">
-        <ng-template let-item="item" let-i="index">
-            <GridLayout columns="auto,*">
-                <Image
-                    [src]="item.image", stretch="none"
-                ></Image>
-                <Label></Label>
-            </GridLayout>
-        </ng-template>
-
-    </ListView> -->
-
-    <!-- <ScrollView height = "200">
-        <GridLayout columns="*,*,*" [rows]="gridRowString">
-            <div *ngFor="let imageAsset of imageAssets">
-                <Image 
-                [src]="imageAsset.image", stretch="none"
-                [row]="imageAsset.row" [col]="imageAsset.col"
-                (tap)="tapImage(imageAsset)"></Image>
-            </div>
-        </GridLayout>
-    </ScrollView> -->
 
     <!-- <GridLayout tkExampleTitle tkToggleNavButton> -->
-        <RadListView id="radListViewItem"
-            row="0" [items]="imageAssets" height="300" 
-            selectionBehavior="Press" (itemSelected)="onItemSelected($event)" (itemDeselected)="onItemDeselected($event)">
-            <ListViewGridLayout tkListViewLayout scrollDirection="Vertical" dynamicItemSize="false" spanCount="3"></ListViewGridLayout>
-            <ng-template tkListItemTemplate let-item="item">
-                <StackLayout >
-                
-                    <Image
-                        [src]="item.image" height="40" stretch="aspectFit"
-                    ></Image>
-          
-                </StackLayout>
+    <RadListView id="radListViewItem"
+        row="0" [items]="imageAssets" height="300" 
+        selectionBehavior="Press" (itemSelected)="onItemSelected($event)" (itemDeselected)="onItemDeselected($event)">
+        <ListViewGridLayout tkListViewLayout scrollDirection="Vertical" dynamicItemSize="false" spanCount="3"></ListViewGridLayout>
+        <ng-template tkListItemTemplate let-item="item">
+            <StackLayout >
+            
+                <Image
+                    [src]="item.image" height="35" stretch="aspectFit"
+                ></Image>
+        
+            </StackLayout>
 
-            </ng-template>
-        </RadListView>
+        </ng-template>
+    </RadListView>
 
     <!-- </GridLayout> -->
     
 
     <GridLayout rows="auto" columns="*,*">
-        <Button [text]="transactionLabel" (tap)="submitData()" row="0" column="0"></Button>
-        <Button text="Cancel" (tap)="goNavigate('category')" row="0" column="1"></Button>
+        <Button [text]="transactionLabel" (tap)="submitData()" row="0" column="0" class="my-ui-button"></Button>
+        <Button text="Cancel" (tap)="goNavigate('category')" row="0" column="1" class="my-ui-button"></Button>
     </GridLayout>
     
 </StackLayout>

@@ -49,6 +49,10 @@ export class AddCategoryComponent implements OnInit, AfterViewInit {
     private snackBarService: SnackbarService,
   ) { }
 
+  onTap(){
+    utils.ad.dismissSoftInput()
+  }
+
   submitData(){
     // Dismiss any open keyboards
     utils.ad.dismissSoftInput()
