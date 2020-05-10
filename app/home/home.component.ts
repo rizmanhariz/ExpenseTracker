@@ -76,7 +76,7 @@ export class HomeComponent implements OnInit{
     // cancelButtonText: "No",
     neutralButtonText: "Cancel"
     }
-    confirm("Are you sure you wish to delete?").then((result: boolean) => {
+    confirm(options).then((result: boolean) => {
       if (result===true) {
         this.couchService.deleteExpense(id)
         this.ngOnInit()
@@ -100,9 +100,6 @@ export class HomeComponent implements OnInit{
     this.selectedIndexes=[]
   }
 
-
-
-
   navigateTo(inputRoute:string){
     this.routerExtensions.navigate([inputRoute])
   }
@@ -118,6 +115,15 @@ export class HomeComponent implements OnInit{
 
     // Pull all the information needed
     this.pieValues = this.couchService.getCategoryDB().query({})
+    
+    // [{
+    //   JS:   "id": "01d3c198-b075-4602-8814-a214ab119e66",
+    //   JS:   "categoryMaxVal": "100.00",
+    //   JS:   "categoryRemark": "550",
+    //   JS:   "categoryIMG": "res://cat_icon_01",
+    //   JS:   "categoryName": "Mobile"
+    //   JS: },
+
     this.expenses = this.couchService.getExpenses(this.startDate, this.endDate)
 
     if (this.pieValues.length === 0) {
@@ -136,6 +142,13 @@ export class HomeComponent implements OnInit{
 
     if (this.initializeState === false && this.expenses.length>0){
       this.myColors = []
+      // pushes an group for costs with no matching categories
+      this.pieValues.push({
+        categoryMaxVal:"0.00",
+        categoryRemark:"N/A",
+        categoryIMG:"res://cat_unknown",
+        categoryName: "Others"
+      })
 
       let colorCounter = 0
       this.pieValues.forEach(pieValue => {
@@ -155,6 +168,7 @@ export class HomeComponent implements OnInit{
         if (ind === -1) {
           console.log('indexNotFound')
           this.pieValues[this.pieValues.length-1]["spent"] += expense.expenseVal
+          this.pieValues[this.pieValues.length-1]["items"].push(expense)
           
         } else {
           // console.log('indexFound')
