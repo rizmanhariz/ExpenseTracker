@@ -1,1 +1,48 @@
 /* Add mobile styles for the component here.  */
+Label{
+    font-size: 15;
+    font-weight: bold;
+    /* background: var(--sixa); */
+    vertical-align: center;
+}
+
+TextField{
+    vertical-align: center;
+}
+
+
+
+.setting-form{
+    background: var(--sixa);
+    border-radius: 5;
+    border-width: 2;
+    border-color: var(--prim);
+    vertical-align: middle;
+    
+}
+
+DatePicker{
+    margin-bottom: 5;
+    height: 175;
+    background: var(--sixa);
+    border-radius: 5;
+    border-width: 2;
+    border-color: var(--prim);
+    /* color: blue; */
+}
+
+.main-container{
+    padding-left: 5;
+    padding-right: 5;
+    background: linear-gradient(-45deg, var(--tert), var(--sixa), white);
+}
+
+StackLayout{
+    border-radius: 5;
+    padding-top: 5;
+    padding-bottom: 5;
+    /* padding-left: 5;
+    padding-right: 5; */
+    margin-top: 0;
+    margin-bottom: 0;
+}

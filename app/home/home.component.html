@@ -8,8 +8,8 @@
   <GridLayout rows="auto, auto" columns="*,*" class='time-Grid'>
     <Label text="Start Date" row="0" column="0" class="time-label"></Label>
     <Label text="End Date" row="0" column="1" class="time-label"></Label>
-    <Button text="{{getDateString(startDate) | date:shortDate}}" (tap)="navigateTo('settings')" row="1" column="0" class="time-button"></Button>
-    <Button text="{{getDateString(endDate) | date:shortDate}}" (tap)="navigateTo('settings')" row="1" column="1" class="time-button"></Button>
+    <Button text="{{getDateString(startDate) | date:shortDate}}" (tap)="navigateTo('settings')" row="1" column="0" class="time-button my-ui-button"></Button>
+    <Button text="{{getDateString(endDate) | date:shortDate}}" (tap)="navigateTo('settings')" row="1" column="1" class="time-button my-ui-button"></Button>
     <!-- <Button text="GEAR" (tap)="navigateTo('settings')" column="2"></Button> -->
   </GridLayout>
   <RadPieChart *ngIf="showPie" allowAnimation="true" height = "250" (pointSelected)="seriesSelect($event)" (pointDeselected)="seriesDeselected()">
@@ -65,8 +65,8 @@
           <Label [text]="venus.expenseName" column="0" class="my-content-text content-bordered"></Label>
           <Label [text]="venus.expenseDate | date: 'MMM d y'" column="1" class="my-content-text content-bordered"></Label>
           <Label [text]="venus.expenseVal | number:'.2-2'" column="2" class="my-content-text content-bordered"></Label>
-          <Button text="Edit" (tap)="editPress(venus.id)" column="3"></Button>
-          <Button text="Del" (tap)="deletePress(venus.id)" column="4"></Button>
+          <Button class="my-ui-button" text="Edit" (tap)="editPress(venus.id)" column="3"></Button>
+          <Button class="my-ui-button" text="Del" (tap)="deletePress(venus.id)" column="4"></Button>
         </GridLayout>
 
       </ng-template>
@@ -85,8 +85,8 @@
 
 <StackLayout class="p-20" *ngIf="initializeState" class="init-page">
   <Label text="Looks like you're new here! Why dont you..."></Label>
-  <Button text="Add a Category" (tap)="navigateTo('addCategory')"></Button>
-  <Button text="Restore from the cloud" (tap)="navigateTo('logIn')"></Button>
+  <Button class="my-ui-button" text="Add a Category" (tap)="navigateTo('addCategory')"></Button>
+  <Button class="my-ui-button" text="Restore from the cloud" (tap)="navigateTo('logIn')"></Button>
 
 </StackLayout>
 
@@ -94,9 +94,9 @@
 
 <StackLayout class="p-20" *ngIf="emptyExpenseState" class="init-two">
   <Label text="Great! You've added a Category! Why dont you..."></Label>
-  <Button text="Add an Expense" (tap)="navigateTo('addExpense')"></Button>
+  <Button class="my-ui-button" text="Add an Expense" (tap)="navigateTo('addExpense')"></Button>
   <Label text="Or maybe..."></Label>
-  <Button text="Add another Category" (tap)="navigateTo('addCategory')"></Button>
+  <Button class="my-ui-button" text="Add another Category" (tap)="navigateTo('addCategory')"></Button>
 
 </StackLayout>
 

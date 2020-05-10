@@ -1,14 +1,22 @@
 <app-action-bar abTitle="Settings"></app-action-bar>
-
-<StackLayout>
-    <Label text="Start Date"></Label>
-    <DatePicker [years]="startDate.getFullYear()" [month]="startDate.getMonth()+1" [day]="startDate.getDate()" class='date-picker' (dateChange)="updateStartDate($event)"></DatePicker>
-    <Label text="End Date"></Label>
-    <DatePicker [years]="endDate.getFullYear()" [month]="endDate.getMonth()+1" [day]="endDate.getDate()" class='date-picker' (dateChange)="updateEndDate($event)"></DatePicker>
-
-    <GridLayout columns="*,*">
-        <Button text="Change Dates" (tap)="submitDate()" column="0"></Button>
-        <Button text="Cancel" (tap)="goBack()" column="1"></Button>
+<StackLayout class="main-container">
+    <GridLayout [formGroup]="settingForm" rows="50" columns="auto,*" class="setting-form">
+        <Label text="Currency Prefix" column="0"></Label>
+        <TextField formControlName="currencySymbol" hint="Prefix" maxLength="15" column="1" ></TextField>
     </GridLayout>
+    <StackLayout (tap)="dismissKeyboard()">
+        <Label text="Start Date"></Label>
+        <DatePicker [years]="startDate.getFullYear()" [month]="startDate.getMonth()+1" [day]="startDate.getDate()" class='date-picker' (dateChange)="updateStartDate($event)" datePickerMode="calendar"></DatePicker>
+        <Label text="End Date"></Label>
+        <DatePicker [years]="endDate.getFullYear()" [month]="endDate.getMonth()+1" [day]="endDate.getDate()" class='date-picker' (dateChange)="updateEndDate($event)"></DatePicker>
 
+        
+
+        <GridLayout columns="*,*" rows="auto">
+            <Button text="Change Settings" (tap)="submitDate()" column="0" class="my-ui-button"></Button>
+            <Button text="Cancel" (tap)="goBack()" column="1" class="my-ui-button"></Button>
+        </GridLayout>
+
+
+    </StackLayout>
 </StackLayout>

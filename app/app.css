@@ -1,6 +1,6 @@
  
 @import '~@nativescript/theme/css/core.css';
-@import '~@nativescript/theme/css/blue.css';
+/* @import '~@nativescript/theme/css/blue.css'; */
 
 /* https://coolors.co/143601-1a4301-245501-538d22-73a942-aad576 */
 .ns-root {
@@ -12,13 +12,30 @@
     --sixa: #aad576;
 }
 
+.ns-modal{
+    --prim: #143601;
+    --secun: #1a4301;
+    --tert: #245501;
+    --tetra: #538d22;
+    --fifth: #73a942;
+    --sixa: #aad576;
+}
 
-Button{
+TextField{
+    color: black;
+    placeholder-color: #a4a4a4;
+    max-height: 40;
+    /* background-color: blue; */
+    /* font-size: ; */
+}
+
+.my-ui-button{
     background: var(--tert);
+    background-color: var(--tert);
     color: white;
 }
 
-Button:active{
+.my-ui-button:active{
     background: var(--fifth);
     color: white;
 }
@@ -59,7 +76,7 @@ Button:active{
 
 }
 
-.introMessage{
+.intro-message{
     color: white;
     font-size: 18;
     /* vertical-align: center; */
