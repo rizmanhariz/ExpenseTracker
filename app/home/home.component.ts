@@ -188,17 +188,6 @@ export class HomeComponent implements OnInit{
         this.totalExpenseValue = this.totalExpenseValue + elem['spent']
       })
   
-  
-      if (this.pieValues[this.pieValues.length-1]["spent"] === 0){
-        this.pieValues.pop()
-      }
-
-      // console.log(this.pieValues)
-    }
-    
-
-  
-
-    
+    }  
   }
 }
