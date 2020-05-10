@@ -3,3 +3,9 @@ RadListView{
     padding-right: 10;
     padding-left: 10;
 }
+
+Label {
+    font-weight: bold;
+    font-size: 15;
+    padding-left: 15;
+}

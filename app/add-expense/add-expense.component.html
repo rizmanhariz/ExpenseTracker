@@ -11,24 +11,24 @@
 
 <StackLayout class="p-20 main-container" >
     <RadDataForm #myExpenseForm [source]="expense" id="myDataForm">
-        <TKEntityProperty tkDataFormProperty name="expenseName" displayName="" imageResource="res://icon_name" hintText="Expense Name">
+        <TKEntityProperty tkDataFormProperty name="expenseName" displayName="" imageResource="res://forms_name" hintText="Expense Name">
             <TKNonEmptyValidator tkEntityPropertyValidators errorMessage="Username can't be empty."></TKNonEmptyValidator>
 		    <TKMaximumLengthValidator tkEntityPropertyValidators errorMessage="Username can be at most 12 characters." length="12"></TKMaximumLengthValidator>
         </TKEntityProperty>
-        <TKEntityProperty tkDataFormProperty name="expenseCategory" displayName="" imageResource="res://icon_category" valuesProvider="{{categoryProvider}}">
+        <TKEntityProperty tkDataFormProperty name="expenseCategory" displayName="" imageResource="res://forms_category" valuesProvider="{{categoryProvider}}">
             <TKPropertyEditor tkEntityPropertyEditor type="Picker"></TKPropertyEditor>
             <PickerValidator tkEntityPropertyValidators></PickerValidator>
         </TKEntityProperty>
-        <TKEntityProperty tkDataFormProperty name="expenseDate" displayName="" imageResource="res://icon_date" >
+        <TKEntityProperty tkDataFormProperty name="expenseDate" displayName="" imageResource="res://forms_date" >
             <TKPropertyEditor tkEntityPropertyEditor type="DatePicker"></TKPropertyEditor>
         </TKEntityProperty>
-        <TKEntityProperty tkDataFormProperty name="expenseVal" displayName="" imageResource="res://icon_cost" hintText="Expense Cost" >
+        <TKEntityProperty tkDataFormProperty name="expenseVal" displayName="" imageResource="res://forms_cost" hintText="Expense Cost" >
             <TKPropertyEditor tkEntityPropertyEditor type="Decimal"></TKPropertyEditor>
             <TKNonEmptyValidator tkEntityPropertyValidators errorMessage="Cost cannot be empty"></TKNonEmptyValidator>
             <NegativeValidator tkEntityPropertyValidators></NegativeValidator>
             <DecimalCurrencyValidator tkEntityPropertyValidators></DecimalCurrencyValidator>
         </TKEntityProperty>
-        <TKEntityProperty tkDataFormProperty name="expenseRemark" displayName="" imageResource="res://icon_remark" hintText="Remarks"></TKEntityProperty>
+        <TKEntityProperty tkDataFormProperty name="expenseRemark" displayName="" imageResource="res://forms_remarks" hintText="Remarks"></TKEntityProperty>
 
         
     </RadDataForm>

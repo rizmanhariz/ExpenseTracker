@@ -21,8 +21,34 @@ export class AddCategoryComponent implements OnInit, AfterViewInit {
   existingCategory: any;
   // to be replaced with something pulled by Service.
   imageSource = [
-    "res://test_icon_1",
-    "res://test_icon_2",
+    "res://cat_icon_01",
+    "res://cat_icon_02",
+    "res://cat_icon_03",
+    "res://cat_icon_04",
+    "res://cat_icon_05",
+    "res://cat_icon_06",
+    "res://cat_icon_07",
+    "res://cat_icon_08",
+    "res://cat_icon_09",
+    "res://cat_icon_10",
+    "res://cat_icon_11",
+    "res://cat_icon_12",
+    "res://cat_icon_13",
+    "res://cat_icon_14",
+    "res://cat_icon_15",
+    "res://cat_icon_16",
+    "res://cat_icon_17",
+    "res://cat_icon_18",
+    "res://cat_icon_19",
+    "res://cat_icon_20",
+    "res://cat_icon_21",
+    "res://cat_icon_22",
+    "res://cat_icon_23",
+    "res://cat_icon_24",
+    "res://cat_icon_25",
+    "res://cat_icon_26",
+    "res://cat_icon_27",
+    "res://cat_icon_28",
   ]
   imageAssets=[]
   

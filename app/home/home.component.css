@@ -7,6 +7,13 @@ RadPieChart{
     background: white;
 }
 
+.intro-label{
+    padding-left: 10;
+    font-size: 15;
+    font-weight: bold;
+
+}
+
 .time-button{
     margin-top: -4;
 }

@@ -3,12 +3,12 @@
     <StackLayout *ngIf="!loggedIn">
         <Label text="Log In to backup/restore your expenses!"></Label>
         <RadDataForm #myLogInForm [source]="logInCreds" id="myLogInForm">
-            <TKEntityProperty tkDataFormProperty name="email" displayName="" imageResource="res://icon_name" hintText="email@address.com">
+            <TKEntityProperty tkDataFormProperty name="email" displayName="" imageResource="res://forms_email" hintText="email@address.com">
                 <TKPropertyEditor tkEntityPropertyEditor type="Email"></TKPropertyEditor>
                 <TKNonEmptyValidator tkEntityPropertyValidators errorMessage="Email can't be empty."></TKNonEmptyValidator>
                 <TKEmailValidator tkEntityPropertyValidators></TKEmailValidator>
             </TKEntityProperty>
-            <TKEntityProperty tkDataFormProperty name="password" displayName="" imageResource="res://icon_name" hintText="Your.Password123">
+            <TKEntityProperty tkDataFormProperty name="password" displayName="" imageResource="res://forms_password" hintText="Your.Password123">
                 <TKPropertyEditor tkEntityPropertyEditor type="Password"></TKPropertyEditor>
                 <TKNonEmptyValidator tkEntityPropertyValidators errorMessage="Password can't be empty."></TKNonEmptyValidator>
                 <TKMaximumLengthValidator tkEntityPropertyValidators length="12"></TKMaximumLengthValidator>
@@ -24,7 +24,7 @@
     </StackLayout>
 
     <StackLayout *ngIf="loggedIn">
-        <Label text="You can "></Label>
+        <Label text="You can..."></Label>
         <Button text="Backup my data" (tap)="firestoreBackup()" [isEnabled]="!inProcessing" class="my-ui-button"></Button>
         <Button text="Restore my data" (tap)="firestoreRestore()" [isEnabled]="!inProcessing" class="my-ui-button"></Button>
         <Button text="Log Out" (tap)="logOut()" [isEnabled]="!inProcessing" class="my-ui-button"></Button>
