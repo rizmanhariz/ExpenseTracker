@@ -64,7 +64,6 @@ export class HomeComponent implements OnInit{
   }
 
   editPress(id){
-    // console.log(`Edit ${id}`)
     this.routerExtensions.navigate(['editExpense',id])
   }
 
@@ -115,14 +114,7 @@ export class HomeComponent implements OnInit{
 
     // Pull all the information needed
     this.pieValues = this.couchService.getCategoryDB().query({})
-    
-    // [{
-    //   JS:   "id": "01d3c198-b075-4602-8814-a214ab119e66",
-    //   JS:   "categoryMaxVal": "100.00",
-    //   JS:   "categoryRemark": "550",
-    //   JS:   "categoryIMG": "res://cat_icon_01",
-    //   JS:   "categoryName": "Mobile"
-    //   JS: },
+
 
     this.expenses = this.couchService.getExpenses(this.startDate, this.endDate)
 
