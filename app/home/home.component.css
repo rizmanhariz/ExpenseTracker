@@ -1,0 +1,127 @@
+RadPieChart{
+    border-width: 2;
+    border-radius: 6;
+    border-color: var(--fifth);
+    margin-bottom: 5;
+
+    background: white;
+}
+
+.time-button{
+    margin-top: -4;
+}
+
+
+.date-text{
+    font-size: 15;
+    text-align: center;
+    /* vertical-align: center; */
+    background: var(--tetra);
+    border-radius: 5;
+    margin-left:2;
+    margin-right:2;
+    color: white;
+    height: 40;
+    padding-top: 10;
+    
+}
+
+StackLayout{
+    background: linear-gradient(-45deg, var(--tert), var(--sixa), white);
+    padding-left: 5;
+    padding-right: 5;
+}
+
+.time-Grid{
+    /* background: var(--sixa); */
+    background: white;
+    padding: 0;
+    margin-top: 5;
+    margin-bottom: 5;
+    border-width: 2;
+    border-color: var(--fifth);
+    border-radius: 5;
+}
+
+.my-sum-data{
+    background: white;
+    border-width: 0.5;
+    border-color: var(--prim);
+    border-radius: 5;
+    border-color:black;
+    border-width: 2;
+    font-size:15;
+    font-weight: bold;
+    text-align: center;
+    /* font-weight: bold; */
+}
+
+.time-label{
+    padding-left: 12;
+    padding-top: 10;
+    padding-bottom: 0;
+    /* text-align: bottom; */
+    font-weight: bold;
+}
+
+
+.data-title{
+    /* height: 20; */
+    /* border-top-width: 1;
+    border-left-width: 2;
+    border-right-width: 2;
+    border-bottom-width: 1;
+    border-color: var(--prim); */
+    border-top-left-radius: 5;
+    border-top-right-radius: 5;
+    font-size:15;
+    font-weight: bold;
+    /* vertical-align: boo; */
+    /* margin-top: 5; */
+}
+
+.data-title .title-text{
+    vertical-align: center;
+    text-align: center;
+}
+
+.my-data-header{
+    font-weight:bold;
+    /* background:white; */
+    background: #E0E0E0;
+    font-weight: bold;
+    border-bottom-width: 1;
+    border-bottom-color: black;
+    text-align: center;
+}
+
+.header-text{
+    border-right-width: 0.5;
+    border-right-color: black;
+}
+
+
+
+
+.my-data-content{
+    /* background: wi; */
+    background: white;
+    border-bottom-width: 0.5;
+    border-bottom-color: var(--prim);
+    max-width: 200;
+}
+
+.my-content-text{
+    text-align: center;
+    vertical-align: center;
+}
+
+.content-bordered{
+    border-right-width: 0.5;
+    border-right-color: var(--prim)
+}
+
+/* .my-data-content .content-text{
+    border-right-width: 0.5;
+    border-right-color: black;
+} */

@@ -2,12 +2,79 @@
 @import '~@nativescript/theme/css/core.css';
 @import '~@nativescript/theme/css/blue.css';
 
-/* 
-.fa {
+/* https://coolors.co/143601-1a4301-245501-538d22-73a942-aad576 */
+.ns-root {
+    --prim: #143601;
+    --secun: #1a4301;
+    --tert: #245501;
+    --tetra: #538d22;
+    --fifth: #73a942;
+    --sixa: #aad576;
+}
+
+
+Button{
+    background: var(--tert);
+    color: white;
+}
+
+Button:active{
+    background: var(--fifth);
+    color: white;
+}
+
+.sidedrawer-header{
+    background: var(--prim);
+    color: white;
+    padding-top: 25;
+}
+
+.drawer-scroll{
+    background: linear-gradient(to bottom, var(--prim), var(--tetra), var(--fifth));
+    text-align: center
+}
+
+.line-item{
+    background: var(--tetra);
+    /* vertical-align: bottom; */
+    border-radius: 4;
+    padding-top: 5;
+    margin-top: 5;
+    margin-left: 10;
+    margin-right: 10;
+}
+
+.line-item:a{
+    background: var(--fifth);
+}
+
+.line-text{
+    /* vertical-align: bottom; */
+    background: var(--sixa);
+    color: black;
+    height: 40;
+    border-radius:4;
+    padding-top: 5;
+    font-size: 20;
+
+}
+
+.introMessage{
+    color: white;
+    font-size: 18;
+    /* vertical-align: center; */
+    text-align: center;
+    padding-top: 10;
+}
+
+
+
+/* .fa {
     font-family: "FontAwesome";
 }
 
 .page-content .page-placeholder {
+    color: #D7D7D7;
     color: #D7D7D7;
     font-size: 20;
     vertical-align: center;
@@ -44,12 +111,14 @@
 }
 .sidedrawer .sidedrawer-header {
     background-color: #3A53FF;
+    
 }
 .sidedrawer .sidedrawer-header .sidedrawer-header-brand {
     color: #fff;
 }
 .sidedrawer .sidedrawer-content{ 
     background-color: #fff;
+    background-color: var(--tert);
 }
 .sidedrawer .sidedrawer-content .sidedrawer-list-item{
     padding-left: 15;

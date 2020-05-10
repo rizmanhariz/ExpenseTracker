@@ -3,8 +3,9 @@ import { CouchServiceService } from './../services/couch-service.service';
 import { FirestoreService } from './../services/firestore.service';
 import { Component, OnInit } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular/router';
-import { Frame } from 'tns-core-modules/ui/frame/frame';
+import { Frame, Color } from 'tns-core-modules/ui/frame/frame';
 import { confirm } from "tns-core-modules/ui/dialogs";
+// import { RadPieChart } from 'nativescript-ui-chart';
 
 @Component({
   selector: 'app-home',
@@ -21,13 +22,41 @@ export class HomeComponent implements OnInit{
   showPie:boolean = false;
   initializeState:boolean;
   emptyExpenseState:boolean;
+  totalExpenseValue:number;
+  currencySym: string = "RM"
   selectedIndexes = [];
+  colorList = [
+    "#99FF66",
+    "#99CC33",
+    "#CC9900",
+    "#999000",
+    "#33FFFF",
+    "#FF6600",
+    "#330000",
+    "#CC9999",
+    "#CC0000",
+    "#00CCFF",
+    "#FF43CC",
+    "#6600FF",
+    "#3300FF",
+    "#00FF33",
+    "#CCCCCC",
+    "#FFFC00",
+    "#CCFFCC",
+    "#9999FF",
+    "#CC0033",
+    "#6600CC",
+    "#663300",
+    "#FF0000",
+  ]
+  myColors: Color[];
   
   constructor(
     private firestoreservice: FirestoreService,
     private routerExtensions: RouterExtensions,
     private couchService: CouchServiceService,
     private frame: Frame,
+    // private ex: RadPieChart
   ) { }
 
   getDateString(inputDate: Date) {
@@ -58,7 +87,13 @@ export class HomeComponent implements OnInit{
 
 
   seriesSelect(args){
+    args.object.eachChildView((child)=>{
+      console.dir(child)
+    })
     this.selectedIndexes=[args.pointIndex]
+    // this.ex.eachChildView(()=>{
+    //   console.log('help!')
+    // })
   }
 
   seriesDeselected(args){
@@ -76,6 +111,7 @@ export class HomeComponent implements OnInit{
     // get dates from application settings
     this.startDate = new Date(getString('StartDate'))
     this.endDate = new Date(getString('EndDate'))
+    this.currencySym = getString('currencySym')
 
     // console.log(`Home Component - Start Date : ${this.startDate}`)
     // console.log(`Home Component - End Date : ${this.endDate}`)
@@ -99,11 +135,19 @@ export class HomeComponent implements OnInit{
     
 
     if (this.initializeState === false && this.expenses.length>0){
+      this.myColors = []
+
+      let colorCounter = 0
       this.pieValues.forEach(pieValue => {
         pieValue['spent']=0;
         pieValue['items']=[];
+        pieValue['color']=this.colorList[colorCounter]
+        this.myColors.push(new Color(this.colorList[colorCounter]))
+        colorCounter = colorCounter + 1
       }
       )
+
+      
   
     
       this.expenses.forEach(expense => {
@@ -124,11 +168,18 @@ export class HomeComponent implements OnInit{
       this.pieValues = this.pieValues.filter((elem)=>{
         return elem['spent']>0
       })
+
+      this.totalExpenseValue=0
+      this.pieValues.forEach(elem=>{
+        this.totalExpenseValue = this.totalExpenseValue + elem['spent']
+      })
   
   
       if (this.pieValues[this.pieValues.length-1]["spent"] === 0){
         this.pieValues.pop()
       }
+
+      // console.log(this.pieValues)
     }
     
 
