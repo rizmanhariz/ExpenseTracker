@@ -1,6 +1,7 @@
 import { CouchServiceService } from './../services/couch-service.service';
 import { Component, OnInit } from '@angular/core';
 import { RouterExtensions } from 'nativescript-angular/router';
+import { confirm } from 'tns-core-modules/ui/dialogs'
 
 @Component({
   selector: 'app-category',
@@ -13,7 +14,7 @@ export class CategoryComponent implements OnInit {
   categoryDB: any;
   constructor(
     private routerExtensions: RouterExtensions,
-    private couchService: CouchServiceService
+    private couchService: CouchServiceService,
   ) { }
 
   newCategory(){
@@ -25,7 +26,19 @@ export class CategoryComponent implements OnInit {
   }
 
   deleteCategory(categoryID): void{
-    console.log('raise alert, on confirm, delete, run ngOnInit')
+    let options={
+      title: "Delete Category",
+      message: "Are you sure you want to delete the Category?",
+      okButtonText: "Yes",
+      // cancelButtonText: "No",
+      neutralButtonText: "Cancel"
+    }
+    confirm(options).then((result: boolean) => {
+      if (result===true) {
+        this.couchService.deleteCategory(categoryID)
+        this.ngOnInit()
+      }
+    })
   }
 
   ngOnInit() {
