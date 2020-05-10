@@ -1,15 +1,16 @@
 <app-action-bar abTitle=""></app-action-bar>
-<StackLayout>
-    <Button text="New Category" (tap)="newCategory()"></Button>
+<StackLayout class="main-container">
+    <Button text="New Category" (tap)="newCategory()" class="my-ui-button"></Button>
     <ScrollView>
         <StackLayout>
             <div *ngFor="let categoryName of categoryNames">
-                <GridLayout rows="40" columns="50,*,*">
+                <GridLayout rows="40" columns="*,2*,*,*">
                     <!-- <Label [text]="categoryName.name" class="text-center"></Label> -->
-                    <Image [src]="categoryName.categoryIMG" stretch="aspectFit" height = "20" row="0" column="0"></Image>
+                    <Image [src]="categoryName.categoryIMG" stretch="aspectFit" height = "35" row="0" column="0"></Image>
                     
                     <Label [text]="categoryName.categoryName" class="text-center" column="1"></Label>
-                    <Button text="Edit" (tap)="editCategory(categoryName.id)" row="0" column="2"></Button>
+                    <Button text="Edit" (tap)="editCategory(categoryName.id)" row="0" column="2" class="my-ui-button"></Button>
+                    <Button text="Delete" (tap)="deleteCategory(categoryName.id)" row="0" column="3" class="my-ui-button"></Button>
                 </GridLayout>
             </div>
         </StackLayout>

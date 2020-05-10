@@ -9,7 +9,7 @@
     <TextField formControlName="expenseRemark" hint="Expense Name"></TextField>
 </StackLayout> -->
 
-<StackLayout class=p-20>
+<StackLayout class="p-20 main-container" >
     <RadDataForm #myExpenseForm [source]="expense" id="myDataForm">
         <TKEntityProperty tkDataFormProperty name="expenseName" displayName="" imageResource="res://icon_name" hintText="Expense Name">
             <TKNonEmptyValidator tkEntityPropertyValidators errorMessage="Username can't be empty."></TKNonEmptyValidator>
@@ -34,8 +34,8 @@
     </RadDataForm>
 
     <GridLayout columns="*,*" rows="auto">
-        <Button text="{{transactionLabel}}" (tap)="onSubmit()" class="-primary" row="0" col="0"></Button>
-        <Button text="Cancel" (tap)="goBack()" class="-primary" row="0" col="1"></Button>
+        <Button text="{{transactionLabel}}" (tap)="onSubmit()" class="-primary" row="0" col="0" class="my-ui-button"></Button>
+        <Button text="Cancel" (tap)="goBack()" class="-primary" row="0" col="1" class="my-ui-button"></Button>
     </GridLayout>
     
 

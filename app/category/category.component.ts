@@ -23,6 +23,11 @@ export class CategoryComponent implements OnInit {
   editCategory(categoryID): void {
     this.routerExtensions.navigate(['editCategory',categoryID])
   }
+
+  deleteCategory(categoryID): void{
+    console.log('raise alert, on confirm, delete, run ngOnInit')
+  }
+
   ngOnInit() {
     this.categoryDB = this.couchService.getCategoryDB()
     this.categoryNames = this.categoryDB.query()

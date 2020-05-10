@@ -29,6 +29,10 @@ TextField{
     /* font-size: ; */
 }
 
+.main-container{
+    background: linear-gradient(-45deg, var(--tert), var(--sixa), white);
+}
+
 .my-ui-button{
     background: var(--tert);
     background-color: var(--tert);
