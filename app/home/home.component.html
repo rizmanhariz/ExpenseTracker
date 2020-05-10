@@ -1,10 +1,5 @@
 <app-action-bar></app-action-bar>
 <StackLayout class="p-20" *ngIf="!initializeState && !emptyExpenseState" class="home-page">
-  <!-- <GridLayout rows="auto" columns="*,*" >
-    <Button text="Go to Add Expense" (tap)="navigateTo('addExpense')" class="-primary" column='0'></Button>
-    <Button text="Go to Categories" (tap)="navigateTo('category')" class="-primary" column='1'></Button>
-  </GridLayout> -->
-
   <GridLayout rows="auto, auto" columns="*,*" class='time-Grid'>
     <Label text="Start Date" row="0" column="0" class="time-label"></Label>
     <Label text="End Date" row="0" column="1" class="time-label"></Label>
@@ -84,7 +79,7 @@
 </StackLayout>
 
 <StackLayout class="p-20" *ngIf="initializeState" class="init-page">
-  <Label text="Looks like you're new here! Why dont you..."></Label>
+  <Label text="Looks like you're new here! Why dont you..." class="intro-label"></Label>
   <Button class="my-ui-button" text="Add a Category" (tap)="navigateTo('addCategory')"></Button>
   <Button class="my-ui-button" text="Restore from the cloud" (tap)="navigateTo('logIn')"></Button>
 
@@ -93,24 +88,11 @@
 
 
 <StackLayout class="p-20" *ngIf="emptyExpenseState" class="init-two">
-  <Label text="Great! You've added a Category! Why dont you..."></Label>
+  <Label text="Great! You've added a Category! Why dont you..." class="intro-label"></Label>
   <Button class="my-ui-button" text="Add an Expense" (tap)="navigateTo('addExpense')"></Button>
-  <Label text="Or maybe..."></Label>
+  <Label text="Or maybe..." class="intro-label"></Label>
   <Button class="my-ui-button" text="Add another Category" (tap)="navigateTo('addCategory')"></Button>
 
 </StackLayout>
 
   
-
-
-  
-  <!-- <Button text="Go to Edit Expense" (tap)="navigateTo('editExpense/91fa7a07-8e0c-44e9-9c8b-6b14b380cb3f')" class="-primary"></Button> -->
-  <!-- <Button text="Go to Edit Expense" (tap)="navigateTo('editExpense/093fca35-e612-471c-9956-577b36d7e461')" class="-primary"></Button> -->
-  
-  <!-- <Button text="Go to Add Category" (tap)="navigateTo('addCategory')" class="-primary"></Button> -->
-
-
-
-
-
-

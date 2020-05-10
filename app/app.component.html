@@ -2,27 +2,26 @@
 <RadSideDrawer [drawerTransition]="sideDrawerTransition">
 	<GridLayout tkDrawerContent rows="auto, *" class="sidedrawer sidedrawer-left">
 		<StackLayout row="0" class="sidedrawer-header">
-			<Image src="res://test_icon_1" height="100" width="100" stretch="aspectFit" background='white'></Image>
+			<Image src="res://app_icon" height="100" width="100" stretch="aspectFit" class="app-badge"></Image>
 			<Label text="What would you like to do?" class="intro-message"></Label>
 			<!-- <Label text="username@mail.com"></Label> -->
 		</StackLayout>
 		<ScrollView row="1" class="drawer-scroll">
 			<StackLayout>
 			<GridLayout rows="auto" columns="auto,*" (tap)="onNavigate('addExpense')" class="line-item button">
-				<!-- <Label col=0 imageSource="res://test_icon_1"></Label> -->
-				<Image src="res://test_icon_1" height="40" stretch="aspectFit"></Image>
+				<Image src="res://badge_add_expense" height="40" stretch="aspectFit"></Image>
 				<Label col=1 text="Add Expense" class="line-text"></Label>
 			</GridLayout>
 			<GridLayout columns="auto,*" (tap)="onNavigate('category')" class="line-item">
-				<Image src="res://test_icon_1" height="40" stretch="aspectFit"></Image>
+				<Image src="res://badge_category_page" height="40" stretch="aspectFit"></Image>
 				<Label col=1 text="Categories" class="line-text"></Label>
 			</GridLayout>
 			<GridLayout columns="auto,*" (tap)="onNavigate('settings')" class="line-item">
-				<Image src="res://test_icon_1" height="40" stretch="aspectFit"></Image>
+				<Image src="res://badge_settings" height="40" stretch="aspectFit"></Image>
 				<Label col=1 text="System Settings" class="line-text"></Label>
 			</GridLayout>
 			<GridLayout columns="auto,*" (tap)="onNavigate('logIn')" class="line-item">
-				<Image src="res://test_icon_1" height="40" stretch="aspectFit"></Image>
+				<Image src="res://badge_backup" height="40" stretch="aspectFit"></Image>
 				<Label col=1 text="Data Backup" class="line-text"></Label>
 			</GridLayout>
 			</StackLayout>
