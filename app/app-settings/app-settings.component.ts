@@ -1,6 +1,9 @@
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RouterExtensions } from 'nativescript-angular/router';
 import { hasKey, getString, setString } from 'tns-core-modules/application-settings';
 import { Component, OnInit } from '@angular/core';
+import * as utils from "tns-core-modules/utils/utils";
+
 
 @Component({
   selector: 'app-app-settings',
@@ -8,10 +11,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app-settings.component.css']
 })
 export class AppSettingsComponent implements OnInit {
-  startDate: Date
-  endDate: Date
+  startDate: Date;
+  endDate: Date;
+  settingForm: FormGroup = this.formBuilder.group({
+    currencySymbol: ["", Validators.required]
+  })
   constructor(
     private routerExtensions: RouterExtensions,
+    private formBuilder: FormBuilder
   ) { }
 
   onDateChanged(args){
@@ -35,26 +42,45 @@ export class AppSettingsComponent implements OnInit {
 
   submitDate(){
     // console.log('sumbit a date')
-    if (this.startDate<this.endDate) {
-      setString('StartDate',this.startDate.toString())
-      setString('EndDate',this.endDate.toString())
-      this.routerExtensions.navigate(['home'])
-    } else {
+    if(!this.settingForm.valid){
+      alert({
+        title: "Currency Prefix Error",
+        message: `Please fill in a currency prefix`,
+        okButtonText:'OK'
+      })
+    } else if (this.startDate>this.endDate){
       alert({
         title: "Date Error!",
         message: `Start Date must be before End date`,
         okButtonText:'OK'
       })
-    }
+    } else {
+      // console.log(this.settingForm.get('currencySymbol').value)
+      setString('StartDate',this.startDate.toString())
+      setString('EndDate',this.endDate.toString())
+      setString('currencySym',this.settingForm.get('currencySymbol').value)
+
+      // this.routerExtensions.navigate(['home'])
+      this.goBack()
+    } 
+  
+  }
+
+  dismissKeyboard(){
+    utils.ad.dismissSoftInput()
   }
 
   goBack() {
-    this.routerExtensions.back()
+    this.routerExtensions.navigate(['home'])
   }
 
   ngOnInit() {
     this.startDate = new Date(getString('StartDate'))
     this.endDate = new Date(getString('EndDate'))
+
+    this.settingForm.get('currencySymbol').setValue(getString('currencySym'))
+
+    
 
     // console.log(`>>>Start Date: ${this.startDate}`)
     // console.log(`>>>End Date: ${this.endDate}`)

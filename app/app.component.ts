@@ -50,6 +50,15 @@ export class AppComponent implements OnInit, AfterViewInit {
       } else {
         // console.log(`>>>End Date: ${getString('EndDate')}`)
       }
+
+
+      if (!hasKey('currencySym')) {
+        setString('currencySym', "RM")
+      } else {
+        // console.log(`>>>End Date: ${getString('EndDate')}`)
+      }
+
+
   }
 
   get sideDrawerTransition(): DrawerTransitionBase {
@@ -57,6 +66,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
+    console.log(`This is the file name: ${app.getCssFileName()}`)
     this.drawer= this.drawerComponent.sideDrawer
     // this._changeDetectionRef.detectChanges()
   }

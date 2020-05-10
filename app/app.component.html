@@ -2,27 +2,28 @@
 <RadSideDrawer [drawerTransition]="sideDrawerTransition">
 	<GridLayout tkDrawerContent rows="auto, *" class="sidedrawer sidedrawer-left">
 		<StackLayout row="0" class="sidedrawer-header">
-			<Label class="sidedrawer-header-image fa" text="&#xf2bd;"></Label>
-			<Label class="sidedrawer-header-brand" text="User Name"></Label>
-			<Label class="footnote" text="username@mail.com"></Label>
+			<Image src="res://test_icon_1" height="100" width="100" stretch="aspectFit" background='white'></Image>
+			<Label text="What would you like to do?" class="intro-message"></Label>
+			<!-- <Label text="username@mail.com"></Label> -->
 		</StackLayout>
-		<ScrollView row="1">
+		<ScrollView row="1" class="drawer-scroll">
 			<StackLayout>
-			<GridLayout columns="auto,*" (tap)="onNavigate('addExpense')">
-				<Label col=0 text="tempIcon"></Label>
-				<Label col=1 text="Add Expense"></Label>
+			<GridLayout rows="auto" columns="auto,*" (tap)="onNavigate('addExpense')" class="line-item button">
+				<!-- <Label col=0 imageSource="res://test_icon_1"></Label> -->
+				<Image src="res://test_icon_1" height="40" stretch="aspectFit"></Image>
+				<Label col=1 text="Add Expense" class="line-text"></Label>
 			</GridLayout>
-			<GridLayout columns="auto,*" (tap)="onNavigate('category')">
-				<Label col=0 text="tempIcon"></Label>
-				<Label col=1 text="Categories"></Label>
+			<GridLayout columns="auto,*" (tap)="onNavigate('category')" class="line-item">
+				<Image src="res://test_icon_1" height="40" stretch="aspectFit"></Image>
+				<Label col=1 text="Categories" class="line-text"></Label>
 			</GridLayout>
-			<GridLayout columns="auto,*" (tap)="onNavigate('settings')">
-				<Label col=0 text="tempIcon"></Label>
-				<Label col=1 text="System Settings"></Label>
+			<GridLayout columns="auto,*" (tap)="onNavigate('settings')" class="line-item">
+				<Image src="res://test_icon_1" height="40" stretch="aspectFit"></Image>
+				<Label col=1 text="System Settings" class="line-text"></Label>
 			</GridLayout>
-			<GridLayout columns="auto,*" (tap)="onNavigate('logIn')">
-				<Label col=0 text="tempIcon"></Label>
-				<Label col=1 text="dataBackup"></Label>
+			<GridLayout columns="auto,*" (tap)="onNavigate('logIn')" class="line-item">
+				<Image src="res://test_icon_1" height="40" stretch="aspectFit"></Image>
+				<Label col=1 text="Data Backup" class="line-text"></Label>
 			</GridLayout>
 			</StackLayout>
 		</ScrollView>

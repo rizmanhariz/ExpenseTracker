@@ -1,7 +1,7 @@
 <app-action-bar abTitle="Backup Data"></app-action-bar>
-<StackLayout>
+<StackLayout class="main-container">
     <StackLayout *ngIf="!loggedIn">
-        <Label text="Log In to backup your expenses!"></Label>
+        <Label text="Log In to backup/restore your expenses!"></Label>
         <RadDataForm #myLogInForm [source]="logInCreds" id="myLogInForm">
             <TKEntityProperty tkDataFormProperty name="email" displayName="" imageResource="res://icon_name" hintText="email@address.com">
                 <TKPropertyEditor tkEntityPropertyEditor type="Email"></TKPropertyEditor>
@@ -15,19 +15,19 @@
             </TKEntityProperty>
         </RadDataForm>
         <GridLayout rows="auto" columns="*,*">
-            <Button text="Log In" (tap)="submitData()" column="0" *ngIf="logInPage" [isEnabled]="!inProcessing"></Button>
-            <Button text="Register User" (tap)="submitData()" column="0" *ngIf="!logInPage" [isEnabled]="!inProcessing"></Button>
-            <Button text="Cancel" (tap)="navigateTo('home')" column="1" [isEnabled]="!inProcessing"></Button>
+            <Button text="Log In" (tap)="submitData()" column="0" *ngIf="logInPage" [isEnabled]="!inProcessing" class="my-ui-button"></Button>
+            <Button text="Register User" (tap)="submitData()" column="0" *ngIf="!logInPage" [isEnabled]="!inProcessing" class="my-ui-button"></Button>
+            <Button text="Cancel" (tap)="navigateTo('home')" column="1" [isEnabled]="!inProcessing" class="my-ui-button"></Button>
         </GridLayout>
-        <Button [text]="toggleLabel" (tap)=toggleType() [isEnabled]="!inProcessing"></Button> 
-        <Button text="Forgot Password?" (tap)=forgotPass() [isEnabled]="!inProcessing"></Button>     
+        <Button [text]="toggleLabel" (tap)=toggleType() [isEnabled]="!inProcessing" class="my-ui-button"></Button> 
+        <Button text="Forgot Password?" (tap)=forgotPass() [isEnabled]="!inProcessing" class="my-ui-button"></Button>     
     </StackLayout>
 
     <StackLayout *ngIf="loggedIn">
-        <Label text="Welcome!"></Label>
-        <Button text="Backup my data" (tap)="firestoreBackup()" [isEnabled]="!inProcessing"></Button>
-        <Button text="Restore my data" (tap)="firestoreRestore()" [isEnabled]="!inProcessing"></Button>
-        <Button text="Log Out" (tap)="logOut()" [isEnabled]="!inProcessing"></Button>
+        <Label text="You can "></Label>
+        <Button text="Backup my data" (tap)="firestoreBackup()" [isEnabled]="!inProcessing" class="my-ui-button"></Button>
+        <Button text="Restore my data" (tap)="firestoreRestore()" [isEnabled]="!inProcessing" class="my-ui-button"></Button>
+        <Button text="Log Out" (tap)="logOut()" [isEnabled]="!inProcessing" class="my-ui-button"></Button>
     </StackLayout>
 
     
