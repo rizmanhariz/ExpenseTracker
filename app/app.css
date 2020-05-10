@@ -23,7 +23,7 @@
 
 TextField{
     color: black;
-    placeholder-color: #a4a4a4;
+    /* placeholder-color: #a4a4a4; */
     max-height: 40;
     /* background-color: blue; */
     /* font-size: ; */
