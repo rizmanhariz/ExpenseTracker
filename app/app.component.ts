@@ -66,7 +66,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    console.log(`This is the file name: ${app.getCssFileName()}`)
     this.drawer= this.drawerComponent.sideDrawer
     // this._changeDetectionRef.detectChanges()
   }

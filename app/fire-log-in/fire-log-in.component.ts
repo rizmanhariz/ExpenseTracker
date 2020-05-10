@@ -207,7 +207,7 @@ export class FireLogInComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    console.dir(this.user)
+    // console.dir(this.user)
     this.logOut()
     this.clearInputs()
 

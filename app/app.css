@@ -62,6 +62,10 @@ TextField{
     text-align: center
 }
 
+.fa{
+    font-family: "Font Awesome 5 Free", "fa-regular-400";
+}
+
 .line-item{
     background: var(--tetra);
     /* vertical-align: bottom; */

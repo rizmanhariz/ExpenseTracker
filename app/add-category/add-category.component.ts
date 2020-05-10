@@ -228,7 +228,6 @@ export class AddCategoryComponent implements OnInit, AfterViewInit {
 
     // Determine if to Add Category or Edit Category
     this.categoryId = this.pro.activatedRoute.snapshot.paramMap.get('id')
-    console.log(`>>>>> actegory ID: ${this.categoryId}`)
     if (this.categoryId==null) {
       this.transactionLabel = "New Category"
       this.isAddTransaction = true;
