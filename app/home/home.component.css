@@ -4,7 +4,11 @@ RadPieChart{
     border-color: var(--fifth);
     margin-bottom: 5;
 
-    background: white;
+    /* background: white; */
+}
+
+DonutSeries{
+    color: black
 }
 
 .intro-label{

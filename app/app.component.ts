@@ -79,7 +79,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       }
 
       if (!hasKey('EndDate')) {
-        setString('EndDate', new Date(2020,5,5).toString())
+        setString('EndDate', new Date(2025,1,5).toString())
       } else {
         // console.log(`>>>End Date: ${getString('EndDate')}`)
       }
