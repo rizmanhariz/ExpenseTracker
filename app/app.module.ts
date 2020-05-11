@@ -1,6 +1,6 @@
 import { SnackbarService } from './services/snackbar.service';
 import { CouchServiceService } from './services/couch-service.service';
-import { CouchTestComponent } from './couch-test/couch-test.component';
+// import { CouchTestComponent } from './couch-test/couch-test.component';
 import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
 import { NativeScriptModule } from 'nativescript-angular/nativescript.module';
 import { NativeScriptFormsModule } from 'nativescript-angular/forms'
@@ -35,7 +35,7 @@ import { FireLogInComponent } from './fire-log-in/fire-log-in.component';
       ActionBarComponent,
       AddCategoryComponent,
       CategoryComponent,
-      CouchTestComponent,
+      // CouchTestComponent,
       AppSettingsComponent,
       FireLogInComponent,
   ],

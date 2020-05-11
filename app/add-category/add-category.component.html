@@ -2,14 +2,14 @@
 
 <StackLayout [formGroup]="categoryForm" class="main-container" (tap)="onTap()">
     <TextField formControlName="categoryName" hint="Category Name" maxLength="15"></TextField>
-    <TextField formControlName="categoryMaxVal" hint="BudgetValue" keyboardType="number" (blur)="validateDecimal()"></TextField>
-    <TextField formControlName="categoryRemark" hint="Remark" ></TextField>
+    <!-- <TextField formControlName="categoryMaxVal" hint="BudgetValue" keyboardType="number" (blur)="validateDecimal()"></TextField>
+    <TextField formControlName="categoryRemark" hint="Remark" ></TextField> -->
 
     <Label text="Category image" class="p"></Label>
 
     <!-- <GridLayout tkExampleTitle tkToggleNavButton> -->
     <RadListView id="radListViewItem"
-        row="0" [items]="imageAssets" height="300" 
+        row="0" [items]="imageAssets" height="330" 
         selectionBehavior="Press" (itemSelected)="onItemSelected($event)" (itemDeselected)="onItemDeselected($event)">
         <ListViewGridLayout tkListViewLayout scrollDirection="Vertical" dynamicItemSize="false" spanCount="3"></ListViewGridLayout>
         <ng-template tkListItemTemplate let-item="item">
@@ -28,8 +28,8 @@
     
 
     <GridLayout rows="auto" columns="*,*">
-        <Button [text]="transactionLabel" (tap)="submitData()" row="0" column="0" class="my-ui-button"></Button>
-        <Button text="Cancel" (tap)="goNavigate('category')" row="0" column="1" class="my-ui-button"></Button>
+        <Button [text]="transactionLabel" (tap)="submitData()" row="0" column="0" class="my-ui-button" [isEnabled]="buttonIsEnabled"></Button>
+        <Button text="Cancel" (tap)="goNavigate('category')" row="0" column="1" class="my-ui-button" [isEnabled]="buttonIsEnabled"></Button>
     </GridLayout>
     
 </StackLayout>

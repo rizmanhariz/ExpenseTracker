@@ -19,6 +19,7 @@ export class AddCategoryComponent implements OnInit, AfterViewInit {
   isAddTransaction: boolean;
   gridRowString: string = "auto";
   existingCategory: any;
+  buttonIsEnabled: boolean = true;
   // to be replaced with something pulled by Service.
   imageSource = [
     "res://cat_icon_01",
@@ -49,6 +50,8 @@ export class AddCategoryComponent implements OnInit, AfterViewInit {
     "res://cat_icon_26",
     "res://cat_icon_27",
     "res://cat_icon_28",
+    "res://cat_icon_29",
+    "res://cat_icon_30",
   ]
   imageAssets=[]
   
@@ -58,7 +61,8 @@ export class AddCategoryComponent implements OnInit, AfterViewInit {
   // Angular Data form
   categoryForm: FormGroup = this.formBuilder.group({
     categoryName: ["", Validators.compose([Validators.required, Validators.maxLength(15)])],
-    categoryMaxVal: ["", Validators.compose([Validators.required, Validators.min(0)])],
+    // categoryMaxVal: ["", Validators.compose([Validators.required, Validators.min(0)])],
+    categoryMaxVal: ["", Validators.min(0)],
     categoryRemark: [""],
     categoryIMG: ["", Validators.required]
 
@@ -81,12 +85,13 @@ export class AddCategoryComponent implements OnInit, AfterViewInit {
 
   submitData(){
     // Dismiss any open keyboards
+    this.buttonIsEnabled = false;
     utils.ad.dismissSoftInput()
 
     // Doublechecks Decimal, if user fills decimal last. 
-    if (!this.categoryForm.get('categoryMaxVal').valid){
-      this.validateDecimal()
-    }
+    // if (!this.categoryForm.get('categoryMaxVal').valid){
+    //   this.validateDecimal()
+    // }
 
     // Checks form validity
     if (!this.categoryForm.valid) {
@@ -136,6 +141,7 @@ export class AddCategoryComponent implements OnInit, AfterViewInit {
       if (successMessage !== undefined) {
         this.snackBarService.showMessage(`Category ${successMessage}`, 'white',"#808080")
       }
+      this.buttonIsEnabled = true;
     }
   }
 

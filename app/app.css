@@ -62,8 +62,18 @@ TextField{
     text-align: center
 }
 
+.my-footer{
+    font-size: 15;
+    font-weight: bold;
+    background: linear-gradient(to bottom, var(--fifth), var(--sixa));
+}
+
 .fa{
     font-family: "Font Awesome 5 Free", "fa-regular-400";
+}
+
+.fas{
+    font-family: "Font Awesome 5 Free", "fa-solid-900";
 }
 
 .line-item{

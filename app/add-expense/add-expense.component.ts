@@ -82,6 +82,19 @@ export class AddExpenseComponent implements OnInit,OnDestroy {
   }
 
   ngOnInit() {
+    // Get the list of categories from list provider
+    // this.categoryProvider=this.categoryProvider.concat(['Food','Fun','Fancy'])
+    this.categoryProvider = this.categoryProvider.concat(this.couchService.getCategoryList())
+    // above is seidp
+
+    if ((this.categoryProvider.length==1) && (this.categoryProvider[0]=='Select Category')){
+      // Notify that you need to go to add categories!
+      this.routerExtensions.navigate(['addCategory'])
+      this.snackBarService.showMessage("Please add a category first!","white","red")
+      // this.categoryProvider=this.categoryProvider.concat(['This','Is','An','Error','State'])
+    }
+
+
     // set up expenseDB
     this.expenseDB = this.couchService.getExpenseDB()
 
@@ -102,17 +115,6 @@ export class AddExpenseComponent implements OnInit,OnDestroy {
         this.existingExpense.expenseVal,
         this.existingExpense.expenseRemark
       )
-    }
-
-    // Get the list of categories from list provider
-    // this.categoryProvider=this.categoryProvider.concat(['Food','Fun','Fancy'])
-    this.categoryProvider = this.categoryProvider.concat(this.couchService.getCategoryList())
-    // above is seidp
-
-    if ((this.categoryProvider.length==1) && (this.categoryProvider[0]=='Select Category')){
-      // Notify that you need to go to add categories!
-      // this.routerExtensions.navigate(['addCategory'])
-      this.categoryProvider=this.categoryProvider.concat(['This','Is','An','Error','State'])
     }
   }
 

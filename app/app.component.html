@@ -1,6 +1,6 @@
 <!-- <page-router-outlet></page-router-outlet> -->
 <RadSideDrawer [drawerTransition]="sideDrawerTransition">
-	<GridLayout tkDrawerContent rows="auto, *" class="sidedrawer sidedrawer-left">
+	<GridLayout tkDrawerContent rows="auto, *, auto, auto" class="sidedrawer sidedrawer-left">
 		<StackLayout row="0" class="sidedrawer-header">
 			<Image src="res://app_icon" height="100" width="100" stretch="aspectFit" class="app-badge"></Image>
 			<Label text="What would you like to do?" class="intro-message"></Label>
@@ -26,6 +26,14 @@
 			</GridLayout>
 			</StackLayout>
 		</ScrollView>
+		<GridLayout rows="auto, auto"columns="auto,auto,auto,auto,*" row="2" class="my-footer">
+			<Label row="0" colSpan="5" text="Created with..." ></Label>
+			<Image (tap)="externalNavigate('https://angular.io/')" src="res://source_angular" height="50" stretch="aspectFit" class="footer-badge" row="1" column="0"></Image>
+			<Image (tap)="externalNavigate('https://www.nativescript.org/')" src="res://source_nativescript" height="50" stretch="aspectFit" class="footer-badge" row="1" column="1"></Image>
+			<Image (tap)="externalNavigate('https://icons8.com/')" src="res://source_font8" height="50" stretch="aspectFit" class="footer-badge" row="1" column="2"></Image>
+			<Image (tap)="externalNavigate('https://fontawesome.com/')" src="res://source_fontawesome" height="50" stretch="aspectFit" class="footer-badge" row="1" column="3"></Image>
+		</GridLayout>
+		
 
 		<!-- <ScrollView row="1">
 			<StackLayout class="sidedrawer-content">
@@ -58,6 +66,7 @@
 			</StackLayout>
 		</ScrollView> -->
 	</GridLayout>
+		
 
 	<page-router-outlet tkMainContent class="page page-content"></page-router-outlet>
 </RadSideDrawer>
