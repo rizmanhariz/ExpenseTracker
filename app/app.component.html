@@ -1,5 +1,5 @@
 <!-- <page-router-outlet></page-router-outlet> -->
-<RadSideDrawer [drawerTransition]="sideDrawerTransition">
+<RadSideDrawer [drawerTransition]="sideDrawerTransition" [style.marginTop]="statusBarHeight">
 	<GridLayout tkDrawerContent rows="auto, *, auto, auto" class="sidedrawer sidedrawer-left">
 		<StackLayout row="0" class="sidedrawer-header">
 			<Image src="res://app_icon" height="100" width="100" stretch="aspectFit" class="app-badge"></Image>
