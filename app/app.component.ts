@@ -16,6 +16,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   private _sideDrawerTransition: DrawerTransitionBase;
   sideDrawer = <RadSideDrawer>app.getRootView();
+  statusBarHeight: string;
 
 
   constructor(
@@ -53,6 +54,21 @@ export class AppComponent implements OnInit, AfterViewInit {
     
   }
 
+  getStatusBarHeight(): string {
+    var result = 0;
+    let resultString: string = "0px";
+    var resourceId = app.android.context.getResources().getIdentifier('status_bar_height', 'dimen', 'android');
+    if (resourceId) {
+
+        // result = app.android.context.getResources().getDimension(resourceId);
+        result = app.android.context.getResources().getDimensionPixelSize(resourceId);
+        resultString = result.toString()
+        resultString = resultString + "px"
+        console.log(resultString)
+    }
+    return resultString;
+  }
+
   ngOnInit(): void {
       this._sideDrawerTransition = new SlideInOnTopTransition();
 
@@ -63,7 +79,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       }
 
       if (!hasKey('EndDate')) {
-        setString('EndDate', new Date(2020,5,5).toString())
+        setString('EndDate', new Date(2025,1,5).toString())
       } else {
         // console.log(`>>>End Date: ${getString('EndDate')}`)
       }
@@ -74,6 +90,10 @@ export class AppComponent implements OnInit, AfterViewInit {
       } else {
         // console.log(`>>>End Date: ${getString('EndDate')}`)
       }
+
+      this.statusBarHeight = this.getStatusBarHeight()
+      setString('notificationBar', this.statusBarHeight)
+
 
 
   }

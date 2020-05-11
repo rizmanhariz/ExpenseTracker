@@ -3,6 +3,7 @@ platforms/
 node_modules/
 platforms/
 hooks/
+keyStore/
 
 app/**/*.js
 

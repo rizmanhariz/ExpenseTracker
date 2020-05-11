@@ -154,7 +154,7 @@ export class AddCategoryComponent implements OnInit, AfterViewInit {
   }
 
   goNavigate(inputString: string){
-    this.routerExtensions.navigate([inputString])
+    this.routerExtensions.navigate([inputString], { clearHistory: true })
   }
 
   validateDecimal(){

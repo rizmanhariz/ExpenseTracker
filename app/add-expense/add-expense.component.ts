@@ -63,13 +63,13 @@ export class AddExpenseComponent implements OnInit,OnDestroy {
           this.expenseDB.createDocument(this.expense)
           // Alert that success
           successMessage = "Added"
-          this.routerExtensions.navigate(['./home'])
+          this.routerExtensions.navigate(['./home'], { clearHistory: true })
         } else {
           // Edit Expense
           this.expenseDB.updateDocument(this.expenseID, this.expense)
           // Alert on success
           successMessage = "Edited"
-          this.routerExtensions.navigate(['./home'])
+          this.routerExtensions.navigate(['./home'], { clearHistory: true })
         }
 
         this.snackBarService.showMessage(`Expense ${successMessage}`,'white','#808080')

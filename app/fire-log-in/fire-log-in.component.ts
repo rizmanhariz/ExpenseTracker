@@ -37,7 +37,7 @@ export class FireLogInComponent implements OnInit, OnDestroy {
 
 
   navigateTo(inputString: string){
-    this.routerExtension.navigate([inputString])
+    this.routerExtension.navigate([inputString], { clearHistory: true })
   }
 
   clearInputs(){
