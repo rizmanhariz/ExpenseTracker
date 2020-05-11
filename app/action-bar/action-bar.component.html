@@ -1,14 +1,17 @@
 <ActionBar title="{{title}}">
-    <ActionItem  ios.systemIcon="9" ios.position="left" (tap)="goNavigate('test')"
+    <!-- <ActionItem  ios.systemIcon="9" ios.position="left" (tap)="goNavigate('test')"
                   android.systemIcon="ic_menu_share" android.position="left">
+    </ActionItem> -->
+    <ActionItem (tap)="goNavigate('addExpense')" position="left" icon="font://&#xf067;" class="fas">
     </ActionItem>
-    <ActionItem  ios.systemIcon="9" ios.position="left" (tap)="goNavigate('home')"
+    <ActionItem (tap)="goNavigate('home')" position="left" icon="font://&#xf015;" class="fas">
+    </ActionItem>
+    <ActionItem (tap)="onDrawerButtonTap()" position="left" icon="font://&#xf142;" class="fas">
+    </ActionItem>
+    <!-- <ActionItem  ios.systemIcon="9" ios.position="left" (tap)="goNavigate('home')"
                   android.systemIcon="ic_menu_home" android.position="left">
-    </ActionItem>
-    <ActionItem (tap)="onDrawerButtonTap()"
+    </ActionItem> -->
+    <!-- <ActionItem (tap)="onDrawerButtonTap()"
                 android.systemIcon="ic_menu_moreoverflow_normal_holo_dark" android.position="left">
-        <!-- <StackLayout>
-            <Button class="fa" text="&#xf0c9;" fontSize="20" (tap)="onDrawerButtonTap()"></Button>
-        </StackLayout> -->
-    </ActionItem>
+    </ActionItem> -->
 </ActionBar>

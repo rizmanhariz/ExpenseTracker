@@ -1,3 +1,4 @@
+import { confirm } from 'tns-core-modules/ui/dialogs';
 import { RouterExtensions } from 'nativescript-angular/router';
 import { Component, ViewChild, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
 import { Page } from 'tns-core-modules/ui/page/page';
@@ -33,6 +34,22 @@ export class AppComponent implements OnInit, AfterViewInit {
     utils.ad.dismissSoftInput()
     this.routerExtensions.navigate([inputText])
     this.drawer.closeDrawer()
+    
+  }
+
+  externalNavigate(website: string){
+    let options= {
+      title: "Visit website",
+      message: `Visit the following website:\n${website}`,
+      okButtonText: "Yes",
+      cancelButtonText: "No"
+    }
+    confirm(options)
+    .then(result=>{
+      if (result===true){
+        utils.openUrl(website)
+      }
+    })
     
   }
 

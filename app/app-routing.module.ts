@@ -1,6 +1,6 @@
 import { FireLogInComponent } from './fire-log-in/fire-log-in.component';
 import { AppSettingsComponent } from './app-settings/app-settings.component';
-import { CouchTestComponent } from './couch-test/couch-test.component';
+// import { CouchTestComponent } from './couch-test/couch-test.component';
 import { CategoryComponent } from './category/category.component';
 import { AddCategoryComponent } from './add-category/add-category.component';
 import { AddExpenseComponent } from './add-expense/add-expense.component';
@@ -20,7 +20,7 @@ const routes: Routes = [
   { path: 'editCategory/:id', component: AddCategoryComponent },
   { path: 'settings', component: AppSettingsComponent },
   { path: 'logIn', component: FireLogInComponent },
-  { path: 'test', component: CouchTestComponent },
+  // { path: 'test', component: CouchTestComponent },
 ];
 
 @NgModule({
