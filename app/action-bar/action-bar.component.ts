@@ -18,7 +18,7 @@ export class ActionBarComponent implements OnInit {
 
   goNavigate(inputString) {
     utils.ad.dismissSoftInput()
-    this.routerExtensions.navigate([inputString])
+    this.routerExtensions.navigate([inputString], { clearHistory: true })
   }
 
   onDrawerButtonTap(){
