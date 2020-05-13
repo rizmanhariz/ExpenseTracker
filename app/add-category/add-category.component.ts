@@ -111,6 +111,8 @@ export class AddCategoryComponent implements OnInit, AfterViewInit {
         this.categoryDB.updateDocument(this.categoryId, this.categoryForm.getRawValue())
         // console.log("Updated category")
         successMessage = "Edited"
+        this.buttonIsEnabled = true;
+
         this.goNavigate('home')
 
 
@@ -141,15 +143,16 @@ export class AddCategoryComponent implements OnInit, AfterViewInit {
       if (successMessage !== undefined) {
         this.snackBarService.showMessage(`Category ${successMessage}`, 'white',"#808080")
       }
-      this.buttonIsEnabled = true;
+      
     }
+    this.buttonIsEnabled = true;
   }
 
   goBack() {
     if (this.routerExtensions.canGoBack()){
       this.routerExtensions.back()
     } else {
-      this.routerExtensions.navigate(['home'])
+      this.goNavigate('home')
     }
   }
 

@@ -6,4 +6,5 @@ Add firebase nativescript plugin
 `tns plugin add nativescript-plugin-firebase`
 
 
-
+Build & deploy
+`tns build android --release --keyStorePath keyStore/myKeyStore.jks --keyStorePassword Kiteazuresea --keyStoreAlias rizmanhariz --keyStoreAliasPassword Kiteazuresea`
