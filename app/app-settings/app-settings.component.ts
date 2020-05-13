@@ -1,6 +1,9 @@
+import { SnackbarService } from './../services/snackbar.service';
+import { CouchServiceService } from './../services/couch-service.service';
+import { confirm } from 'tns-core-modules/ui/dialogs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RouterExtensions } from 'nativescript-angular/router';
-import { hasKey, getString, setString } from 'tns-core-modules/application-settings';
+import { hasKey, getString, setString, remove } from 'tns-core-modules/application-settings';
 import { Component, OnInit } from '@angular/core';
 import * as utils from "tns-core-modules/utils/utils";
 
@@ -18,7 +21,9 @@ export class AppSettingsComponent implements OnInit {
   })
   constructor(
     private routerExtensions: RouterExtensions,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private couchService: CouchServiceService,
+    private snackBarService: SnackbarService,
   ) { }
 
   onDateChanged(args){
@@ -59,9 +64,8 @@ export class AppSettingsComponent implements OnInit {
       setString('StartDate',this.startDate.toString())
       setString('EndDate',this.endDate.toString())
       setString('currencySym',this.settingForm.get('currencySymbol').value)
-
-      // this.routerExtensions.navigate(['home'])
-      this.goBack()
+      this.snackBarService.showMessage("Settings successfuly saved!", 'white','green')
+      this.routerExtensions.navigate(['home'], { clearHistory: true })
     } 
   
   }
@@ -74,19 +78,39 @@ export class AppSettingsComponent implements OnInit {
     this.routerExtensions.navigate(['home'])
   }
 
+  allDelete(){
+    let options={
+      title: "Factory Reset",
+      message: "This will clear all data from the app.\nAre you sure?",
+      okButtonText: "Yes",
+      // cancelButtonText: "No",
+      neutralButtonText: "Cancel"
+    }
+    confirm(options).then(result => {
+      if (result===true){
+        this.couchService.resetDatabases()
+        remove('StartDate')
+        remove('EndDate')
+        remove('currencySym')
+        this.snackBarService.showMessage("All data deleted", 'white','red')
+        this.routerExtensions.navigate(['home'], { clearHistory: true })
+      }
+    })
+  }
+
   ngOnInit() {
-    this.startDate = new Date(getString('StartDate'))
-    this.endDate = new Date(getString('EndDate'))
-
-    this.settingForm.get('currencySymbol').setValue(getString('currencySym'))
-
+    if (hasKey('StartDate') && hasKey('EndDate') && hasKey('currencySym')){
+      // console.log("has a value!")
+      this.startDate = new Date(getString('StartDate'))
+      this.endDate = new Date(getString('EndDate'))
+      this.settingForm.get('currencySymbol').setValue(getString('currencySym'))
+    } else {
+      console.log('doesnt have a value')
+      this.startDate = new Date()
+      this.endDate = new Date()
+      this.endDate.setDate(this.endDate.getDate() + 30)
+    }
     
-
-    // console.log(`>>>Start Date: ${this.startDate}`)
-    // console.log(`>>>End Date: ${this.endDate}`)
-
-    // this.endDate.getMonth
-    // this.endDate.getDate
   }
 
 }

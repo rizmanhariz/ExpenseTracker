@@ -1,5 +1,12 @@
 <app-action-bar></app-action-bar>
-<StackLayout class="p-20" *ngIf="!initializeState && !emptyExpenseState" class="home-page">
+<StackLayout class="p-20" *ngIf="!initializeState" class="main-container">
+  <StackLayout class="p-20" *ngIf="emptyExpenseState">
+    <Label text="No expenses detected from timeframe! You can..." class="intro-label"></Label>
+    <Button class="my-ui-button" text="Add an Expense" (tap)="navigateTo('addExpense')"></Button>
+    <Label text="Or tap the dates to change the timeframe:" class="intro-label"></Label>
+    <!-- <Label text="Or maybe change the timeframe by tapping the dates below!" class="intro-label"></Label> -->
+  </StackLayout>
+  
   <GridLayout rows="auto, auto" columns="*,*" class='time-Grid'>
     <Label text="Start Date" row="0" column="0" class="time-label"></Label>
     <Label text="End Date" row="0" column="1" class="time-label"></Label>
@@ -7,92 +14,96 @@
     <Button text="{{getDateString(endDate) | date:shortDate}}" (tap)="navigateTo('settings')" row="1" column="1" class="time-button my-ui-button"></Button>
     <!-- <Button text="GEAR" (tap)="navigateTo('settings')" column="2"></Button> -->
   </GridLayout>
-  <RadPieChart *ngIf="showPie" allowAnimation="true" height = "250" (pointSelected)="seriesSelect($event)" (pointDeselected)="seriesDeselected()">
-    <DonutSeries tkPieSeries
-            selectionMode="DataPoint"
-            expandRadius="0.4"
-            outerRadiusFactor="0.7"
-            innerRadiusFactor="0.4"
-            valueProperty="spent"
-            legendLabel="categoryName"
-            showLabels="true"
-            [items]="pieValues"
-            [fillColors]="myColors"
-    ></DonutSeries>
-    <RadLegendView tkPieLegend position="Right" title="Category" offsetOrigin="TopRight" width="110" enableSelection="true"></RadLegendView>
-  </RadPieChart>
 
-  <GridLayout rows="30" columns="2*,*" class="my-sum-data">
-    <Label text="Total expenses" column="0" ></Label>
-    <Label text="{{currencySym}} {{totalExpenseValue | number:'.2-2'}}" column="1"></Label>
-  </GridLayout>
-  <ScrollView height="999">
-    <!-- <Label text='CHART AREA' textAlignment='center' fontSize=30 height=200 background='#82CAFF'></Label> -->
-    
-    <Accordion height="100%" [items]="pieValues" allowMultiple="false" [selectedIndexes]="selectedIndexes">
+  <StackLayout *ngIf="!emptyExpenseState">
+    <RadPieChart allowAnimation="true" height = "250" (pointSelected)="seriesSelect($event)" (pointDeselected)="seriesDeselected()">
+      <DonutSeries tkPieSeries
+              selectionMode="DataPoint"
+              expandRadius="0.4"
+              outerRadiusFactor="0.7"
+              innerRadiusFactor="0.4"
+              valueProperty="spent"
+              legendLabel="categoryName"
+              showLabels="true"
+              [items]="pieValues"
+              [fillColors]="myColors"
+      ></DonutSeries>
+      <RadLegendView tkPieLegend position="Right" title="Category" offsetOrigin="TopRight" width="110" enableSelection="true"></RadLegendView>
+    </RadPieChart>
+  
+    <GridLayout rows="30" columns="2*,*" class="my-sum-data">
+      <Label text="Total expenses" column="0" ></Label>
+      <Label text="{{currencySym}} {{totalExpenseValue | number:'.2-2'}}" column="1"></Label>
+    </GridLayout>
 
-      <ng-template let-i="index" let-item="item" acTemplateKey="title">
-        <GridLayout [backgroundColor]="item.color" columns="2*,4*,3*" rows="auto" class="data-title">
-          <!-- <Label height="100%" text="Iamge" column="0"></Label> -->
-          <Image column="0" [src]="item.categoryIMG" height="40" width="40" stretch="aspectFit"></Image>
-          <Label [text]="item.categoryName" column="1" class="data-title title-text"></Label>
-          <Label [text]="item.spent| number: '.2-2'" column="2" class="data-title title-text"></Label>
-        </GridLayout>
-      </ng-template>
-
-      <ng-template let-i="index" let-item="item" acTemplateKey="header" >
-        <!-- <GridLayout columns="2*,4*,3*" class="my-data-header"> -->
-        <GridLayout columns="10*,9*,7*,12*" class="my-data-header">
-          <Label text="Name" column="0" class="header-text"></Label>
-          <Label text="Date" column="1" class="header-text"></Label>
-          <Label text="Cost" column="2" class="header-text"></Label>
-          <Label text="Options" column="3" class="header-text"></Label>
+    <ScrollView height="999">
+      <!-- <Label text='CHART AREA' textAlignment='center' fontSize=30 height=200 background='#82CAFF'></Label> -->
+      
+      <Accordion height="100%" [items]="pieValues" allowMultiple="false" [selectedIndexes]="selectedIndexes">
+  
+        <ng-template let-i="index" let-item="item" acTemplateKey="title">
+          <GridLayout [backgroundColor]="item.color" columns="2*,4*,3*" rows="auto" class="data-title">
+            <!-- <Label height="100%" text="Iamge" column="0"></Label> -->
+            <Image column="0" [src]="item.categoryIMG" height="40" width="40" stretch="aspectFit"></Image>
+            <Label [text]="item.categoryName" column="1" class="data-title title-text"></Label>
+            <Label [text]="item.spent| number: '.2-2'" column="2" class="data-title title-text"></Label>
+          </GridLayout>
+        </ng-template>
+  
+        <ng-template let-i="index" let-item="item" acTemplateKey="header" >
+          <!-- <GridLayout columns="2*,4*,3*" class="my-data-header"> -->
+          <GridLayout columns="10*,9*,7*,12*" class="my-data-header">
+            <Label text="Name" column="0" class="header-text"></Label>
+            <Label text="Date" column="1" class="header-text"></Label>
+            <Label text="Cost" column="2" class="header-text"></Label>
+            <Label text="Options" column="3" class="header-text"></Label>
+            
+          </GridLayout>
+            
           
-        </GridLayout>
-          
-        
-      </ng-template>
+        </ng-template>
+  
+  
+        <ng-template let-i="index" let-venus="item" acTemplateKey="content" >
+          <!-- <GridLayout columns="5*,4*,4*,3*,3*" class="my-data-content"> -->
+          <GridLayout columns="10*,9*,7*,6*,6*" class="my-data-content">
+            <Label [text]="venus.expenseName" column="0" class="my-content-text content-bordered"></Label>
+            <Label [text]="venus.expenseDate | date: 'MMM d y'" column="1" class="my-content-text content-bordered"></Label>
+            <Label [text]="venus.expenseVal | number:'.2-2'" column="2" class="my-content-text content-bordered"></Label>
+            <Button class="my-ui-button fa" text="&#xf044;" (tap)="editPress(venus.id)" column="3"></Button>
+            <Button class="my-ui-button fa" text="&#xf2ed;" (tap)="deletePress(venus.id)" column="4"></Button>
+          </GridLayout>
+  
+        </ng-template>
+  
+  
+        <!-- <ng-template let-i="index" let-item="item" acTemplateKey="footer">
+          <StackLayout>
+            <Label backgroundColor="yellow" [text]="item.footerText"></Label>
+          </StackLayout>
+        </ng-template> -->
+      
+      
+      </Accordion>
+    </ScrollView>
 
-
-      <ng-template let-i="index" let-venus="item" acTemplateKey="content" >
-        <!-- <GridLayout columns="5*,4*,4*,3*,3*" class="my-data-content"> -->
-        <GridLayout columns="10*,9*,7*,6*,6*" class="my-data-content">
-          <Label [text]="venus.expenseName" column="0" class="my-content-text content-bordered"></Label>
-          <Label [text]="venus.expenseDate | date: 'MMM d y'" column="1" class="my-content-text content-bordered"></Label>
-          <Label [text]="venus.expenseVal | number:'.2-2'" column="2" class="my-content-text content-bordered"></Label>
-          <Button class="my-ui-button fa" text="&#xf044;" (tap)="editPress(venus.id)" column="3"></Button>
-          <Button class="my-ui-button fa" text="&#xf2ed;" (tap)="deletePress(venus.id)" column="4"></Button>
-        </GridLayout>
-
-      </ng-template>
-
-
-      <!-- <ng-template let-i="index" let-item="item" acTemplateKey="footer">
-        <StackLayout>
-          <Label backgroundColor="yellow" [text]="item.footerText"></Label>
-        </StackLayout>
-      </ng-template> -->
-    
-    
-    </Accordion>
-</ScrollView>
+  </StackLayout>
+  
 </StackLayout>
 
-<StackLayout class="p-20" *ngIf="initializeState" class="init-page">
+<StackLayout class="p-20" *ngIf="initializeState" class="main-container">
   <Label text="Looks like you're new here! Why dont you..." class="intro-label"></Label>
-  <Button class="my-ui-button" text="Add a Category" (tap)="navigateTo('addCategory')"></Button>
-  <Button class="my-ui-button" text="Restore from the cloud" (tap)="navigateTo('logIn')"></Button>
-
+  <StackLayout *ngIf="emptySettingsState">
+    <Button *ngIf="emptyExpenseState" class="my-ui-button" text="Initialize your setup" (tap)="navigateTo('settings')"></Button>
+  </StackLayout>
+  
+  <StackLayout *ngIf="emptyCategoryState && !emptySettingsState ">
+    <Button class="my-ui-button" text="Add a Category" (tap)="navigateTo('addCategory')"></Button>
+    <Button class="my-ui-button" text="Restore from the cloud" (tap)="navigateTo('logIn')"></Button>
+  </StackLayout>
 </StackLayout>
 
 
 
-<StackLayout class="p-20" *ngIf="emptyExpenseState" class="init-two">
-  <Label text="Great! You've added a Category! Why dont you..." class="intro-label"></Label>
-  <Button class="my-ui-button" text="Add an Expense" (tap)="navigateTo('addExpense')"></Button>
-  <Label text="Or maybe..." class="intro-label"></Label>
-  <Button class="my-ui-button" text="Add another Category" (tap)="navigateTo('addCategory')"></Button>
-
-</StackLayout>
 
   
