@@ -1,3 +1,4 @@
+import { SnackbarService } from './../services/snackbar.service';
 import { CouchServiceService } from './../services/couch-service.service';
 import { confirm } from 'tns-core-modules/ui/dialogs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -22,6 +23,7 @@ export class AppSettingsComponent implements OnInit {
     private routerExtensions: RouterExtensions,
     private formBuilder: FormBuilder,
     private couchService: CouchServiceService,
+    private snackBarService: SnackbarService,
   ) { }
 
   onDateChanged(args){
@@ -62,7 +64,7 @@ export class AppSettingsComponent implements OnInit {
       setString('StartDate',this.startDate.toString())
       setString('EndDate',this.endDate.toString())
       setString('currencySym',this.settingForm.get('currencySymbol').value)
-
+      this.snackBarService.showMessage("Settings successfuly saved!", 'white','green')
       this.routerExtensions.navigate(['home'], { clearHistory: true })
     } 
   
@@ -78,7 +80,7 @@ export class AppSettingsComponent implements OnInit {
 
   allDelete(){
     let options={
-      title: "Delete All data",
+      title: "Factory Reset",
       message: "This will clear all data from the app.\nAre you sure?",
       okButtonText: "Yes",
       // cancelButtonText: "No",
@@ -90,6 +92,7 @@ export class AppSettingsComponent implements OnInit {
         remove('StartDate')
         remove('EndDate')
         remove('currencySym')
+        this.snackBarService.showMessage("All data deleted", 'white','red')
         this.routerExtensions.navigate(['home'], { clearHistory: true })
       }
     })
