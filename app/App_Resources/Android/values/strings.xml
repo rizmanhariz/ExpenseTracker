@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
     <resources>
     <string name="app_name">Expense Tracker</string>
-    <string name="title_activity_kimera">expenseTracker</string>
+    <string name="title_activity_kimera">Expense Tracker</string>
     <string name="icon">app_icon</string>
 </resources>
