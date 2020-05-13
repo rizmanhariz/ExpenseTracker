@@ -37,18 +37,13 @@ DonutSeries{
     
 }
 
-StackLayout{
-    background: linear-gradient(-45deg, var(--tert), var(--sixa), white);
-    padding-left: 5;
-    padding-right: 5;
-}
-
 .time-Grid{
     /* background: var(--sixa); */
     background: white;
-    padding: 0;
-    margin-top: 5;
-    margin-bottom: 5;
+    /* padding-left: 5;
+    padding-right: 5; */
+    margin-top: 10;
+    margin-bottom: 10;
     border-width: 2;
     border-color: var(--fifth);
     border-radius: 5;

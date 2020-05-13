@@ -1,4 +1,4 @@
-import { getString } from 'tns-core-modules/application-settings';
+import { getString, hasKey } from 'tns-core-modules/application-settings';
 import { CouchServiceService } from './../services/couch-service.service';
 import { FirestoreService } from './../services/firestore.service';
 import { Component, OnInit } from '@angular/core';
@@ -20,8 +20,12 @@ export class HomeComponent implements OnInit{
   tempData:any;
   pieValues: Array<Object>;
   showPie:boolean = false;
+  // App states
   initializeState:boolean;
+  emptyCategoryState: boolean;
   emptyExpenseState:boolean;
+  emptySettingsState:boolean;
+
   totalExpenseValue:number;
   currencySym: string = "RM"
   selectedIndexes = [];
@@ -83,8 +87,6 @@ export class HomeComponent implements OnInit{
     })
   }
 
-
-
   seriesSelect(args){
     args.object.eachChildView((child)=>{
       console.dir(child)
@@ -104,35 +106,38 @@ export class HomeComponent implements OnInit{
   }
 
   ngOnInit(){
-    // get dates from application settings
-    this.startDate = new Date(getString('StartDate'))
-    this.endDate = new Date(getString('EndDate'))
-    this.currencySym = getString('currencySym')
+    this.initializeState = false;
 
-    // console.log(`Home Component - Start Date : ${this.startDate}`)
-    // console.log(`Home Component - End Date : ${this.endDate}`)
-
+    // Check if appsettings were initialized or not.
+    if ( !hasKey('StartDate') || !hasKey('currencySym') || !hasKey('EndDate')) {
+      this.initializeState = true;
+      this.emptySettingsState = true;
+    } else {
+      this.startDate = new Date(getString('StartDate'))
+      this.endDate = new Date(getString('EndDate'))
+      this.currencySym = getString('currencySym')
+    }
+    
     // Pull all the information needed
     this.pieValues = this.couchService.getCategoryDB().query({})
-
-
     this.expenses = this.couchService.getExpenses(this.startDate, this.endDate)
 
     if (this.pieValues.length === 0) {
       this.initializeState = true
-    } else {
-      this.initializeState = false
-      if (this.expenses.length ===0) {
-        this.emptyExpenseState = true;
-      } else {
-        this.emptyExpenseState = false;
-      }
-
+      this.emptyCategoryState = true
     }
 
-    
+    if (this.expenses.length ===0) {
+      // this.initializeState = true
+      this.emptyExpenseState = true;
+    } 
 
-    if (this.initializeState === false && this.expenses.length>0){
+    if (this.initializeState === false){
+      // get dates from application settings
+      this.startDate = new Date(getString('StartDate'))
+      this.endDate = new Date(getString('EndDate'))
+      this.currencySym = getString('currencySym')
+
       this.myColors = []
       // pushes an group for costs with no matching categories
       this.pieValues.push({
@@ -152,9 +157,6 @@ export class HomeComponent implements OnInit{
       }
       )
 
-      
-  
-    
       this.expenses.forEach(expense => {
         let ind = this.pieValues.findIndex( elem => elem['categoryName'] === expense.expenseCategory)
         if (ind === -1) {
@@ -166,7 +168,6 @@ export class HomeComponent implements OnInit{
           // console.log('indexFound')
           this.pieValues[ind]["spent"] += expense.expenseVal
           this.pieValues[ind]["items"].push(expense)
-          this.showPie = true
         }
       })
   
